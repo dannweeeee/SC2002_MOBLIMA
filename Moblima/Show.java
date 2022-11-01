@@ -7,10 +7,10 @@ public class Show {
     private int id;
     private Date showTime;
     private Movie movie;
-    private cinema theater;
+    private Cinema theater;
     private int availableSeats;
 
-    public Show(Date showTime, Movie movie, cinema theater) {
+    public Show(Date showTime, Movie movie, Cinema theater) {
         idCounter += 1;
         this.id = idCounter;
         this.showTime = showTime;
@@ -23,7 +23,7 @@ public class Show {
     public Movie getMovie() {
         return movie;
     }
-    public void setTheater(cinema theater) {
+    public void setTheater(Cinema theater) {
         this.theater = theater;
     }
     public void setAvailableSeats(int availableSeats) {
@@ -58,7 +58,7 @@ public class Show {
                 "id=" + id +
                 ", showTime=" + showTime +
                 ", movie=" + movie.getName() +
-                ", theater=" + theater.getcinemaid() +
+                ", theater=" + theater.getCinemaID() +
                 ", availableSeats=" + availableSeats +
                 '}';
     }
