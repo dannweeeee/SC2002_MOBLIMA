@@ -33,7 +33,8 @@ public class BookMyShowApp {
         	System.out.println("| 05: Create movie/showtime booking             |");
         	System.out.println("| 06: Initialize/Show Example                   |");
         	System.out.println("| 07: Show all Movies                           |");
-        	System.out.println("| 08:                                           |");
+        	System.out.println("| 08: Booking                                   |");
+        	System.out.println("| 09: Show all Movies by ticket sales           |");
         	System.out.println("--------------------------------------------------");
         	System.out.println();
         	while(true) {
@@ -70,6 +71,10 @@ public class BookMyShowApp {
         			BookMyShow.showAllMovies();
         			break;
         		case 8:
+        			BookMyShow.BookMovie();
+        			break;
+        		case 9:
+        			BookMyShow.showAllMoviesTicket();
         			break;
         		}
         	}

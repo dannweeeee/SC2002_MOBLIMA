@@ -32,24 +32,22 @@ public class Show {
     public int getAvailableSeats() {
         return availableSeats;
     }
+
+    public Date getShowTime() {
+        return showTime;
+    }
     public void updateShow(){
     }
-    public synchronized Ticket bookTicket(User user, int seats){
-        if(availableSeats >= seats && seats >0){
-            Ticket ticket = new Ticket();
-            availableSeats -= seats;
-            ticket.setOwner(user.getName());
-            ticket.setBookedShow(this);
-            ticket.setBookingTime(new Date());
-            ticket.setNumberOfSeats(seats);
-            System.out.println("Successfully booked");
-            user.bookingHistory.add(ticket);
-            return ticket;
-        }
-        else{
-            System.out.println("Seats not Available");
-            return null;
-        }
+    public synchronized Ticket bookTicket(User user, Seats seats){
+        Ticket ticket = new Ticket();
+        ticket.setOwner(user.getName());
+        ticket.setBookedShow(this);
+        ticket.setBookingTime(new Date());
+        ticket.setSeat(seats);
+        System.out.println("Successfully booked");
+        user.bookingHistory.add(ticket);
+        this.movie.addticket(ticket);
+        return ticket;
     }
    
     @Override

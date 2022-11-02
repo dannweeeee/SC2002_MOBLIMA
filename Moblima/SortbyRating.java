@@ -1,12 +1,9 @@
 package Moblima;
+import java.util.Comparator;
+public class SortbyRating implements Comparator<Movie> {
+	@Override
+    public int compare(Movie o1, Movie o2) {
 
-public class SortbyRating {
-	private Movie movie;
-	
-	public SortbyRating(Movie movie) {
-		this.movie=movie;
-	}
-	
-	
-	
+        return Double.compare(o1.getAverageRatings(), o2.getAverageRatings());
+}
 }

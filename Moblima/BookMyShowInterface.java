@@ -13,4 +13,8 @@ public interface BookMyShowInterface {
 	public void showExample();
 
 	public void showAllMovies();
+	
+	public void BookMovie();
+	
+	public void showAllMoviesTicket();
 }

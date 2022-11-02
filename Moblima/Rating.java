@@ -17,7 +17,7 @@ public class Rating {
 
     public double GetRating() {
 
-        return this.rating;
+        return rating;
     }
     public User GetUser() {
 
