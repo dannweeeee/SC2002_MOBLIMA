@@ -17,10 +17,12 @@ public class Movie  {
 	    
 	  
 
-	    public Movie(String name,String status, String director, movieHandler movieH) {
+	    public Movie(String name,String status, String director, String synopsis, String cast, movieHandler movieH) {
 	        this.name = name;
 	        this.status = status;
 	        this.director = director;
+	        this.synopsis = synopsis;
+	        this.cast = cast;
 	        this.ratings = new ArrayList<>();
 	        this.reviews = new ArrayList<>();
 	        this.ticketlist=new ArrayList<>();
@@ -38,9 +40,17 @@ public class Movie  {
 	    }
 	    
 	    public void printMovieDetails() {
-	    	System.out.print(name+", ");
-	    	System.out.print(director+", ");
-	    	System.out.println(status);
+	    	System.out.print(name+" | ");
+	    	System.out.print(status+" | ");
+	    	System.out.println(director);
+	    }
+	    
+	    public void printFullMovieDetails() {
+	    	System.out.println("Title: "+name);
+	    	System.out.println("Status: "+status);
+	    	System.out.println("Director: "+director);
+	    	System.out.println("Cast: "+cast);
+	    	System.out.println("Synopsis: "+synopsis);
 	    }
 
 	    public void addRatings(Rating R) {

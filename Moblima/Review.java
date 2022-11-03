@@ -3,6 +3,7 @@ package Moblima;
 public class Review {
 	private String Review;
 	private User user;
+	
 	Review(String review,User user) {
         this.Review = review;
         this.user=user;

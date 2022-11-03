@@ -17,4 +17,6 @@ public interface BookMyShowInterface {
 	public void BookMovie();
 	
 	public void showAllMoviesTicket();
+
+	public void searchMovie(String searchString);
 }
