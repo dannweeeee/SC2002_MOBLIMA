@@ -94,6 +94,22 @@ public class BookMyShow implements BookMyShowInterface{
 	    	}
 	    	read.close();
     }
+	public User getUserInformation(){
+		Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Please enter your name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Please enter your email: ");
+        String email = scanner.nextLine();
+
+        System.out.print("Please enter your number: ");
+        double number = scanner.nextDouble();
+
+        scanner.nextLine();
+        return new User(name, email, number);
+    }
+	
 	public void BookMovie() {
 		int booking_option = 0;
 		BookingOptions newBooking = new BookingOptions();
