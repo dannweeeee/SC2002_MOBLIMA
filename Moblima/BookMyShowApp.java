@@ -35,10 +35,11 @@ public class BookMyShowApp {
         	System.out.println("| 07: Show all Movies                           |");
         	System.out.println("| 08: Booking                                   |");
         	System.out.println("| 09: Show all Movies by ticket sales           |");
+        	System.out.println("| 10: Search Movie           |");
         	System.out.println("--------------------------------------------------");
         	System.out.println();
         	while(true) {
-        		System.out.print("Enter option ('-1' to exit):");
+        		System.out.print("Main Menu - Enter option ('-1' to exit):");
         		try {
         			option = in.nextInt();
         		}catch(InputMismatchException e) {
@@ -75,6 +76,13 @@ public class BookMyShowApp {
         			break;
         		case 9:
         			BookMyShow.showAllMoviesTicket();
+        			break;
+        		case 10:
+        			String searchString="";
+        			System.out.print("Enter the movie title: ");
+        			in.nextLine();
+        			searchString = in.nextLine();
+        			BookMyShow.searchMovie(searchString);
         			break;
         		}
         	}

@@ -43,8 +43,8 @@ public class BookMyShow implements BookMyShowInterface{
 		
 		User ayush = new User("Ayush","ayus@gmail.com",3293131);
         
-        Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue", movieHandler);
-        Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue", movieHandler);
+        Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
+        Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
 
         String dateInString = "Friday, Jun 7, 2020 09:00:00 AM";
 		try {
@@ -67,7 +67,7 @@ public class BookMyShow implements BookMyShowInterface{
 	
 	public void showAllMovies() {
 		System.out.println("Show all Movies");
-		int count =0;
+		int count =1;
 		for (Movie temp : movieHandler.getMovie()) {
 			System.out.print(count+": ");
 			temp.printMovieDetails();
@@ -78,16 +78,18 @@ public class BookMyShow implements BookMyShowInterface{
 	public void readMovieFromTextFile(String fileName) throws FileNotFoundException{
 	    	FileReader movieDatabase = new FileReader(fileName);
 	    	Scanner read = new Scanner(movieDatabase);
-	    	read.useDelimiter(",|\\r\\n");
+	    	read.useDelimiter("\\||\\r\\n");
 	    	read.nextLine();
-	    	String movieName, movieStatus, movieDirector;
+	    	String movieName, movieStatus, movieDirector, movieSynopsis, movieCast;
 	    	Movie newMovie;
 	    	while(read.hasNext()) {
 	    		//read.next();
 	    		movieName = read.next();
 	    		movieStatus = read.next();
 	    		movieDirector = read.next();
-	    		newMovie = new Movie(movieName, movieStatus, movieDirector, movieHandler);
+	    		movieSynopsis = read.next();
+	    		movieCast = read.next();
+	    		newMovie = new Movie(movieName, movieStatus, movieDirector, movieSynopsis, movieCast, movieHandler);
 	    	}
 	    	read.close();
     }
@@ -103,11 +105,24 @@ public class BookMyShow implements BookMyShowInterface{
         	movieHandler.SortbyTicketSales();
         }
         else {movieHandler.SortbyRatings();}
-		int count =0;
+		int count =1;
 		for (Movie temp : movieHandler.getMovie()) {
 			System.out.print(count+": ");
 			temp.printMovieDetails();
 			count++;
+		}
+	}
+	
+	public void searchMovie(String searchString) {
+		System.out.println("Showing results for: "+searchString);
+		for (Movie temp : movieHandler.getMovie()) {
+			if(temp.getName().contentEquals(searchString)) {
+				temp.printFullMovieDetails();
+				System.out.print("Average Movie Rating: ");
+				System.out.println(temp.getAverageRatings());
+				System.out.println("Most Recent Reviews:");
+				System.out.println(temp.getReview());
+			}
 		}
 	}
 }
