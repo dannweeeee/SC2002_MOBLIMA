@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BookMyShow implements BookMyShowInterface{
@@ -49,10 +50,10 @@ public class BookMyShow implements BookMyShowInterface{
         String dateInString = "Friday, Jun 7, 2020 09:00:00 AM";
 		try {
 			Date date = formatter.parse(dateInString);
-			Show show1 = new Show(date,ironMan,cineplexHandler.getAllCineplex().get(1).getHall().get(0));
-			Show show2 = new Show(date,avengers,cineplexHandler.getAllCineplex().get(1).getHall().get(0));
-			Show show3 = new Show(date,avengers,cineplexHandler.getAllCineplex().get(1).getHall().get(1));
-			Show show4 = new Show(date,avengers,cineplexHandler.getAllCineplex().get(1).getHall().get(2));
+//			Show show1 = new Show(date,ironMan,cineplexHandler.getAllCineplex().get(1).getHall().get(0));
+//			Show show2 = new Show(date,avengers,cineplexHandler.getAllCineplex().get(1).getHall().get(0));
+//			Show show3 = new Show(date,avengers,cineplexHandler.getAllCineplex().get(1).getHall().get(1));
+//			Show show4 = new Show(date,avengers,cineplexHandler.getAllCineplex().get(1).getHall().get(2));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -124,5 +125,52 @@ public class BookMyShow implements BookMyShowInterface{
 				System.out.println(temp.getReview());
 			}
 		}
+	}
+
+	public void createShow() {
+		int movieOption = -1, cineplexOption =-1, cinemaOption =-1;
+		String dateInString;
+		Date showtime = null;
+		
+		showAllMovies();
+		System.out.print("Select Movie to create show:");
+		try{
+			movieOption = in.nextInt();
+		}catch(InputMismatchException e) {
+			System.out.println("Invalid Input. Please re-enter.");
+			in.next();
+		}
+		Movie selectedMovie = movieHandler.getMovie().get(movieOption-1);
+		
+		System.out.print("Enter date and showtime (E.g. Friday, Jun 7, 2020 09:00:00 AM): ");
+		in.nextLine();
+		dateInString = in.nextLine();
+		try {
+			showtime = formatter.parse(dateInString);
+			System.out.println(showtime);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		cineplexHandler.printAllCineplex();
+		System.out.print("Select Cineplex: ");
+		try{
+			cineplexOption = in.nextInt();
+		}catch(InputMismatchException e) {
+			System.out.println("Invalid Input. Please re-enter.");
+			in.next();
+		}
+		
+		cineplexHandler.getAllCineplex().get(cineplexOption-1).printAllCinema();
+		System.out.print("Select Cinema: ");
+		try{
+			cinemaOption = in.nextInt();
+		}catch(InputMismatchException e) {
+			System.out.println("Invalid Input. Please re-enter.");
+			in.next();
+		}
+		
+		Show show1 = new Show(showtime,selectedMovie,cineplexHandler.getAllCineplex().get(cineplexOption-1).getHall().get(cinemaOption-1));
+		System.out.println(show1);
 	}
 }
