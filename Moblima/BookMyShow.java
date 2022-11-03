@@ -95,8 +95,37 @@ public class BookMyShow implements BookMyShowInterface{
 	    	read.close();
     }
 	public void BookMovie() {
-		 Booking newBooking = new Booking();
-         newBooking.menu(cineplexHandler.getAllCineplex().get(1));
+		int booking_option = 0;
+		BookingOptions newBooking = new BookingOptions();
+		ArrayList<Ticket> ticketlist;
+		User user1 = getUserInformation();
+		do{
+			System.out.println("--------------MOBLIMA BOOKING MENU!--------------");
+			System.out.println("| 01: List All Movies                           |");
+			System.out.println("| 02: Search Movies by Name                     |");
+			System.out.println("| 03: View Movie by Location                    |");
+			System.out.println("| 04: Go Back                                   |");
+			System.out.println("-------------------------------------------------");
+			System.out.print("Enter option ('-1' to exit):");
+
+			booking_option = in.nextInt();
+			switch(booking_option){
+				case 1:
+					ticketlist = newBooking.listAllMovies(cineplexHandler.getAllCineplex(), user1);
+					break;
+				case 2:
+					ticketlist = newBooking.searchMoviebyName(cineplexHandler.getAllCineplex(), user1);
+					break;
+				case 3:
+					ticketlist = newBooking.searchMovieByLocation(cineplexHandler.getAllCineplex(), user1);
+					break;
+				case 4:
+					break;
+				default:
+					System.out.println("Invalid Input");
+			}
+		} while(booking_option != 4);
+		System.out.println("You are now back at the main menu.");
 	}
 	public void showAllMoviesTicket() {
 		System.out.println("Sort Movies by: 1.Ticket sales, 2.Ratings");
