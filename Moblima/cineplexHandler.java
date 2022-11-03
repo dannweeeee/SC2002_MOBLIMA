@@ -19,7 +19,7 @@ public class cineplexHandler {
 	}
 	
 	public void printAllCineplex() {
-		int count =0;
+		int count =1;
 		for (Cineplex temp : allCineplex) {
 			temp.setCineplexNo(count);
 			System.out.print(temp.getCineplexNo()+": ");
