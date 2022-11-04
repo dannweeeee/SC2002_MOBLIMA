@@ -42,9 +42,6 @@ public class BookMyShow implements BookMyShowInterface{
 		JurongPoint.addCinema("VIP", 1, jurong);
 		
 		User ayush = new User("Ayush","ayus@gmail.com",3293131);
-        
-        //Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue", movieHandler);
-        //Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue", movieHandler);
 
 		Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
         Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
@@ -369,4 +366,25 @@ public class BookMyShow implements BookMyShowInterface{
 		Show show1 = new Show(showtime,selectedMovie,cineplexHandler.getAllCineplex().get(cineplexOption-1).getHall().get(cinemaOption-1));
 		System.out.println(show1);
 	}
+
+	public movieHandler getMovieDatabase() {
+		return movieHandler;
+	}
+
+	public void writeMovieToTextFile(String fileName){
+        in = new Scanner(System.in);
+        String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;
+        System.out.print("Enter full name of movie: ");
+        movieAddName = in.nextLine();
+        System.out.print("Enter status of movie (Coming Soon, Now Showing): ");
+        movieAddStatus = in.nextLine();
+        System.out.print("Enter director of movie: ");
+        movieAddDirector = in.nextLine();
+        System.out.print("Enter synopsis of movie: ");
+        movieAddSynopsis = in.nextLine();
+        System.out.print("Enter casts of movie (e.g. Steve Rogers, Borat, Mr Bean): ");
+        movieAddCasts = in.nextLine();
+		Movie addNewMovie;
+        addNewMovie = new Movie(movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts, movieHandler);
+    }
 }

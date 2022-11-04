@@ -21,4 +21,7 @@ public interface BookMyShowInterface {
 	public void searchMovie(String searchString);
 
 	public void createShow();
+
+	public void writeMovieToTextFile(String fileName);
+
 }

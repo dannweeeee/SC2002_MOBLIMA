@@ -1,6 +1,5 @@
 package Moblima;
 
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -8,12 +7,20 @@ public class AdminPage {
     private static Scanner in;
     
     public AdminPage() {
+
         BookMyShowInterface BookMyShow = new BookMyShow();
+
+        try {
+			BookMyShow.readMovieFromTextFile("MovieList.txt");
+		}catch (Exception e) {
+			System.out.println("Movies File Read Error");
+		}
+
         int option = 0;
         in = new Scanner(System.in);
         do {
             System.out.println();
-            System.out.println("----------------MOBLIMA ADMIN MENU----------------");
+            System.out.println("-------------MOBLIMA ADMIN MAIN MENU--------------");
             System.out.println("| 01: Create Movie Listing                       |");
             System.out.println("| 02: Update Movie Listing                       |");
             System.out.println("| 03: Remove Movie Listing                       |");
@@ -41,12 +48,7 @@ public class AdminPage {
                     System.exit(0);
                     return;
                 case 1:
-                try {
-                    AdminView adminView = new AdminView();
-                    adminView.writeMovieToTextFile("MovieList.txt");
-                } catch (IOException e) {
-
-                }
+                    BookMyShow.writeMovieToTextFile("MovieList.txt");
                     break;
                 case 2:
                     break;
