@@ -1,19 +1,30 @@
 package Moblima;
 
-
 import java.util.Date;
+import java.util.ArrayList;
+
 public class Ticket {
 	 private static int idCounter=0;
 	    private int id;
 	    private String owner;
 	    private Date bookingTime;
-	    private int numberOfSeats;
+	    private Seats seat_no;
 	    private Show bookedShow;
+		private Cinema cinemaSelected;
+
 
 	    public Ticket() {
 	        idCounter += 1;
 	        this.id = idCounter;
 	    }
+
+		public void setCinema(Cinema cinemaSelected){
+			this.cinemaSelected = cinemaSelected;
+		}
+
+		public Cinema getCinema(){
+			return cinemaSelected;
+		}
 
 	    public String getTicketInfo(){
 	        return null;
@@ -43,12 +54,12 @@ public class Ticket {
 	        this.bookingTime = bookingTime;
 	    }
 
-	    public int getNumberOfSeats() {
-	        return numberOfSeats;
+	    public Seats getSeat() {
+	        return seat_no;
 	    }
 
-	    public void setNumberOfSeats(int numberOfSeats) {
-	        this.numberOfSeats = numberOfSeats;
+	    public void setSeat(Seats seat) {
+	        this.seat_no = seat;
 	    }
 
 	    @Override
@@ -56,7 +67,7 @@ public class Ticket {
 	        return "Ticket{" +
 	                "owner='" + owner  +
 	                ", bookingTime=" + bookingTime +
-	                ", numberOfSeats=" + numberOfSeats +
+	                ", Seats booked=" + seat_no +
 	                ", bookedShow=" + bookedShow +
 	                '}';
 	    }
@@ -64,7 +75,6 @@ public class Ticket {
 	    public Show getBookedShow() {
 	        return bookedShow;
 	    }
-	    
 
 	    public void setBookedShow(Show bookedShow) {
 	        this.bookedShow = bookedShow;
