@@ -10,11 +10,9 @@ public class Cineplex {
     public Cineplex(String location) {
         this.location=location;
     }
-
 	public String getLocation(){
 		return this.location;
 	}
-    
 	public void setHall(cinemaHandler cinemaHandler) {
 		this.cinemaH=cinemaHandler;
 	}

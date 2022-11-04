@@ -3,36 +3,57 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Booking {
-    Scanner scanner = new Scanner(System.in);
-    
-    public Booking(){}
+    private int numOfTickets;
+    private Show selectedShow;
+    private ArrayList<Seats> seatList;
+    private ArrayList<Show> showSelection;
+    private User user;
 
-    // returns -1 if invalid input
-    private int getIntUserInput(){
-        int intInput = -1;
-        String input = "";
-        scanner = new Scanner(System.in);
-        input = scanner.nextLine();
-        try {
-            intInput = Integer.parseInt(input);
-        }catch (NumberFormatException e) {
-            System.out.println("Invalid input: " + input + " is not a number");
-            System.out.println("");
-        }
-        return intInput;
-    }
-    
-    public int getNumberOfTicket(){
-        int numTickets = -1;
-        while (true){
-            System.out.println();
-            System.out.print("How many tickets would you like to book? [0 to go back] => ");
-            numTickets = getIntUserInput();
-            if (numTickets >= 0) break;
-        }
-        return numTickets;
+    public Booking(User user){
+        seatList = new ArrayList<>();
+        showSelection = new ArrayList<>();
+        numOfTickets = 0;
+        selectedShow = null;
+        this.user = user;
     }
 
+    public User getUser(){
+        return this.user;
+    }
+
+    public void setShowSelection(ArrayList<Show> showSelection){
+        this.showSelection = showSelection;
+    }
+
+    public ArrayList<Show> getShowSelection(){
+        return showSelection;
+    }
+
+    public int getNumOfTickets(){
+        return this.numOfTickets;
+    }
+
+    public void setNumOfTickets(int num){
+        this.numOfTickets = num;
+    } 
+
+    public ArrayList<Seats> getSeats() {
+        return seatList;
+    }
+
+    public void setSeats(ArrayList<Seats> seats){
+        this.seatList = seats;
+    }
+
+    public void setShow(Show show){
+        this.selectedShow = show;
+    }
+
+    public Show getShow(){
+        return this.selectedShow;
+    }
+
+/* 
     private boolean duplicateInput(Seats s1, ArrayList<Seats> chosenSeats){
         boolean duplicate = false;
                         
@@ -107,7 +128,7 @@ public class Booking {
 
     public Show selectShow(ArrayList<Show> allShows){
         while (true){
-            System.out.print("Please enter the show number to watch (1 - " + allShows.size() + ") [0 to exit] => ");
+            System.out.print("Please enter the show number to watch [0 to exit] => ");
             int choice = getIntUserInput();
             
             if (choice == 0){
@@ -138,6 +159,6 @@ public class Booking {
         }
         return ticketList;
     }
-    
+    */
 }
 
