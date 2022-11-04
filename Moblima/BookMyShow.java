@@ -257,4 +257,8 @@ public class BookMyShow implements BookMyShowInterface{
 		Show show1 = new Show(showtime,selectedMovie,cineplexHandler.getAllCineplex().get(cineplexOption-1).getHall().get(cinemaOption-1));
 		System.out.println(show1);
 	}
+
+	public movieHandler getMovieDatabase() {
+		return movieHandler;
+	}
 }
