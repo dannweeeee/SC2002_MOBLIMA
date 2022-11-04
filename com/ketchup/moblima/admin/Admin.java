@@ -2,12 +2,14 @@ package com.ketchup.moblima.admin;
 
 public class Admin {
     private static Admin instance = null;
-    private Settings settings;
     private StaffLoginForm loginUI;
     private AdminForm adminUI;
+    private SettingsController settingsController;
 
     private Admin() {
-        settings = Settings.getInstance();
+        loginUI = new StaffLoginForm(new StaffAccount(new StaffAccountFileIO_I()));
+        adminUI = new AdminForm(this);
+        settingsController = new SettingsController(new SettingsForm(settingsController));
     }
 
     public static Admin getInstance() {
@@ -18,14 +20,21 @@ public class Admin {
     }
 
     public void start() {
-        settings.load();
         if (!login()) return;
-        adminUI = new AdminForm(this);
         adminUI.show();
     }
 
     private boolean login() {
-        loginUI = new StaffLoginForm(new StaffAccount_I(new StaffAccountFileIO_I()));
         return loginUI.show();
+    }
+
+    public void logout() {
+        loginUI = null;
+        adminUI = null;
+        start();
+    }
+
+    public void manageSettings() {
+        settingsController.launch();
     }
 }

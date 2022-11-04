@@ -2,7 +2,7 @@ package com.ketchup.moblima.admin;
 
 import java.util.Scanner;
 
-public class AdminForm extends Form {
+public final class AdminForm extends Form {
 
     private Admin admin;
 
@@ -27,6 +27,12 @@ public class AdminForm extends Form {
             System.out.println("Enter your choice: ");
             int choice = sc.nextInt();
             switch (choice) {
+                case 7:
+                    admin.manageSettings();
+                    break;
+                case 8:
+                    exit();
+                    break;
                 default:
                     System.out.println("Invalid choice.");
                     break;

@@ -2,15 +2,14 @@ package com.ketchup.moblima.admin;
 
 import java.util.Properties;
 
-public class Settings {
-    public static final String SETTINGS_FILE_PATH = "src/settings.ini";
+public class Settings extends Properties {
+    public static final String SETTINGS_FILE_PATH = "com/ketchup/moblima/admin/settings.ini";
 
     private static Settings instance = null;
 
-    private Properties entries;
-
     private Settings() {
-        entries = new Properties();
+        super();
+        load();
     }
 
     public static Settings getInstance() {
@@ -20,13 +19,9 @@ public class Settings {
         return instance;
     }
 
-    public String getEntry(String entryName) {
-        return entries.getProperty(entryName);
-    }
-
     public void load() {
         try {
-            entries.load(new java.io.FileInputStream(SETTINGS_FILE_PATH));
+            super.load(new java.io.FileInputStream(SETTINGS_FILE_PATH));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -34,9 +29,16 @@ public class Settings {
 
     public void save() {
         try {
-            entries.store(new java.io.FileOutputStream(SETTINGS_FILE_PATH), null);
+            super.store(new java.io.FileOutputStream(SETTINGS_FILE_PATH), null);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void print() {
+        System.out.println("Property names          Property values");
+        for (String key : stringPropertyNames()) {
+            System.out.printf("%-24s%-24s\n",key, getProperty(key));
         }
     }
 }

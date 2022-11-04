@@ -2,7 +2,12 @@ package com.ketchup.moblima.admin;
 
 import java.util.Scanner;
 
-public class StaffLoginForm extends Form {
+/**
+ * This is the UI for the login function of the admin module.
+ * @author Nghia Nguyen
+ * @version 1.0
+ */
+public final class StaffLoginForm extends Form {
     private boolean loginSuccess = false;
     private StaffAccount account;
 
