@@ -125,4 +125,8 @@ public class BookMyShow implements BookMyShowInterface{
 			}
 		}
 	}
+
+	public movieHandler getMovieDatabase() {
+		return movieHandler;
+	}
 }
