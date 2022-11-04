@@ -45,38 +45,8 @@ public class BookMyShowApp {
 					LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo());
 					return;
         		case 2:
-        			BookMyShow.showMovies();
-        			break;
-        		case 3:
-        			break;
-        		case 4:
-        			break;
-        		case 5:
-        			break;
-        		case 6:
-        			BookMyShow.initializeExample();
-        			System.out.println("Done!");
-        			BookMyShow.showExample();
-        			break;
-        		case 7:
-        			BookMyShow.showAllMovies();
-        			break;
-        		case 8:
-        			BookMyShow.BookMovie();
-        			break;
-        		case 9:
-        			BookMyShow.showAllMoviesTicket();
-        			break;
-        		case 10:
-        			String searchString="";
-        			System.out.print("Enter the movie title: ");
-        			in.nextLine();
-        			searchString = in.nextLine();
-        			BookMyShow.searchMovie(searchString);
-        			break;
-        		case 11:
-        			BookMyShow.createShow();
-        			break;
+					MovieGoer movieGoer = new MovieGoer();
+					return;
         		}
         	}
 		} while(option != -1);
