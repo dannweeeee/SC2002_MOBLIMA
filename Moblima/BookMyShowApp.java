@@ -37,6 +37,7 @@ public class BookMyShowApp {
         	System.out.println("| 09: Show all Movies by ticket sales           |");
         	System.out.println("| 10: Search Movie                              |");
         	System.out.println("| 11: Create Show                               |");
+        	System.out.println("| 12: Booking history                           |");
         	System.out.println("--------------------------------------------------");
         	System.out.println();
         	while(true) {
@@ -86,6 +87,9 @@ public class BookMyShowApp {
         			break;
         		case 11:
         			BookMyShow.createShow();
+        			break;
+        		case 12:
+        			BookMyShow.showBookingHist();
         			break;
         		}
         	}

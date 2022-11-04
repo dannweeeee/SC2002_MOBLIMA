@@ -20,6 +20,7 @@ public class BookMyShow implements BookMyShowInterface{
 	private Scanner in;
 	private SeatHandler seatHandler;
 	private ShowHandler showHandler;
+	private UserHandler userhandler;
 	SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");
 	Scanner scanner = new Scanner(System.in);
 	
@@ -28,6 +29,7 @@ public class BookMyShow implements BookMyShowInterface{
 		this.cineplexHandler = new cineplexHandler();
 		this.showHandler = new ShowHandler();
 		this.seatHandler = new SeatHandler();
+		this.userhandler = new UserHandler();
 		in = new Scanner(System.in);
 	}
 	
@@ -115,6 +117,7 @@ public class BookMyShow implements BookMyShowInterface{
 		ArrayList<Show> allShows = null;
 		ArrayList<Ticket> tickets = null;
 		User user1 = getUserInformation();
+		userhandler.getUsers().add(user1);
 		do{
 			System.out.println("--------------MOBLIMA BOOKING MENU!--------------");
 			System.out.println("| 01: List All Shows                            |");
@@ -256,5 +259,16 @@ public class BookMyShow implements BookMyShowInterface{
 		
 		Show show1 = new Show(showtime,selectedMovie,cineplexHandler.getAllCineplex().get(cineplexOption-1).getHall().get(cinemaOption-1));
 		System.out.println(show1);
+	}
+	public void showBookingHist() {
+		System.out.println("Please enter your name to check your Booking history");
+		for (Ticket temp : userhandler.getUsers().get(0).getHist()) {
+			System.out.println( "Ticket{" +
+	                "owner='" +  userhandler.getUsers().get(0).getName() +
+	                ", bookingTime=" + temp.getBookingTime() +
+	                ", Seats booked=" + temp.getSeat().getSeat() +
+	                ", bookedShow=" + temp.getBookedShow()+
+	                '}');
+		}
 	}
 }
