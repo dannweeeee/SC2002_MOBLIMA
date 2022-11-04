@@ -22,8 +22,7 @@ public class cineplexHandler {
 		int count =1;
 		for (Cineplex temp : allCineplex) {
 			temp.setCineplexNo(count);
-			System.out.print(temp.getCineplexNo()+": ");
-			temp.printCineplex();
+			System.out.print(temp);
 			count++;
 		}
 	}

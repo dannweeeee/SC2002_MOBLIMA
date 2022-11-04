@@ -14,8 +14,6 @@ public class Movie  {
 	    private movieHandler movieH;
 	    private double Ratings;
 	    public ArrayList<Ticket> ticketlist;
-	    
-	  
 
 	    public Movie(String name,String status, String director, String synopsis, String cast, movieHandler movieH) {
 	        this.name = name;
@@ -28,29 +26,87 @@ public class Movie  {
 	        this.ticketlist=new ArrayList<>();
 	        movieH.getMovie().add(this);
 	    }
-	    public void setSynopsis(String synopsis) {
+	    
+	    /**
+		 * @return the status
+		 */
+		public String getStatus() {
+			return status;
+		}
+
+		/**
+		 * @return the synopsis
+		 */
+		public String getSynopsis() {
+			return synopsis;
+		}
+
+		/**
+		 * @return the director
+		 */
+		public String getDirector() {
+			return director;
+		}
+
+		/**
+		 * @return the cast
+		 */
+		public String getCast() {
+			return cast;
+		}
+
+		/**
+		 * @return the ratings
+		 */
+		public double getRatings() {
+			return Ratings;
+		}
+
+		/**
+		 * @param name the name to set
+		 */
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		/**
+		 * @param status the status to set
+		 */
+		public void setStatus(String status) {
+			this.status = status;
+		}
+
+		/**
+		 * @param director the director to set
+		 */
+		public void setDirector(String director) {
+			this.director = director;
+		}
+
+		/**
+		 * @param review the review to set
+		 */
+		public void setReview(String review) {
+			this.review = review;
+		}
+
+		/**
+		 * @param ratings the ratings to set
+		 */
+		public void setRatings(double ratings) {
+			Ratings = ratings;
+		}
+
+		public void setSynopsis(String synopsis) {
 	    	this.synopsis=synopsis;
 	    }
+	    
 	    public void setCast(String cast) {
 	    	this.cast=cast;
 	    }
 
 	    public String getName() {
 	        return name;
-	    }
-	    
-	    public void printMovieDetails() {
-	    	System.out.print(name+" | ");
-	    	System.out.print(status+" | ");
-	    	System.out.println(director);
-	    }
-	    
-	    public void printFullMovieDetails() {
-	    	System.out.println("Title: "+name);
-	    	System.out.println("Status: "+status);
-	    	System.out.println("Director: "+director);
-	    	System.out.println("Cast: "+cast);
-	    	System.out.println("Synopsis: "+synopsis);
 	    }
 
 	    public void addRatings(Rating R) {
@@ -60,16 +116,18 @@ public class Movie  {
 	        this.reviews.add(R);
 	    }
 	    
-	
 	    public ArrayList<Review> getReview(){
 	        return reviews;
 	    }
+	    
 	    public void addticket(Ticket ticket) {
 	    	ticketlist.add(ticket);
 	    }
-	    public int getTicketsNo() {
+	    
+	    public int getTicketsSize() {
 	    	return ticketlist.size();
 	    }
+	    
 	    public double getAverageRatings() {
 	    	Ratings=0;
 	    	if(ratings.size()==0) {
@@ -79,7 +137,16 @@ public class Movie  {
 	    		for (Rating temp : ratings) {
 	    			Ratings+=temp.GetRating();}
 	    		return Ratings/ratings.size();
+	    	}
 	    }
+	    
+	    @Override
+	    public String toString() {
+	        return "Title: " + name + "\n" +
+	                "Status: " + status + "\n" +
+	                "Director: " + director + "\n" +
+	                "Cast: " + cast + "\n" +
+	                "Synopsis: " + synopsis + "\n"
+	                ;
 	    }
-
 }

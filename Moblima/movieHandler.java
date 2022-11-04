@@ -9,23 +9,21 @@ public class movieHandler {
 	
 	public movieHandler() {
 		this.movie = new ArrayList<>();
-		
 	}
-	
-//	public void setMovie() {
-//		this.movie = movie;
-//	}
 	
 	public ArrayList<Movie> getMovie(){
 		return movie;
 	}
-	public void SortbyTicketSales() {
+	
+	public void sortByTicketSales() {
 		Collections.sort(movie, new SortbyTicket());
-        }
-	public void SortbyRatings() {
+    }
+	
+	public void sortByRatings() {
 		Collections.sort(movie, new SortbyRating());
-        }
-	public void PrintMovies() {
+    }
+	
+	public void printAllMoviesNames() {
 		int count =0;
 		for (Movie temp : movie) {
 			System.out.print(count+": ");

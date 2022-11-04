@@ -19,7 +19,7 @@ public class cinemaHandler {
 	
 	public void printCinema() {
 		for (Cinema temp : allCinema) {
-			temp.printCinema();
+			System.out.print(temp);
 		}
 	}
 	
