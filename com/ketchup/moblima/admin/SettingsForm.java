@@ -13,10 +13,16 @@ public final class SettingsForm extends Form {
     
     /**
      * Constructor for SettingsForm.
+     */
+    public SettingsForm() {
+        super();
+    }
+
+    /**
+     * The controller is the only object that can change the settings. The controller delegates this form to collect user inputs.
      * @param controller    a <code>SettingsController</code> object to manage the settings based on inputs provided from this class.
      */
-    public SettingsForm(SettingsController controller) {
-        super();
+    public void setController(SettingsController controller) {
         this.controller = controller;
     }
     
@@ -25,6 +31,7 @@ public final class SettingsForm extends Form {
      * @return <code>null</code>.
      */
     public Object show() {
+        exitFlag = false;
         while (!exitFlag) {
             System.out.println("Settings");
             System.out.println("========");

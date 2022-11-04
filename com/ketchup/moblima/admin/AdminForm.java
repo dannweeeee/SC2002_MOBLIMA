@@ -25,6 +25,7 @@ public final class AdminForm extends Form {
      * @return <code>null</code>.
      */
     public Object show() {
+        exitFlag = false;
         Scanner sc = new Scanner(System.in);
         while (!exitFlag) {
             System.out.println("MOBLIMA - Admin");

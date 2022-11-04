@@ -23,6 +23,7 @@ public final class StaffLoginForm extends Form {
      * @return <code>true</code> if the login is successful, <code>false</code> otherwise.
      */
     public Boolean show() {
+        exitFlag = false;
         Scanner sc = new Scanner(System.in);
         while (!exitFlag) {
             System.out.println("Staff Login");

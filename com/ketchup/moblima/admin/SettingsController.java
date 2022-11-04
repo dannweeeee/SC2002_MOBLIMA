@@ -17,6 +17,7 @@ public class SettingsController {
      */
     public SettingsController(SettingsForm settingsForm) {
         this.settingsForm = settingsForm;
+        settingsForm.setController(this);
         settings = Settings.getInstance();
     }
 
@@ -24,8 +25,7 @@ public class SettingsController {
      * Launch the manage settings function.
      */
     public void launch() {
-        SettingsForm settingsUI = new SettingsForm(this);
-        settingsUI.show();
+        settingsForm.show();
     }
 
     /**

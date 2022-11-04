@@ -17,7 +17,7 @@ public class Admin {
     private Admin() {
         loginUI = new StaffLoginForm(new StaffAccount(new StaffAccountFileIO_I()));
         adminUI = new AdminForm(this);
-        settingsController = new SettingsController(new SettingsForm(settingsController));
+        settingsController = new SettingsController(new SettingsForm());
     }
 
     /**
