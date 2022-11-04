@@ -8,16 +8,20 @@ public class Cinema {
 	    private int seat_capacity;
 	    private String classtype;
 	    private ArrayList<Show> shows;
-	    private Cineplex cinemplex;
-	    private cineplexHandler cineplexHandler;
+	    private Cineplex cineplex;
 
-	    public Cinema(String classtype,int seat_capacity) {
+	    public Cinema(String classtype,int seat_capacity, Cineplex cineplex) {
 	        idCounter += 1;
 	        this.id = idCounter;
 	        this.classtype= classtype;
 	        this.seat_capacity = seat_capacity;
 	        this.shows = new ArrayList<>();
+			this.cineplex = cineplex;
 	    }
+
+		public Cineplex getCineplex(){
+			return this.cineplex;
+		}
 
 	    public ArrayList<Show> getShows(){
 	        return shows;
