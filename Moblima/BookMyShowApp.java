@@ -7,6 +7,11 @@ public class BookMyShowApp {
 	private static Scanner in;
 	
 	public static void main(String[] args) {
+		//create empty cineplex, cinema, movies
+//		movieHandler movieDB = new movieHandler();
+//		Cineplex GoldenVillageJP = new Cineplex("Jurong Point");
+//		Cinema hall_1 = new Cinema("Standard", 30, GoldenVillageJP);
+//		Cinema hall_2 = new Cinema("platinum", 40, GoldenVillageJP);
 		
 		BookMyShowInterface BookMyShow = new BookMyShow();
 		
@@ -32,7 +37,6 @@ public class BookMyShowApp {
         	System.out.println("| 09: Show all Movies by ticket sales           |");
         	System.out.println("| 10: Search Movie                              |");
         	System.out.println("| 11: Create Show                               |");
-        	System.out.println("| 12: Booking history                           |");
         	System.out.println("--------------------------------------------------");
         	System.out.println();
         	while(true) {
@@ -49,9 +53,7 @@ public class BookMyShowApp {
         			System.out.println("Goodbye!");
         			return;
         		case 1:
-					IDandPasswords idandPasswords = new IDandPasswords();
-					LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo());
-					return;
+        			break;
         		case 2:
         			BookMyShow.showMovies();
         			break;
@@ -84,9 +86,6 @@ public class BookMyShowApp {
         			break;
         		case 11:
         			BookMyShow.createShow();
-        			break;
-        		case 12:
-        			BookMyShow.showBookingHist();
         			break;
         		}
         	}

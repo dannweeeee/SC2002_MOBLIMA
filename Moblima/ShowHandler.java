@@ -17,6 +17,17 @@ public class ShowHandler {
         return newShow;
     }
 
+    public static Show getShowByID(ArrayList<Show> shows, int showID){
+        Show result = null;
+        for(Show s : shows){
+            if(s.getID() == showID){
+                result = s;
+                break;
+            }
+        }
+        return result;
+    }
+
     public ArrayList<Show> getAllShows(){
         return this.allShows;
     }
@@ -29,6 +40,16 @@ public class ShowHandler {
             System.out.println("Show time: " + temp.getShowTime());
             System.out.println("Location: " + temp.getCinema().getCineplex().getLocation());
         }
+    }
+
+    public ArrayList<Show> printAllShowsByLocation(Cineplex c){
+        ArrayList<Show> results = new ArrayList<>();
+        for (Show s : this.allShows){
+            if (c.getLocation() == s.getCinema().getCineplex().getLocation()){
+                results.add(s);
+            }
+        }
+        return results;
     }
 
     public ArrayList<Show> searchShows(String searchString){

@@ -10,16 +10,6 @@ public class cineplexHandler {
 	public cineplexHandler() {
 		allCineplex = new ArrayList<Cineplex>();
 	}
-
-	public ArrayList<Show> getAllShows (){
-        ArrayList <Show> allShows = new ArrayList<>();
-        for (Cineplex c : this.allCineplex){
-            for (Cinema theater : c.getHall()){
-                allShows.addAll(theater.getShows());
-            }
-        }
-        return allShows;
-    }
 	
 	public Cineplex addCineplex(String location) {
 		Cineplex newCineplex = new Cineplex(location);

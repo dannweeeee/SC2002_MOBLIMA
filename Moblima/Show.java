@@ -19,7 +19,6 @@ public class Show {
         this.movie = movie;
         this.theater = theater;
         this.availableSeats = theater.getCapacity();
-        theater.getShows().add(this);
     }
     
     public Cinema getCinema(){
@@ -46,8 +45,10 @@ public class Show {
     public Date getShowTime() {
         return showTime;
     }
+
     public void updateShow(){
     }
+
     public synchronized Ticket bookTicket(User user, Seats seats){
         Ticket ticket = new Ticket();
         ticket.setOwner(user.getName());
