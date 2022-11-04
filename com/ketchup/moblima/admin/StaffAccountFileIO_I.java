@@ -2,10 +2,22 @@ package com.ketchup.moblima.admin;
 
 import java.util.Scanner;
 
+/**
+ * Implement the StaffAccountFileIO interface.
+ * @author Nghia Nguyen
+ * @version 1.0
+ */
 public class StaffAccountFileIO_I implements StaffAccountFileIO {
     private String path;
+
+    /**
+     * Seperate username and password stored in the same line in file with this character.
+     */
     public static final String SEPARATOR = "<<@@sep@@>>";
 
+    /**
+     * Constructor for StaffAccountFileIO_I.
+     */
     public StaffAccountFileIO_I() {
         path = Settings.getInstance().getProperty("staff_account_file_path");
     }

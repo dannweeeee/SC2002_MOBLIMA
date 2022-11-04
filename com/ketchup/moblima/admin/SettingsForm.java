@@ -2,15 +2,28 @@ package com.ketchup.moblima.admin;
 
 import java.util.Scanner;
 
+/**
+ * The <code>SettingsForm</code> class is the UI for managing settings of the admin module.
+ * @author Nghia Nguyen
+ * @version 1.0
+ */
 public final class SettingsForm extends Form {
 
     private SettingsController controller;
     
+    /**
+     * Constructor for SettingsForm.
+     * @param controller    a <code>SettingsController</code> object to manage the settings based on inputs provided from this class.
+     */
     public SettingsForm(SettingsController controller) {
         super();
         this.controller = controller;
     }
     
+    /**
+     * Show the form.
+     * @return <code>null</code>.
+     */
     public Object show() {
         while (!exitFlag) {
             System.out.println("Settings");

@@ -2,15 +2,28 @@ package com.ketchup.moblima.admin;
 
 import java.util.Scanner;
 
+/**
+ * This class is the UI for the admin module.
+ * @author Nghia Nguyen
+ * @version 1.0
+ */
 public final class AdminForm extends Form {
 
     private Admin admin;
 
+    /**
+     * Constructor for AdminForm.
+     * @param admin the <code>Admin</code> object to be used.
+     */
     public AdminForm(Admin admin) {
         super();
         this.admin = admin;
     }
 
+    /**
+     * Show the form.
+     * @return <code>null</code>.
+     */
     public Object show() {
         Scanner sc = new Scanner(System.in);
         while (!exitFlag) {

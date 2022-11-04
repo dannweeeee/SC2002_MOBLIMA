@@ -10,12 +10,18 @@ import java.util.Scanner;
 public final class StaffLoginForm extends Form {
     private boolean loginSuccess = false;
     private StaffAccount account;
-
+    /**
+     * Constructor for StaffLoginForm.
+     * @param account   a <code>StaffAccount</code> object to record the login result.
+     */
     public StaffLoginForm(StaffAccount account) {
         super();
         this.account = account;
     }
-
+    /**
+     * Show the form
+     * @return <code>true</code> if the login is successful, <code>false</code> otherwise.
+     */
     public Boolean show() {
         Scanner sc = new Scanner(System.in);
         while (!exitFlag) {

@@ -1,20 +1,37 @@
 package com.ketchup.moblima.admin;
 
+/**
+ * Controller of the settings function.  
+ * <p>Owns a <code>SettingsForm</code> object to interact with users. Modify settings in accordance with user input from the <code>SettingsForm</code> object.</p>
+ * @author Nghia Nguyen
+ * @version 1.0
+ */
 public class SettingsController {
 
     private SettingsForm settingsForm;
     private Settings settings;
 
+    /**
+     * Constructor for SettingsController.
+     * @param settingsForm  a <code>SettingsForm</code> object to interact with users.
+     */
     public SettingsController(SettingsForm settingsForm) {
         this.settingsForm = settingsForm;
         settings = Settings.getInstance();
     }
 
+    /**
+     * Launch the manage settings function.
+     */
     public void launch() {
         SettingsForm settingsUI = new SettingsForm(this);
         settingsUI.show();
     }
 
+    /**
+     * Modify settings in accordance with user input.
+     * @param command   The user input.
+     */
     public void manageSettings(String command) {
         String[] inputTokens = command.split(" ");
         if (inputTokens.length == 2) {
@@ -29,6 +46,9 @@ public class SettingsController {
         }
     }
 
+    /**
+     * Print the current settings.
+     */
     public void print() {
         settings.print();
     }
