@@ -22,6 +22,7 @@ public class AdminPage {
             System.out.println("| 06: Update Movie Showtime                      |");
             System.out.println("| 07: Remove Movie Showtime                      |");
             System.out.println("| 08: Configure System Settings                  |");
+            System.out.println("| 09: Movie Goer View                            |");
             System.out.println("--------------------------------------------------");
             System.out.println();
             while(true) {
@@ -36,7 +37,8 @@ public class AdminPage {
                 
                 switch (option) {
                 case -1:
-                    BookMyShowApp bookMyShowApp = new BookMyShowApp();
+                    System.out.println("Goodbye!");
+                    System.exit(0);
                     return;
                 case 1:
                 try {
@@ -61,6 +63,9 @@ public class AdminPage {
                     break;
                 case 8:
                     break;
+                case 9:
+                    MovieGoer movieGoer = new MovieGoer();
+                break;
                 }
             }
         } 

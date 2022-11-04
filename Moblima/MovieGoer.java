@@ -17,7 +17,7 @@ public class MovieGoer {
 		in = new Scanner(System.in);
         do {
             System.out.println();
-            System.out.println("----------------MOBLIMA MAIN MENU!----------------");
+            System.out.println("----------------MOVIEGOER MAIN MENU---------------");
             System.out.println("| 01: View Movies                                |");
             System.out.println("| 02: View Showtimes                             |");
             System.out.println("| 03: Review/Rate Movies                         |");
@@ -30,7 +30,7 @@ public class MovieGoer {
             System.out.println("--------------------------------------------------");
             System.out.println();
             while(true) {
-                System.out.print("Main Menu - Enter option ('-1' to exit): ");
+                System.out.print("MovieGoer Main Menu - Enter option ('-1' to exit): ");
                 try {
                     option = in.nextInt();
                 }catch(InputMismatchException e) {
@@ -42,6 +42,7 @@ public class MovieGoer {
                 switch (option) {
                 case -1:
                     System.out.println("Goodbye!");
+                    System.exit(0);
                     return;
                 case 1:
                     //BookMyShow.showMovies(MovieList.txt);
