@@ -1,4 +1,4 @@
-package com.ketchup.moblima.admin;
+package Moblima;
 /**
  * Base class for user interfaces.
  * @author Nghia Nguyen

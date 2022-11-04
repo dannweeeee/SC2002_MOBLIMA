@@ -1,4 +1,4 @@
-package com.ketchup.moblima.admin;
+package Moblima;
 
 /**
  * Represent a staff account.

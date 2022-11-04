@@ -58,8 +58,9 @@ public class Settings extends Properties {
      */
     public void print() {
         System.out.println("Property names          Property values");
+        System.out.println("--------------------------------------------------");
         for (String key : stringPropertyNames()) {
-            System.out.printf("%-24s%-24s\n",key, getProperty(key));
+            System.out.printf("%-32s%-32s\n",key, getProperty(key));
         }
     }
 }

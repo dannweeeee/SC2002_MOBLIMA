@@ -1,4 +1,4 @@
-package com.ketchup.moblima.admin;
+package Moblima;
 
 import java.util.Scanner;
 

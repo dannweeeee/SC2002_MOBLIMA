@@ -1,4 +1,4 @@
-package com.ketchup.moblima.admin;
+package Moblima;
 
 /**
  * This interface handles the reading and writing to the staff account file.
