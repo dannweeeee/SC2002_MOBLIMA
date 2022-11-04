@@ -20,12 +20,4 @@ public class Seats {
     public String getSeat(){
         return this.row + this.col;
     }
-
-    public String getRow(){
-        return this.row;
-    }
-
-    public String getCol(){
-        return this.col;
-    }
 }

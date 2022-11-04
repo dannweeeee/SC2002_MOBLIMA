@@ -12,8 +12,8 @@ public class cinemaHandler {
 		this.cineplexName = cineplexName;
 	}
 	
-	public void addCinema(String classtype, int seat_capacity) {
-		Cinema newCinema = new Cinema(classtype,seat_capacity);
+	public void addCinema(String classtype, int seat_capacity, Cineplex cineplex) {
+		Cinema newCinema = new Cinema(classtype,seat_capacity, cineplex);
 		allCinema.add(newCinema);
 	}
 	
@@ -23,7 +23,6 @@ public class cinemaHandler {
 		}
 	}
 	
-
 	public ArrayList<Cinema> getAllCinema(){
 		return allCinema;
 	}

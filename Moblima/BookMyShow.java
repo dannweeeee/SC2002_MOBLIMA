@@ -18,42 +18,43 @@ public class BookMyShow implements BookMyShowInterface{
 	private Cinema cinema;
 	private Cineplex cineplex;
 	private Scanner in;
+	private SeatHandler seatHandler;
+	private ShowHandler showHandler;
 	SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");
 	Scanner scanner = new Scanner(System.in);
 	
 	public BookMyShow() {
-		
-		movieHandler = new movieHandler();
-		cineplexHandler = new cineplexHandler();
+		this.movieHandler = new movieHandler();
+		this.cineplexHandler = new cineplexHandler();
+		this.showHandler = new ShowHandler();
+		this.seatHandler = new SeatHandler();
 		in = new Scanner(System.in);
-	
 	}
 	
-	public void showMovies() {
-		
-	}
+	public void showMovies() {}
 	
 	public void initializeExample() {
-		cineplexHandler.addCineplex("JurongPoint");
-		cineplexHandler.addCineplex("Yishun");
+		Cineplex jurong = cineplexHandler.addCineplex("JurongPoint");
 		cinemaHandler JurongPoint = new cinemaHandler("JurongPoint");
-		JurongPoint.addCinema("Standard", 30);
-		JurongPoint.addCinema("Platinum", 10);
+		JurongPoint.addCinema("Standard", 35, jurong);
+		JurongPoint.addCinema("Platinum", 10, jurong);
 		cineplexHandler.getAllCineplex().get(cineplexHandler.getSize()-1).setHall(JurongPoint);
-		JurongPoint.addCinema("VIP", 1);
+		JurongPoint.addCinema("VIP", 1, jurong);
 		
 		User ayush = new User("Ayush","ayus@gmail.com",3293131);
         
-        Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
-        Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
+        //Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue", movieHandler);
+        //Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue", movieHandler);
 
+		Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
+        Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
         String dateInString = "Friday, Jun 7, 2020 09:00:00 AM";
 		try {
 			Date date = formatter.parse(dateInString);
-//			Show show1 = new Show(date,ironMan,cineplexHandler.getAllCineplex().get(1).getHall().get(0));
-//			Show show2 = new Show(date,avengers,cineplexHandler.getAllCineplex().get(1).getHall().get(0));
-//			Show show3 = new Show(date,avengers,cineplexHandler.getAllCineplex().get(1).getHall().get(1));
-//			Show show4 = new Show(date,avengers,cineplexHandler.getAllCineplex().get(1).getHall().get(2));
+			Show show1 = showHandler.addShows(date, ironMan, cineplexHandler.getAllCineplex().get(0).getHall().get(0), seatHandler);
+			Show show2 = showHandler.addShows(date,avengers,cineplexHandler.getAllCineplex().get(0).getHall().get(0), seatHandler);
+			Show show3 = showHandler.addShows(date,avengers,cineplexHandler.getAllCineplex().get(0).getHall().get(1), seatHandler);
+			Show show4 = showHandler.addShows(date,avengers,cineplexHandler.getAllCineplex().get(0).getHall().get(2), seatHandler);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -63,7 +64,7 @@ public class BookMyShow implements BookMyShowInterface{
 	public void showExample() {
 		cineplexHandler.printAllCineplex();
 		System.out.println("Show all cinemas:");
-		cineplexHandler.getAllCineplex().get(1).printAllCinema();
+		cineplexHandler.getAllCineplex().get(0).printAllCinema();
 	}
 	
 	public void showAllMovies() {
@@ -94,46 +95,63 @@ public class BookMyShow implements BookMyShowInterface{
 	    	}
 	    	read.close();
     }
-	public User getUserInformation(){
-		Scanner scanner = new Scanner(System.in);
 
+	public User getUserInformation(){
         System.out.print("Please enter your name: ");
-        String name = scanner.nextLine();
+        String name = in.nextLine();
 
         System.out.print("Please enter your email: ");
-        String email = scanner.nextLine();
+        String email = in.nextLine();
 
         System.out.print("Please enter your number: ");
-        double number = scanner.nextDouble();
+        double number = in.nextDouble();
 
-        scanner.nextLine();
         return new User(name, email, number);
     }
 	
 	public void BookMovie() {
 		int booking_option = 0;
-		BookingOptions newBooking = new BookingOptions();
-		ArrayList<Ticket> ticketlist;
+		Booking newBooking = new Booking();
+		ArrayList<Show> allShows = null;
+		ArrayList<Ticket> tickets = null;
 		User user1 = getUserInformation();
 		do{
 			System.out.println("--------------MOBLIMA BOOKING MENU!--------------");
-			System.out.println("| 01: List All Movies                           |");
-			System.out.println("| 02: Search Movies by Name                     |");
+			System.out.println("| 01: List All Shows                            |");
+			System.out.println("| 02: Search Shows by Name                      |");
 			System.out.println("| 03: View Movie by Location                    |");
 			System.out.println("| 04: Go Back                                   |");
 			System.out.println("-------------------------------------------------");
-			System.out.print("Enter option ('-1' to exit):");
+			System.out.print("Enter option ('4' to return):");
 
 			booking_option = in.nextInt();
 			switch(booking_option){
 				case 1:
-					ticketlist = newBooking.listAllMovies(cineplexHandler.getAllCineplex(), user1);
+					allShows = showHandler.getAllShows();
+					tickets = book(allShows, newBooking, user1);
 					break;
 				case 2:
-					ticketlist = newBooking.searchMoviebyName(cineplexHandler.getAllCineplex(), user1);
+					System.out.print("Enter movie name to search [0 to exit] => ");
+					Scanner newScanner = new Scanner(System.in);
+					String searchString = newScanner.nextLine();
+					searchString = searchString.toLowerCase();
+					allShows = showHandler.searchShows(searchString);
+					tickets = book(allShows, newBooking, user1);
 					break;
 				case 3:
-					ticketlist = newBooking.searchMovieByLocation(cineplexHandler.getAllCineplex(), user1);
+					printAllLocation();
+        			System.out.print("Enter Cineplex to book [0 to exit] => ");
+					in.nextLine();
+        			String userInput = in.nextLine();
+					try{
+						int choice = Integer.parseInt(userInput);
+						allShows = showHandler.getAllShows();
+						tickets = book(allShows, newBooking, user1);
+					} catch (NumberFormatException e){
+						System.out.println("Invalid input: " + userInput + " is not a number");
+            			System.out.println("");
+						break;
+					}
 					break;
 				case 4:
 					break;
@@ -141,8 +159,21 @@ public class BookMyShow implements BookMyShowInterface{
 					System.out.println("Invalid Input");
 			}
 		} while(booking_option != 4);
-		System.out.println("You are now back at the main menu.");
 	}
+
+	public ArrayList<Ticket> book(ArrayList<Show> allShows, Booking newBooking, User user1){
+		if (allShows != null){
+			if (allShows.size() >= 1){
+				ShowHandler.printAllShows(allShows);
+				Show showSelected = newBooking.selectShow(allShows);
+				if (showSelected != null) return newBooking.bookSeats(showSelected, user1, seatHandler);
+			}else {
+				System.out.println("No shows found");
+			}
+		}
+		return null;
+	}
+
 	public void showAllMoviesTicket() {
 		System.out.println("Sort Movies by: 1.Ticket sales, 2.Ratings");
 		int sort = scanner.nextInt();
@@ -158,7 +189,15 @@ public class BookMyShow implements BookMyShowInterface{
 			count++;
 		}
 	}
-	
+
+	public void printAllLocation(){
+        System.out.println("All Locations: ");
+        for (int i = 0; i < cineplexHandler.getSize(); i++){
+            Cineplex temp = cineplexHandler.getAllCineplex().get(i);
+            System.out.println(Integer.toString(i+1) + ". " + temp.getLocation());
+        }
+    }
+
 	public void searchMovie(String searchString) {
 		System.out.println("Showing results for: "+searchString);
 		for (Movie temp : movieHandler.getMovie()) {

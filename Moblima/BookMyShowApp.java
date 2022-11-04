@@ -48,7 +48,6 @@ public class BookMyShowApp {
         			in.next();
         			continue;
         		}
-        		
         		switch (option) {
         		case -1:
         			System.out.println("Goodbye!");
