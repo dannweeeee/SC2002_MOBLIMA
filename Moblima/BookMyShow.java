@@ -96,6 +96,7 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 
 	public User getUserInformation(){
+		in = new Scanner(System.in);
         System.out.print("Please enter your name: ");
         String name = in.nextLine();
 
@@ -108,55 +109,40 @@ public class BookMyShow implements BookMyShowInterface{
         return new User(name, email, number);
     }
 	
-	public void BookMovie() {
+	public ArrayList<Ticket> BookMovie(User user1, Booking newBooking) {
 		int booking_option = 0;
-		ArrayList<Show> allShows = null;
-		ArrayList<Ticket> tickets = null;
-		User user1 = getUserInformation();
-		Booking newBooking = new Booking(user1);
-		do{
-			System.out.println("--------------MOBLIMA BOOKING MENU!--------------");
-			System.out.println("| 01: List All Shows                            |");
-			System.out.println("| 02: Search Shows by Name                      |");
-			System.out.println("| 03: View Movie by Location                    |");
-			System.out.println("| 04: Go Back                                   |");
-			System.out.println("-------------------------------------------------");
-			System.out.print("Enter option ('4' to return):");
-
-			booking_option = in.nextInt();
-			switch(booking_option){
-				case 1:
-					newBooking.setShowSelection(showHandler.getAllShows());
-					break;
-				case 2:
-					System.out.print("Enter movie name to search [0 to exit] => ");
-					Scanner newScanner = new Scanner(System.in);
-					String searchString = newScanner.nextLine();
-					searchString = searchString.toLowerCase();
-					newBooking.setShowSelection(showHandler.searchShows(searchString));
-					break;
-				case 3:
-					cineplexHandler.printAllCineplex();
-        			System.out.print("Enter Cineplex to book [0 to exit] => ");
-					in.nextLine();
-        			int userInput = getIntUserInput();
-					newBooking.setShowSelection(showHandler.printAllShowsByLocation(cineplexHandler.getAllCineplex().get(userInput-1))); 
-					break;
-				case 4:
-					break;
-				default:
-					System.out.println("Invalid Input");
-			}
-
-			
-			tickets = book(newBooking);
-		} while(booking_option != 4);
+		booking_option = in.nextInt();
+		switch(booking_option){
+			case 1:
+				newBooking.setShowSelection(showHandler.getAllShows());
+				break;
+			case 2:
+				System.out.print("Enter movie name to search [0 to exit] => ");
+				Scanner newScanner = new Scanner(System.in);
+				String searchString = newScanner.nextLine();
+				searchString = searchString.toLowerCase();
+				newBooking.setShowSelection(showHandler.searchShows(searchString));
+				break;
+			case 3:
+				cineplexHandler.printAllCineplex();
+				System.out.print("Enter Cineplex to book [0 to exit] => ");
+				in.nextLine();
+				int userInput = getIntUserInput();
+				newBooking.setShowSelection(showHandler.printAllShowsByLocation(cineplexHandler.getAllCineplex().get(userInput-1))); 
+				break;
+			case 4:
+				return null;
+			default:
+				System.out.println("Invalid Input");
+		}
+		return book(newBooking);
 	}
 
 	// returns -1 if invalid input
 	public int getIntUserInput(){
 		int intInput = -1;
 		String input = "";
+		scanner = new Scanner(System.in);
 		input = scanner.nextLine();
 		try {
 			intInput = Integer.parseInt(input);

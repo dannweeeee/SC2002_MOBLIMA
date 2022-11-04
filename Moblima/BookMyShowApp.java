@@ -1,5 +1,6 @@
 package Moblima;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -72,8 +73,24 @@ public class BookMyShowApp {
         			BookMyShow.showAllMovies();
         			break;
         		case 8:
-        			BookMyShow.BookMovie();
-        			break;
+					User user1 = BookMyShow.getUserInformation();
+					Booking newBooking = new Booking(user1);
+					ArrayList<Ticket> ticketList = new ArrayList<>();
+					ArrayList<Ticket> ticket = null;
+					do{
+						System.out.println("--------------MOBLIMA BOOKING MENU!--------------");
+						System.out.println("| 01: List All Shows                            |");
+						System.out.println("| 02: Search Shows by Name                      |");
+						System.out.println("| 03: View Movie by Location                    |");
+						System.out.println("| 04: Go Back                                   |");
+						System.out.println("-------------------------------------------------");
+						System.out.print("Enter option ('4' to return):");
+						ticket = BookMyShow.BookMovie(user1, newBooking);
+						if (ticket != null){
+							ticketList.addAll(ticket);
+						}
+					}while(ticket != null);
+					break;
         		case 9:
         			BookMyShow.showAllMoviesTicket();
         			break;
