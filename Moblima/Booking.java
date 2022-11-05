@@ -7,23 +7,33 @@ public class Booking {
     private Show selectedShow;
     private ArrayList<Seats> seatList;
     private User user;
-    private double totalPrice;
+    private double adultPrice;
+    private double studentPrice;
 
     public Booking(User user){
         seatList = new ArrayList<>();
         studentTicket = 0;
         adultTicket = 0;
-        totalPrice = 0.0;
+        studentPrice = 0.0;
+        adultPrice = 0.0;
         selectedShow = null;
         this.user = user;
     }
 
-    public double getPrice(){
-        return this.totalPrice;
+    public double getAdultPrice(){
+        return this.adultPrice;
     }
 
-    public void setPrice(Double price){
-        this.totalPrice = price;
+    public void setAdultPrice(Double price){
+        this.adultPrice = price;
+    }
+
+    public double getStudentPrice(){
+        return this.studentPrice;
+    }
+
+    public void setStudentPrice(Double price){
+        this.studentPrice = price;
     }
 
     public User getUser(){
