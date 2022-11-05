@@ -8,7 +8,7 @@ import java.util.Properties;
  * @version 1.0
  */
 public class Settings extends Properties {
-    public static final String SETTINGS_FILE_PATH = "C:\\Users\\dexte\\OneDrive\\Documents\\GitHub\\SC2002_MOBLIMA\\Moblima\\settings.ini";
+    public static final String SETTINGS_FILE_PATH = "Moblima/settings.ini";
 
     private static Settings instance = null;
 

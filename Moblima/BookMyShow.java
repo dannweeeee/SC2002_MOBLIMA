@@ -124,7 +124,7 @@ public class BookMyShow implements BookMyShowInterface{
 					shows = showHandler.getAllShowsByLocation(cineplexHandler.getAllCineplex().get(userInput-1));
 					break;
 				case 4:
-					break;
+					return;
 				default:
 					System.out.println("Invalid Input");
 			}
@@ -143,6 +143,7 @@ public class BookMyShow implements BookMyShowInterface{
 		Booking newBooking = new Booking(user1);
 		ShowHandler.printAllShows(shows);
 		Show selectedShow = BookingInputs.getShow(shows);
+		if (selectedShow == null) return null;
 		newBooking.setShow(selectedShow);
 		seatHandler.printAvailableSeats(selectedShow);
 		newBooking.setAdultTicket(BookingInputs.getNumberOfTicket("Adult"));
@@ -198,14 +199,41 @@ public class BookMyShow implements BookMyShowInterface{
         ArrayList<Ticket> ticketList = new ArrayList<>();
         if (confirmation == 1){
             for(Seats s: seatlist) {
-				ticketList.add(newBooking.getShow().bookTicket(newBooking.getUser(), s, newBooking.getPrice()));
+				if (newBooking.getAdultTicketNum() > 0){
+					ticketList.add(newBooking.getShow().bookTicket(newBooking.getUser(), s, newBooking.getAdultPrice()));
+					newBooking.setAdultTicket(newBooking.getAdultTicketNum()-1);
+				} else {
+					ticketList.add(newBooking.getShow().bookTicket(newBooking.getUser(), s, newBooking.getStudentPrice()));
+					newBooking.setStudentTicket(newBooking.getStudentTicketNum()-1);
+				}
 			}
         }
         return ticketList;
     }
 
+	public void calcPrice(Booking newBooking){
+		Settings settings = Settings.getInstance();
+		Double studentPrice = 0.0;
+		Double adultPrice = 0.0;
+		String cinemaClass = newBooking.getShow().getCinema().getCinemaClass();
+		if (cinemaClass== "Standard"){
+			studentPrice = Double.parseDouble(settings.getProperty("ticket_price_student_standard"));
+			adultPrice = Double.parseDouble(settings.getProperty("ticket_price_adult_standard"));
+		} else if (cinemaClass == "Platinum"){
+			studentPrice = Double.parseDouble(settings.getProperty("ticket_price_student_premium"));
+			adultPrice = Double.parseDouble(settings.getProperty("ticket_price_adult_premium"));
+		} else {
+			studentPrice = Double.parseDouble(settings.getProperty("ticket_price_student_vip"));
+			adultPrice = Double.parseDouble(settings.getProperty("ticket_price_adult_vip"));
+		}
+
+		newBooking.setAdultPrice(adultPrice);
+		newBooking.setStudentPrice(studentPrice);
+	}
+
     public int bookingConfirmation(Booking newBooking){
-		double totalPrice = newBooking.getPrice();
+		calcPrice(newBooking);
+		double totalPrice = newBooking.getStudentTicketNum() * newBooking.getStudentPrice() + newBooking.getAdultTicketNum() * newBooking.getAdultPrice();
         while(true){
             char confirmation = BookingInputs.getConfirmation(totalPrice);
             if (Character.toUpperCase(confirmation) == 'Y'){
