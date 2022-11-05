@@ -2,7 +2,6 @@ package Moblima;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.Map;
 
 public class SeatHandler {
@@ -47,11 +46,16 @@ public class SeatHandler {
         
         System.out.println("Seats still available: ");
         int i = 0;
+        int x = 10;
 
-        while (i < 10){
+        if (seats.size() < 10){
+            x = seats.size();
+        }
+        while (i < x){
             System.out.print("  ----   ");
             i++;
         }
+
         System.out.println();
         i = 0;
         for(Seats seat : seats){
