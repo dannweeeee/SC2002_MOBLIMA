@@ -74,7 +74,7 @@ public class BookingInputs {
         int numTickets = -1;
         while (true){
             System.out.println();
-            System.out.print("How many " + category + " tickets would you like to book? [0 to go back] => ");
+            System.out.print("How many " + category + " tickets would you like to book? => ");
             numTickets = getIntUserInput();
             if (numTickets >= 0) break;
         }
