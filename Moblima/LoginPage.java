@@ -23,6 +23,7 @@ public class LoginPage implements ActionListener{
     JLabel userPasswordLabel = new JLabel("password: ");
     JLabel messageLabel = new JLabel("Admin Login");
     HashMap<String,String> logininfo = new HashMap<String,String>();
+    BookMyShow bookMyShow = new BookMyShow();
 
     LoginPage(HashMap<String,String> loginInfoOriginal){
 

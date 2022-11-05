@@ -31,8 +31,6 @@ public class BookMyShow implements BookMyShowInterface{
 		in = new Scanner(System.in);
 	}
 	
-	public void showMovies() {}
-	
 	public void initializeExample() {
 		Cineplex jurong = cineplexHandler.addCineplex("JurongPoint");
 		cinemaHandler JurongPoint = new cinemaHandler("JurongPoint");
@@ -41,10 +39,7 @@ public class BookMyShow implements BookMyShowInterface{
 		cineplexHandler.getAllCineplex().get(cineplexHandler.getSize()-1).setHall(JurongPoint);
 		JurongPoint.addCinema("VIP", 1, jurong);
 		
-		User ayush = new User("Ayush","ayus@gmail.com",3293131);
-        
-        //Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue", movieHandler);
-        //Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue", movieHandler);
+		//User ayush = new User("Ayush","ayus@gmail.com",3293131);
 
 		Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
         Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
@@ -59,6 +54,10 @@ public class BookMyShow implements BookMyShowInterface{
 			e.printStackTrace();
 		}
 	}
+
+	public void showShowTimes(){
+		ShowHandler.printAllShows(showHandler.getAllShows());
+	}
 	
 	public void showExample() {
 		cineplexHandler.printAllCineplex();
@@ -67,11 +66,11 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 	
 	public void showAllMovies() {
-		System.out.println("Show all Movies");
+		System.out.println("Showing all movies...");
 		int count =1;
 		for (Movie temp : movieHandler.getMovie()) {
 			System.out.print(count+": ");
-			temp.printMovieDetails();
+			System.out.println(temp);
 			count++;
 		}
 	}
@@ -94,136 +93,121 @@ public class BookMyShow implements BookMyShowInterface{
 	    	}
 	    	read.close();
 	}
-
-	public User getUserInformation(){
-		in = new Scanner(System.in);
-        System.out.print("Please enter your name: ");
-        String name = in.nextLine();
-
-        System.out.print("Please enter your email: ");
-        String email = in.nextLine();
-
-        System.out.print("Please enter your number: ");
-        double number = in.nextDouble();
-
-        return new User(name, email, number);
-    }
 	
-	public ArrayList<Ticket> BookMovie(User user1, Booking newBooking) {
+	public void BookMovie() {
 		int booking_option = 0;
-		booking_option = in.nextInt();
-		switch(booking_option){
-			case 1:
-				newBooking.setShowSelection(showHandler.getAllShows());
-				break;
-			case 2:
-				System.out.print("Enter movie name to search [0 to exit] => ");
-				Scanner newScanner = new Scanner(System.in);
-				String searchString = newScanner.nextLine();
-				searchString = searchString.toLowerCase();
-				newBooking.setShowSelection(showHandler.searchShows(searchString));
-				break;
-			case 3:
-				cineplexHandler.printAllCineplex();
-				System.out.print("Enter Cineplex to book [0 to exit] => ");
-				in.nextLine();
-				int userInput = getIntUserInput();
-				newBooking.setShowSelection(showHandler.printAllShowsByLocation(cineplexHandler.getAllCineplex().get(userInput-1))); 
-				break;
-			case 4:
-				return null;
-			default:
-				System.out.println("Invalid Input");
-		}
-		return book(newBooking);
-	}
+		User user1 = BookingInputs.getUserInformation();
+		ArrayList<Ticket> tickets = new ArrayList<>();
+		do{
+			ArrayList<Show> shows = null;
+			System.out.println("--------------MOBLIMA BOOKING MENU!--------------");
+			System.out.println("| 01: List All Shows                            |");
+			System.out.println("| 02: Search Shows by Name                      |");
+			System.out.println("| 03: View Movie by Location                    |");
+			System.out.println("| 04: Go Back                                   |");
+			System.out.println("-------------------------------------------------");
+			System.out.print("Enter option ('4' to return):");
 
-	// returns -1 if invalid input
-	public int getIntUserInput(){
-		int intInput = -1;
-		String input = "";
-		scanner = new Scanner(System.in);
-		input = scanner.nextLine();
-		try {
-			intInput = Integer.parseInt(input);
-		}catch (NumberFormatException e) {
-			System.out.println("Invalid input: " + input + " is not a number");
-			System.out.println("");
-		}
-		return intInput;
-	}
+			booking_option = BookingInputs.getIntUserInput();
 
-	public ArrayList<Ticket> book(Booking newBooking){
-		if (newBooking.getShowSelection() != null){
-			ShowHandler.printAllShows(newBooking.getShowSelection());
-			Show selectedShow = selectShow(newBooking.getShowSelection());
-			newBooking.setShow(selectedShow);
-			seatHandler.printAvailableSeats(selectedShow);
-			newBooking.setNumOfTickets(getNumberOfTicket());
-			if (newBooking.getNumOfTickets() == 0) return null;
-			ArrayList<Seats> seats = selectSeats(newBooking);
-			newBooking.setSeats(seats);
-			if (seats != null){
-				return bookSeats(newBooking);
+			switch(booking_option){
+				case 1:
+					shows = showHandler.getAllShows();
+					break;
+				case 2:
+					String searchString = BookingInputs.getSearchString();
+					shows = showHandler.searchShows(searchString);
+					break;
+				case 3:
+					cineplexHandler.printAllCineplex();
+        			int userInput = BookingInputs.getCineplex();
+					shows = showHandler.getAllShowsByLocation(cineplexHandler.getAllCineplex().get(userInput-1));
+					break;
+				case 4:
+					break;
+				default:
+					System.out.println("Invalid Input");
 			}
-		} else {
-			System.out.println("No shows found");
+			if (shows == null){
+				System.out.println("No shows found");
+			} else {
+				ArrayList <Ticket> ticket = bookShow(shows, user1);
+				if (ticket != null){
+					tickets.addAll(ticket);
+				}
+			}
+		} while(booking_option != 4);
+	}
+
+	public ArrayList<Ticket> bookShow (ArrayList<Show> shows, User user1){
+		Booking newBooking = new Booking(user1);
+		ShowHandler.printAllShows(shows);
+		Show selectedShow = BookingInputs.getShow(shows);
+		newBooking.setShow(selectedShow);
+		seatHandler.printAvailableSeats(selectedShow);
+		newBooking.setAdultTicket(BookingInputs.getNumberOfTicket("Adult"));
+		newBooking.setStudentTicket(BookingInputs.getNumberOfTicket("Student"));
+
+		if (newBooking.getStudentTicketNum() == 0 && newBooking.getAdultTicketNum() == 0){
+			System.out.println("Cancelling booking");
+			return null;
+		}
+
+		ArrayList<Seats> seats = selectSeats(newBooking);
+		if (seats != null){
+			newBooking.setSeats(seats);
+			ArrayList<Ticket> tickets = bookSeats(newBooking);
+			return tickets;
 		}
 		return null;
 	}
 
-	public boolean duplicateInput(Seats s1, ArrayList<Seats> chosenSeats){
-        boolean duplicate = false;
-                        
-        for (Seats o : chosenSeats){
-            if (o.getSeat().equals(s1.getSeat())){
-                duplicate = true;
-                break;
-            }
-        }
-        return duplicate;
-    }
-
-    public ArrayList<Seats> selectSeats(Booking newBooking){
-
+	public ArrayList<Seats> selectSeats (Booking newBooking){
         ArrayList<Seats> chosenSeats = new ArrayList<Seats>();
+		int totalTickets = newBooking.getAdultTicketNum() + newBooking.getStudentTicketNum();
+		if (!seatHandler.checkCapacity(totalTickets, newBooking.getShow())){
+			System.out.println("Not enough tickets remaining");
+			return null;
+		}
         while (true){
-            if (seatHandler.checkCapacity(newBooking.getNumOfTickets(), newBooking.getShow())){
-                for(int j = 0; j < newBooking.getNumOfTickets(); j++){
-                    while (true){
-                        System.out.print("Seat number for Ticket " + Integer.toString(j+1) + ": ");
-                        String seats = scanner.nextLine();
-
-                        if (seats == "XX" || seats.length() != 2){
-                            System.out.println("Invalid seat");
-                            continue;
-                        } else if (seats == "0") return null;
-
-                        String row = String.valueOf(seats.charAt(0)).toUpperCase();
-                        String col = String.valueOf(seats.charAt(1));
-                        Seats s1 = new Seats(row, col);
-
-                        if (seatHandler.checkSeatAvailability(s1, newBooking.getShow()) && !duplicateInput(s1, chosenSeats)){
-                            chosenSeats.add(s1);
-                            break;
-                        } else{
-                            System.out.println("Seat is not available, please try again");
-                            System.out.println("Enter 0 to exit");
-                        }
-                        
-                        if (chosenSeats.size() == j+1) break;
-                    }
-                }
-                break;
-            }
-        }
+			for(int j = 0; j < totalTickets; j++){
+				while (true){
+					Seats s1 = BookingInputs.getSeatSelection(j);
+					if (s1 == null) return null;
+					if (seatHandler.checkSeatAvailability(s1, newBooking.getShow()) && !SeatHandler.duplicateSeatInput(s1, chosenSeats)){
+						chosenSeats.add(s1);
+						break;
+					} else{
+						System.out.println("Seat is not available, please try again");
+						System.out.println("Enter 0 to exit");
+					}
+					if (chosenSeats.size() == j+1) break;
+				}
+			}
+			break;
+		}
         return chosenSeats;
     }
 
-    public int seatConfirmation(Booking newBooking){
+	public ArrayList<Ticket> bookSeats(Booking newBooking){
+        ArrayList<Seats> seatlist = newBooking.getSeats();
+        int confirmation = 0;
+        if (seatlist != null){
+            confirmation = bookingConfirmation(newBooking);
+        }
+        ArrayList<Ticket> ticketList = new ArrayList<>();
+        if (confirmation == 1){
+            for(Seats s: seatlist) {
+				ticketList.add(newBooking.getShow().bookTicket(newBooking.getUser(), s, newBooking.getPrice()));
+			}
+        }
+        return ticketList;
+    }
+
+    public int bookingConfirmation(Booking newBooking){
+		double totalPrice = newBooking.getPrice();
         while(true){
-            System.out.print("Confirm ticket booking (Y/N): ");
-            char confirmation = scanner.next().charAt(0);
+            char confirmation = BookingInputs.getConfirmation(totalPrice);
             if (Character.toUpperCase(confirmation) == 'Y'){
                 for (Seats s: newBooking.getSeats()){
                     seatHandler.removeSeats(s, newBooking.getShow());
@@ -239,68 +223,28 @@ public class BookMyShow implements BookMyShowInterface{
         }
     }
 
-	public Show selectShow(ArrayList<Show> allShows){
-        while (true){
-            System.out.print("Please enter the show number to watch [0 to exit] => ");
-            int choice = getIntUserInput();
-            
-            if (choice == 0){
-                break;
-            } else if (choice > allShows.size() || choice < 0){
-                System.out.println("Input out of range");
-            } else {
-				return ShowHandler.getShowByID(allShows, choice);
-            }
-            System.out.println("Invalid input, please try again");
-            }
-        return null;
-    }
-
-	public int getNumberOfTicket(){
-        int numTickets = -1;
-        while (true){
-            System.out.println();
-            System.out.print("How many tickets would you like to book? [0 to go back] => ");
-            numTickets = getIntUserInput();
-            if (numTickets >= 0) break;
-        }
-        return numTickets;
-    }
-
-	public ArrayList<Ticket> bookSeats(Booking newBooking){
-        ArrayList<Seats> seatlist = newBooking.getSeats();
-        int confirmation = 0;
-        if (seatlist != null){
-            confirmation = seatConfirmation(newBooking);
-        }
-        ArrayList<Ticket> ticketList = new ArrayList<>();
-        if (confirmation == 1){
-            for(Seats s: seatlist) ticketList.add(newBooking.getShow().bookTicket(newBooking.getUser(), s));
-        }
-        return ticketList;
-    }
-
 	public void showAllMoviesTicket() {
 		System.out.println("Sort Movies by: 1.Ticket sales, 2.Ratings");
 		int sort = scanner.nextInt();
         scanner.nextLine();
         if(sort==1) {
-        	movieHandler.SortbyTicketSales();
+        	movieHandler.sortByTicketSales();
         }
-        else {movieHandler.SortbyRatings();}
+        else {movieHandler.sortByRatings();}
 		int count =1;
 		for (Movie temp : movieHandler.getMovie()) {
 			System.out.print(count+": ");
-			temp.printMovieDetails();
+			System.out.println(temp);
 			count++;
 		}
 	}
 
+	// should be in movie handler
 	public void searchMovie(String searchString) {
 		System.out.println("Showing results for: "+searchString);
 		for (Movie temp : movieHandler.getMovie()) {
 			if(temp.getName().contentEquals(searchString)) {
-				temp.printFullMovieDetails();
+				System.out.println(temp);
 				System.out.print("Average Movie Rating: ");
 				System.out.println(temp.getAverageRatings());
 				System.out.println("Most Recent Reviews:");
@@ -309,6 +253,7 @@ public class BookMyShow implements BookMyShowInterface{
 		}
 	}
 
+	// add this to showhandler
 	public void createShow() {
 		int movieOption = -1, cineplexOption =-1, cinemaOption =-1;
 		String dateInString;
@@ -355,4 +300,25 @@ public class BookMyShow implements BookMyShowInterface{
 		Show show1 = new Show(showtime,selectedMovie,cineplexHandler.getAllCineplex().get(cineplexOption-1).getHall().get(cinemaOption-1));
 		System.out.println(show1);
 	}
+
+	public movieHandler getMovieDatabase() {
+		return movieHandler;
+	}
+
+	public void writeMovieToTextFile(String fileName){
+        in = new Scanner(System.in);
+        String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;
+        System.out.print("Enter full name of movie: ");
+        movieAddName = in.nextLine();
+        System.out.print("Enter status of movie (Coming Soon, Now Showing): ");
+        movieAddStatus = in.nextLine();
+        System.out.print("Enter director of movie: ");
+        movieAddDirector = in.nextLine();
+        System.out.print("Enter synopsis of movie: ");
+        movieAddSynopsis = in.nextLine();
+        System.out.print("Enter casts of movie (e.g. Steve Rogers, Borat, Mr Bean): ");
+        movieAddCasts = in.nextLine();
+		Movie addNewMovie;
+        addNewMovie = new Movie(movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts, movieHandler);
+    }
 }

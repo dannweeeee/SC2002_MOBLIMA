@@ -1,11 +1,8 @@
 package Moblima;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 public interface BookMyShowInterface {
-	
-	public void showMovies();
 	
 	public void readMovieFromTextFile(String fileName) throws FileNotFoundException;
 
@@ -15,7 +12,9 @@ public interface BookMyShowInterface {
 
 	public void showAllMovies();
 	
-	public ArrayList<Ticket> BookMovie(User user1, Booking newBooking);
+	public void BookMovie();
+
+	public void showShowTimes();
 	
 	public void showAllMoviesTicket();
 
@@ -23,5 +22,6 @@ public interface BookMyShowInterface {
 
 	public void createShow();
 
-	public User getUserInformation();
+	public void writeMovieToTextFile(String fileName);
+
 }
