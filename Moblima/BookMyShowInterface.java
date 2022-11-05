@@ -13,8 +13,6 @@ public interface BookMyShowInterface {
 	public void showAllMovies();
 	
 	public void BookMovie();
-
-	public void showShowTimes();
 	
 	public void showAllMoviesTicket();
 
@@ -22,6 +20,10 @@ public interface BookMyShowInterface {
 
 	public void createShow();
 
-	public void writeMovieToTextFile(String fileName);
+	public void createMovie(String fileName);
+
+	public void updateMovie(String fileName);
+
+	public void showShowTimes();
 
 }

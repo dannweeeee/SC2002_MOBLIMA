@@ -321,4 +321,87 @@ public class BookMyShow implements BookMyShowInterface{
 		Movie addNewMovie;
         addNewMovie = new Movie(movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts, movieHandler);
     }
+
+	public void createMovie(String fileName){
+        in = new Scanner(System.in);
+        String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;
+        System.out.print("Enter full name of Movie: ");
+        movieAddName = in.nextLine();
+        System.out.print("Enter status of Movie (Coming Soon, Now Showing): ");
+        movieAddStatus = in.nextLine();
+        System.out.print("Enter director of Movie: ");
+        movieAddDirector = in.nextLine();
+        System.out.print("Enter synopsis of Movie: ");
+        movieAddSynopsis = in.nextLine();
+        System.out.print("Enter casts of Movie (e.g. Steve Rogers, Borat, Mr Bean): ");
+        movieAddCasts = in.nextLine();
+		Movie addNewMovie;
+        addNewMovie = new Movie(movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts, movieHandler);
+    }
+
+	public void updateMovie(String fileName){
+		int movieOption = 0, moviePartOption = 0;
+		String movieName, movieStatus, movieDirector, movieSynopsis, movieCasts;
+		String movieUpdateName, movieUpdateStatus, movieUpdateDirector, movieUpdateSynopsis, movieUpdateCasts;
+		showAllMovies();
+		System.out.print("Which Movie would you like to update? (e.g. 1): ");
+		try{
+			movieOption = in.nextInt();
+		}catch(InputMismatchException e) {
+			System.out.println("Invalid Input. Please re-enter.");
+			in.next();
+		}
+		Movie selectedMovie = movieHandler.getMovie().get(movieOption-1);
+		movieName = selectedMovie.getName();
+		movieStatus = selectedMovie.getStatus();
+		movieDirector = selectedMovie.getDirector();
+		movieSynopsis = selectedMovie.getSynopsis();
+		movieCasts = selectedMovie.getCast();
+
+		System.out.println("1.Title: " + movieName);
+		System.out.println("2.Status: " + movieStatus);
+		System.out.println("3.Director: " + movieDirector);
+		System.out.println("4.Cast: " + movieCasts);
+		System.out.println("5.Synopsis: " + movieSynopsis);
+
+		do{
+			System.out.println("Select which to update (Enter '-1' to confirm & exit): ");
+			moviePartOption = in.nextInt();
+			switch(moviePartOption){
+				case 1:
+					System.out.print("Update full name of Movie: ");
+					in = new Scanner(System.in);
+					movieUpdateName = in.nextLine();
+					selectedMovie.updateName(movieUpdateName);
+					break;
+				case 2:
+					System.out.print("Update status of Movie (Coming Soon, Now Showing): ");
+					in = new Scanner(System.in);
+					movieUpdateStatus = in.nextLine();
+					selectedMovie.updateStatus(movieUpdateStatus);
+					break;
+				case 3:
+					System.out.print("Update director of Movie: ");
+					in = new Scanner(System.in);
+					movieUpdateDirector = in.nextLine();
+					selectedMovie.updateDirector(movieUpdateDirector);
+					break;
+				case 4:
+					System.out.print("Update casts of Movie (e.g. Steve Rogers, Borat, Mr Bean): ");
+					in = new Scanner(System.in);
+					movieUpdateCasts = in.nextLine();
+					selectedMovie.updateCasts(movieUpdateCasts);
+					break;
+				case 5:
+					System.out.print("Update synopsis of movie: ");
+					in = new Scanner(System.in);
+					movieUpdateSynopsis = in.nextLine();
+					selectedMovie.updateSynopsis(movieUpdateSynopsis);
+					break;
+				default:
+					System.out.println("Invalid Input");
+			}
+		} while(moviePartOption != -1);
+		System.out.println(selectedMovie);
+	}
 }

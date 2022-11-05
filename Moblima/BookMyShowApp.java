@@ -19,21 +19,21 @@ public class BookMyShowApp {
 		int option = 0;
 		in = new Scanner(System.in);
 		do {
-			System.out.println();
-        	System.out.println("----------------MOBLIMA MAIN MENU----------------");
-        	System.out.println("| 01: Admin Login                               |");
-        	System.out.println("| 02: View Movies                               |");
-        	System.out.println("| 03: View Showtimes                            |");
-        	System.out.println("| 04: Review/Rate Movies                        |");
-        	System.out.println("| 05: Create movie/showtime booking             |");
-        	System.out.println("| 06: Initialize/Show Example                   |");
-        	System.out.println("| 07: Show all Movies                           |");
-        	System.out.println("| 08: Booking                                   |");
-        	System.out.println("| 09: Show all Movies by ticket sales           |");
-        	System.out.println("| 10: Search Movie                              |");
-        	System.out.println("| 11: Create Show                               |");
-        	System.out.println("--------------------------------------------------");
-        	System.out.println();
+            System.out.println();
+            System.out.println("-----------------MOBLIMA MAIN MENU---------------");
+        	System.out.println("| 01: View Movies                               |");
+        	System.out.println("| 02: View Showtimes                            |");
+        	System.out.println("| 03: Review/Rate Movies                        |");
+        	System.out.println("| 04: Create movie/showtime booking             |");
+        	System.out.println("| 05: Initialize/Show Example                   |");
+        	System.out.println("| 06: Show all Movies                           |");
+        	System.out.println("| 07: Booking                                   |");
+        	System.out.println("| 08: Show all Movies by ticket sales           |");
+        	System.out.println("| 09: Search Movie                              |");
+        	System.out.println("| 10: Create Show                               |");
+			System.out.println("| 11: ADMIN VIEW                                |");
+            System.out.println("-------------------------------------------------");
+            System.out.println();
         	while(true) {
         		System.out.print("Main Menu - Enter option ('-1' to exit):");
         		try {
@@ -52,10 +52,10 @@ public class BookMyShowApp {
 					LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo());
         			return;
         		case 2:
+					BookMyShow.showShowTimes();
         			//BookMyShow.showMovies();
         			break;
         		case 3:
-					BookMyShow.showShowTimes();
         			break;
         		case 4:
         			break;
