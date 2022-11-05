@@ -54,6 +54,7 @@ public class AdminPage {
                     BookMyShow.updateMovie("MovieList.txt");
                     break;
                 case 3:
+                    BookMyShow.removeMovie("MovieList.txt");
                     break;
                 case 4:
                     BookMyShow.showAllMovies();
@@ -69,7 +70,7 @@ public class AdminPage {
                     break;
                 case 9:
                     MovieGoer movieGoer = new MovieGoer();
-                break;
+                return;
                 }
             }
         } 

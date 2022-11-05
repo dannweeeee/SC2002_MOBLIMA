@@ -49,7 +49,7 @@ public class MovieGoer {
         			return;
         		case 1:
 					//BookMyShow.showMovies();
-        			return;
+        			break;
         		case 2:
         			break;
         		case 3:
@@ -83,7 +83,7 @@ public class MovieGoer {
         		case 11:
 					IDandPasswords idandPasswords = new IDandPasswords();
 					LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo());
-        			break;
+        			return;
         		}
         	}
 		} while(option != -1);
