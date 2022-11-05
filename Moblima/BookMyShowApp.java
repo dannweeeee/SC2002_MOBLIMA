@@ -46,13 +46,16 @@ public class BookMyShowApp {
         		switch (option) {
         		case -1:
         			System.out.println("Goodbye!");
-        			return;
+					System.exit(0);
         		case 1:
-					IDandPasswords idandPasswords = new IDandPasswords();
-					LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo());
+					Admin admin = Admin.getInstance();
+					admin.start();
+					//IDandPasswords idandPasswords = new IDandPasswords();
+					//LoginPage loginUI = new LoginPage(idandPasswords.getLoginInfo());
+					//loginUI.addLoginObserver(Admin.getInstance());
         			return;
         		case 2:
-        			BookMyShow.showMovies();
+        			//BookMyShow.showMovies();
         			break;
         		case 3:
         			break;

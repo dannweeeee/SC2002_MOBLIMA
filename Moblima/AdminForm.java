@@ -27,7 +27,7 @@ public final class AdminForm extends Form {
      */
     public Object show() {
         exitFlag = false;
-        BookMyShowInterface BookMyShow = new BookMyShow();
+        //BookMyShowInterface BookMyShow = new BookMyShow();
         Scanner sc = new Scanner(System.in);
         while (!exitFlag) {
             System.out.println();
@@ -47,19 +47,13 @@ public final class AdminForm extends Form {
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
-                try {
-                    AdminView adminView = new AdminView();
-                    adminView.writeMovieToTextFile("MovieList.txt");
-                } catch (IOException e) {
-
-                }
                     break;
                 case 2:
                     break;
                 case 3:
                     break;
                 case 4:
-                    BookMyShow.showAllMovies();
+                    //BookMyShow.showAllMovies();
                     break;
                 case 5:
                     break;
@@ -68,13 +62,15 @@ public final class AdminForm extends Form {
                 case 7:
                     break;
                 case 8:
+                    System.out.println("Configure System Settings");
                     admin.manageSettings();
                     break;
                 case 9:
-                    MovieGoer movieGoer = new MovieGoer();
+                    //MovieGoer movieGoer = new MovieGoer();
                     break;
                 case 10:
                     this.exit();
+                    admin.exit();
                     break;
                 default:
                     System.out.println("Invalid choice.");
