@@ -48,9 +48,7 @@ public class BookMyShowApp {
         			System.out.println("Goodbye!");
         			return;
         		case 1:
-					IDandPasswords idandPasswords = new IDandPasswords();
-					LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo());
-        			return;
+        			break;
         		case 2:
 					BookMyShow.showShowTimes();
         			//BookMyShow.showMovies();
