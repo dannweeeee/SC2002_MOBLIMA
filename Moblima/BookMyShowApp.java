@@ -49,7 +49,7 @@ public class BookMyShowApp {
         			return;
         		case 1:
 					//BookMyShow.showMovies();
-        			return;
+        			break;
         		case 2:
 					BookMyShow.showShowTimes();
         			//BookMyShow.showMovies();
@@ -85,7 +85,7 @@ public class BookMyShowApp {
         		case 11:
 					IDandPasswords idandPasswords = new IDandPasswords();
 					LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo());
-        			break;
+        			return;
         		}
         	}
 		} while(option != -1);
