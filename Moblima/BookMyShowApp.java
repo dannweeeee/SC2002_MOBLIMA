@@ -34,7 +34,7 @@ public class BookMyShowApp {
 			System.out.println("| 11: ADMIN VIEW                                |");
             System.out.println("-------------------------------------------------");
             System.out.println();
-        	while(true) {
+     while(true) {
         		System.out.print("Main Menu - Enter option ('-1' to exit):");
         		try {
         			option = in.nextInt();
@@ -48,7 +48,8 @@ public class BookMyShowApp {
         			System.out.println("Goodbye!");
         			return;
         		case 1:
-        			break;
+					//BookMyShow.showMovies();
+        			return;
         		case 2:
 					BookMyShow.showShowTimes();
         			//BookMyShow.showMovies();
@@ -58,34 +59,35 @@ public class BookMyShowApp {
         		case 4:
         			break;
         		case 5:
+					BookMyShow.initializeExample();
+					System.out.println("Done!");
+					BookMyShow.showExample();
         			break;
         		case 6:
-        			BookMyShow.initializeExample();
-        			System.out.println("Done!");
-        			BookMyShow.showExample();
+					BookMyShow.showAllMovies();
         			break;
         		case 7:
-        			BookMyShow.showAllMovies();
+					BookMyShow.BookMovie();
         			break;
         		case 8:
-        			BookMyShow.BookMovie();
+					BookMyShow.showAllMoviesTicket();
         			break;
         		case 9:
-        			BookMyShow.showAllMoviesTicket();
+					String searchString="";
+					System.out.print("Enter the movie title: ");
+					in.nextLine();
+					searchString = in.nextLine();
+					BookMyShow.searchMovie(searchString);
         			break;
         		case 10:
-        			String searchString="";
-        			System.out.print("Enter the movie title: ");
-        			in.nextLine();
-        			searchString = in.nextLine();
-        			BookMyShow.searchMovie(searchString);
+					BookMyShow.createShow();
         			break;
         		case 11:
-        			BookMyShow.createShow();
+					IDandPasswords idandPasswords = new IDandPasswords();
+					LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo());
         			break;
         		}
         	}
 		} while(option != -1);
-		
 	}
 }

@@ -106,7 +106,7 @@ public class BookMyShow implements BookMyShowInterface{
 			System.out.println("| 03: View Movie by Location                    |");
 			System.out.println("| 04: Go Back                                   |");
 			System.out.println("-------------------------------------------------");
-			System.out.print("Enter option ('4' to return):");
+			System.out.print("Enter option ('4' to return): ");
 
 			booking_option = BookingInputs.getIntUserInput();
 
@@ -386,5 +386,9 @@ public class BookMyShow implements BookMyShowInterface{
 			}
 		} while(moviePartOption != -1);
 		System.out.println(selectedMovie);
+	}
+
+	public void removeMovie(String fileName){
+		
 	}
 }
