@@ -31,8 +31,6 @@ public class BookMyShow implements BookMyShowInterface{
 		in = new Scanner(System.in);
 	}
 	
-	public void showMovies() {}
-	
 	public void initializeExample() {
 		Cineplex jurong = cineplexHandler.addCineplex("JurongPoint");
 		cinemaHandler JurongPoint = new cinemaHandler("JurongPoint");
@@ -64,11 +62,11 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 	
 	public void showAllMovies() {
-		System.out.println("Show all Movies");
+		System.out.println("Showing all movies...");
 		int count =1;
 		for (Movie temp : movieHandler.getMovie()) {
 			System.out.print(count+": ");
-			temp.printMovieDetails();
+			System.out.println(temp);
 			count++;
 		}
 	}
@@ -296,13 +294,13 @@ public class BookMyShow implements BookMyShowInterface{
 		int sort = scanner.nextInt();
         scanner.nextLine();
         if(sort==1) {
-        	movieHandler.SortbyTicketSales();
+        	movieHandler.sortByTicketSales();
         }
-        else {movieHandler.SortbyRatings();}
+        else {movieHandler.sortByRatings();}
 		int count =1;
 		for (Movie temp : movieHandler.getMovie()) {
 			System.out.print(count+": ");
-			temp.printMovieDetails();
+			System.out.println(temp);
 			count++;
 		}
 	}
@@ -311,7 +309,7 @@ public class BookMyShow implements BookMyShowInterface{
 		System.out.println("Showing results for: "+searchString);
 		for (Movie temp : movieHandler.getMovie()) {
 			if(temp.getName().contentEquals(searchString)) {
-				temp.printFullMovieDetails();
+				System.out.println(temp);
 				System.out.print("Average Movie Rating: ");
 				System.out.println(temp.getAverageRatings());
 				System.out.println("Most Recent Reviews:");

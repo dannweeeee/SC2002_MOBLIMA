@@ -22,16 +22,33 @@ public class Cinema {
 		}
 
 	    public int getCapacity() {
-	        return seat_capacity;
+	        return this.seat_capacity;
 	    }
 
 	    public int getCinemaID() {
-	    	return id;
+	    	return this.id;
 	    }
 	    
-	    public void printCinema() {
-	    	System.out.print(id+": ");
-			System.out.print(classtype+", ");
-			System.out.print(seat_capacity+", ");
+	    public String getCinemaClass() {
+	    	return this.classtype;
+	    }
+	    
+	    public void setCinemaID(int id) {
+	    	this.id = id;
+	    }
+	    
+	    public void setCapacity(int capacity) {
+	    	this.seat_capacity = capacity;
+	    }
+	    
+	    public void setClass(String classType) {
+	    	this.classtype = classType;
+	    }
+	    
+	    @Override
+	    public String toString() {
+	    	return  id+": "+
+	    			classtype+", "+
+	    			seat_capacity;
 	    }
 }
