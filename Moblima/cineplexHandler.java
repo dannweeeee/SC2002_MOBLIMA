@@ -22,7 +22,7 @@ public class cineplexHandler {
 		int count =1;
 		for (Cineplex temp : allCineplex) {
 			temp.setCineplexNo(count);
-			System.out.println(temp);
+			System.out.print(temp);
 			count++;
 		}
 	}
