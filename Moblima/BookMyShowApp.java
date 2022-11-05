@@ -34,7 +34,7 @@ public class BookMyShowApp {
 			System.out.println("| 11: ADMIN VIEW                                |");
             System.out.println("-------------------------------------------------");
             System.out.println();
-            while(true) {
+     while(true) {
         		System.out.print("Main Menu - Enter option ('-1' to exit):");
         		try {
         			option = in.nextInt();
@@ -51,6 +51,8 @@ public class BookMyShowApp {
 					//BookMyShow.showMovies();
         			return;
         		case 2:
+					BookMyShow.showShowTimes();
+        			//BookMyShow.showMovies();
         			break;
         		case 3:
         			break;

@@ -1,40 +1,49 @@
 package Moblima;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Booking {
-    private int numOfTickets;
+    private int studentTicket;
+    private int adultTicket;
     private Show selectedShow;
     private ArrayList<Seats> seatList;
-    private ArrayList<Show> showSelection;
     private User user;
+    private double totalPrice;
 
     public Booking(User user){
         seatList = new ArrayList<>();
-        showSelection = new ArrayList<>();
-        numOfTickets = 0;
+        studentTicket = 0;
+        adultTicket = 0;
+        totalPrice = 0.0;
         selectedShow = null;
         this.user = user;
+    }
+
+    public double getPrice(){
+        return this.totalPrice;
+    }
+
+    public void setPrice(Double price){
+        this.totalPrice = price;
     }
 
     public User getUser(){
         return this.user;
     }
 
-    public void setShowSelection(ArrayList<Show> showSelection){
-        this.showSelection = showSelection;
+    public int getStudentTicketNum(){
+        return this.studentTicket;
     }
 
-    public ArrayList<Show> getShowSelection(){
-        return showSelection;
+    public void setStudentTicket(int num){
+        this.studentTicket = num;
+    } 
+
+    public int getAdultTicketNum(){
+        return this.adultTicket;
     }
 
-    public int getNumOfTickets(){
-        return this.numOfTickets;
-    }
-
-    public void setNumOfTickets(int num){
-        this.numOfTickets = num;
+    public void setAdultTicket(int num){
+        this.adultTicket = num;
     } 
 
     public ArrayList<Seats> getSeats() {

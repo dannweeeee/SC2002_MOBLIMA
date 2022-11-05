@@ -24,5 +24,7 @@ public interface BookMyShowInterface {
 
 	public void updateMovie(String fileName);
 
+	public void showShowTimes();
+
 	public void removeMovie(String fileName);
 }
