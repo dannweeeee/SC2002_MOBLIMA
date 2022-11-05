@@ -389,6 +389,18 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 
 	public void removeMovie(String fileName){
-		
+		int movieRemoveOption = 0;
+		showAllMovies();
+		System.out.print("Which Movie would you like to update? (e.g. 1): ");
+		try{
+			movieRemoveOption = in.nextInt();
+		}catch(InputMismatchException e) {
+			System.out.println("Invalid Input. Please re-enter.");
+			in.next();
+		}
+		Movie selectedMovie = movieHandler.getMovie().get(movieRemoveOption-1);
+		System.out.println("The following movie has been deleted!");
+		System.out.println(selectedMovie);
+		selectedMovie.removeMovie(movieRemoveOption-1);
 	}
 }
