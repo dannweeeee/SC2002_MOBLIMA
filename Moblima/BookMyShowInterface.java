@@ -23,4 +23,6 @@ public interface BookMyShowInterface {
 	public void createMovie(String fileName);
 
 	public void updateMovie(String fileName);
+
+	public void removeMovie(String fileName);
 }

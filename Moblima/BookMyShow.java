@@ -449,4 +449,8 @@ public class BookMyShow implements BookMyShowInterface{
 		} while(moviePartOption != -1);
 		System.out.println(selectedMovie);
 	}
+
+	public void removeMovie(String fileName){
+		
+	}
 }
