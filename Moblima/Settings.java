@@ -12,7 +12,7 @@ import java.lang.Class;
  * @version 1.0
  */
 public class Settings extends Properties {
-    private String SETTINGS_FILE_PATH = "Moblima/Settings.ini";
+    private String SETTINGS_FILE_PATH = "Moblima/settings.ini";
 
     private static Settings instance = null;
 
