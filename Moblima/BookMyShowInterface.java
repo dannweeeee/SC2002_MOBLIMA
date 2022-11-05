@@ -20,6 +20,7 @@ public interface BookMyShowInterface {
 
 	public void createShow();
 
-	public void writeMovieToTextFile(String fileName);
+	public void createMovie(String fileName);
 
+	public void updateMovie(String fileName);
 }
