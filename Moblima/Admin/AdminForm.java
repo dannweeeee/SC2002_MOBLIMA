@@ -16,7 +16,7 @@ public final class AdminForm extends Form {
      * Constructor for AdminForm.
      * @param admin the <code>Admin</code> object to be used.
      */
-    public AdminForm(Admin admin) {
+    public AdminForm(AdminLogic admin) {
         super();
         this.admin = admin;
     }
