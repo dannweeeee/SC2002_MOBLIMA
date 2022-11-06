@@ -15,7 +15,10 @@ public class BookMyShowApp {
 		}catch (Exception e) {
 			System.out.println("Movies File Read Error");
 		}
-		
+		showUserView(bookMyShow);
+	}
+
+	public static void showUserView(BookMyShowInterface bookMyShow) {
 		int option = 0;
 		in = new Scanner(System.in);
 		do {
@@ -46,6 +49,7 @@ public class BookMyShowApp {
         		switch (option) {
         		case -1:
         			System.out.println("Goodbye!");
+					System.exit(0);
         			return;
         		case 1:
 					bookMyShow.showAllMovies();
