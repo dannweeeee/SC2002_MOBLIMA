@@ -11,17 +11,17 @@ public class MovieBookerApp {
 	
 	public static void main(String[] args) {
 		
-		MovieBookerInterface bookMyShow = new MovieBooker();
+		MovieBookerInterface movieBooker = new MovieBooker();
 		
 		try {
 			ExampleAdder.readMovieFromTextFile("Moblima/Utils/MovieList.txt");
 		}catch (Exception e) {
 			System.out.println("Movies File Read Error");
 		}
-		showUserView(bookMyShow);
+		showUserView(movieBooker);
 	}
 
-	public static void showUserView(MovieBookerInterface bookMyShow) {
+	public static void showUserView(MovieBookerInterface movieBooker) {
 		int option = 0;
 		in = new Scanner(System.in);
 		do {
@@ -54,35 +54,34 @@ public class MovieBookerApp {
         			System.out.println("Goodbye!");
         			return;
         		case 1:
-					bookMyShow.showAllMovies();
+					movieBooker.showAllMovies();
         			break;
         		case 2:
-        			bookMyShow.searchMovie();
+        			movieBooker.searchMovie();
         			break;
         		case 3:
-        			bookMyShow.showShowTimes();
+        			movieBooker.showShowTimes();
         			break;
         		case 4:
-        			bookMyShow.showAllMoviesTicket();
+        			movieBooker.showAllMoviesTicket();
         			break;
         		case 5:
-        			bookMyShow.createRatingReview();
+        			movieBooker.createRatingReview();
         			break;
         		case 6:
-					bookMyShow.bookingMenu();
+					movieBooker.bookingMenu();
         			break;
         		case 7:
-        			bookMyShow.showBookingHist();
+        			movieBooker.showBookingHist();
         			break;
         		case 8:
 					
         			break;
         		case 9:
-        			bookMyShow.addExamples();
+        			movieBooker.addExamples();
         			break;
         		case 10:
-					Admin admin = Admin.getInstance();
-					admin.attachBookMyShow(bookMyShow);
+					Admin admin = new Admin(movieBooker);
 					admin.start();
         			return;
         		}

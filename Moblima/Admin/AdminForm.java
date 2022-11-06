@@ -1,17 +1,16 @@
 package Moblima.Admin;
 
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
  * This class is the UI for the admin module.
- * @author Nghia Nguyen
+ * @author Our team
  * @version 1.0
  */
 public final class AdminForm extends Form {
 
-    private Admin admin;
+    private AdminLogic admin;
 
     /**
      * Constructor for AdminForm.
@@ -74,8 +73,10 @@ public final class AdminForm extends Form {
                 admin.createShow();
                 break;
             case 6:
+                admin.updateShow();
                 break;
             case 7:
+                admin.removeShow();
                 break;
             case 8:
                 admin.manageSettings();
