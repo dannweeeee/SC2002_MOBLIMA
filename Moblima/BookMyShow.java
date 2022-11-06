@@ -348,17 +348,19 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 
 	// should be in movie handler
-	public void searchMovie(String searchString) {
+	public void searchMovie() {
+		
+		String searchString = BookingInputs.getSearchString();
 		System.out.println("Showing results for: "+searchString);
-		for (Movie temp : movieHandler.getMovie()) {
-			if(temp.getName().contentEquals(searchString)) {
+		ArrayList<Movie> searchResult = movieHandler.searchMovie(searchString);
+		if (searchResult != null) {
+			for (Movie temp : searchResult) {
 				System.out.println(temp);
-				System.out.print("Average Movie Rating: ");
-				System.out.println(temp.getAverageRatings());
-				System.out.println("Most Recent Reviews:");
-				System.out.println(temp.getReview());
 			}
+		}else {
+			System.out.println("No results found for \""+searchString+"\"");
 		}
+
 	}
 
 	// add this to showhandler

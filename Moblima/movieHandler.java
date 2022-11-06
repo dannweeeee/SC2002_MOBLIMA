@@ -33,13 +33,14 @@ public class movieHandler {
 		}
 	}
 	
-	public Movie searchMovie(String searchString) {
+	public ArrayList<Movie> searchMovie(String searchString) {
+		ArrayList<Movie> results = new ArrayList<>();
 		for (Movie temp : this.getMovie()) {
-			if(temp.getName().compareToIgnoreCase(searchString)==0) {
-				return temp;
+			if(temp.getName().toLowerCase().contains(searchString)) {
+				results.add(temp);
 			}
 		}
-		return null;
+		return results;
 	}
 
 	public Movie createMovie(String movieName, String movieStatus, String movieDirector, String movieSynopsis, String movieCaString){
