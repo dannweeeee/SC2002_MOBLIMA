@@ -437,7 +437,7 @@ public class BookMyShow implements BookMyShowInterface{
 	public void showBookingHist() {
 		for (Ticket temp : userhandler.getUsers().get(0).getTickets()) {
 			System.out.println( "Ticket{" +
-	                "owner='" +  userhandler.getUsers().get(0).getName() +
+	                " owner='" +  userhandler.getUsers().get(0).getName() +
 	                ", bookingTime=" + temp.getBookingTime() +
 	                ", Seats booked=" + temp.getSeat().getSeat() +
 	                ", bookedShow=" + temp.getBookedShow()+
@@ -463,7 +463,7 @@ public class BookMyShow implements BookMyShowInterface{
 					System.out.println("Enter your rating from 1 to 5:");
 					double score = scanner.nextInt();
 			        scanner.nextLine();
-					temp.addRatings(new Rating(score,userhandler.getUsers().get(0)));
+					temp.addRatings(new Rating(score,userhandler.getUsers().get(userhandler.getSize()-1)));
 					System.out.println("Review added");
 				}
 			}
@@ -475,7 +475,7 @@ public class BookMyShow implements BookMyShowInterface{
 				if(temp.getName().contentEquals(name1)) {
 					System.out.println("Enter your review:");
 					String text = in.nextLine();
-					temp.addReview(new Review(text,userhandler.getUsers().get(0)));
+					temp.addReview(new Review(text,userhandler.getUsers().get(userhandler.getSize()-1)));
 					System.out.println("Review added");
 					break;
 				}
