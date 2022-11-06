@@ -27,4 +27,7 @@ public class User {
     public int getNumber() {
         return number;
     }
+    public ArrayList<Ticket> getTickets(){
+    	return bookingHistory;
+    }
 }
