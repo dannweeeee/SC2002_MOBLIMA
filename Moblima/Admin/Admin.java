@@ -4,6 +4,8 @@ import Moblima.MovieBookerApp;
 import Moblima.MovieBookerInterface;
 import Moblima.Utils.SettingsController;
 import Moblima.Utils.SettingsForm;
+import Moblima.Handlers.MovieHandler;
+import Moblima.Handlers.ShowHandler;
 
 /**
  * Controller of the admin module. Creates and delegates tasks to other classes.
@@ -11,18 +13,24 @@ import Moblima.Utils.SettingsForm;
  * @version 1.0
  */
 public class Admin implements AdminLogic, LoginObserver {
+
     private LoginPage loginUI;
     private AdminForm adminUI;
     private SettingsController settingsController;
+
     private MovieBookerInterface movieBooker;
+    private MovieHandler movieHandler;
+    private ShowHandler showHandler;
 
     /**
      * Constructor for Admin.
      */
     public Admin(MovieBookerInterface movieBooker) {
-        this.movieBooker = movieBooker;
         adminUI = new AdminForm(this);
         settingsController = new SettingsController(new SettingsForm());
+        this.movieBooker = movieBooker;
+        movieHandler = MovieHandler.getInstance();
+        showHandler = ShowHandler.getInstance();
     }
 
     /**
