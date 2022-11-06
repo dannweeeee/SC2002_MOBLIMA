@@ -12,6 +12,7 @@ public class Admin implements LoginObserver {
     private LoginPage loginUI;
     private AdminForm adminUI;
     private SettingsController settingsController;
+    private BookMyShow showManager;
 
     /**
      * Constructor for Admin.
@@ -71,6 +72,14 @@ public class Admin implements LoginObserver {
         adminUI = null;
         settingsController = null;
         BookMyShowApp.main(null);
+    }
+
+    /**
+     * Inject a BookMyShow object into the admin module.
+     * @param bookMyShow the <code>BookMyShow</code> object to be injected.
+     */
+    public void attachBookMyShow(BookMyShow bookMyShow) {
+        this.showManager = bookMyShow;
     }
 
     /**
