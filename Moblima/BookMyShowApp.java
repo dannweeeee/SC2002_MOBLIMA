@@ -84,8 +84,8 @@ public class BookMyShowApp {
 					BookMyShow.createShow();
         			break;
         		case 11:
-					IDandPasswords idandPasswords = new IDandPasswords();
-					LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo());
+					Admin admin = Admin.getInstance();
+					admin.start();
         			return;
         		}
         	}
