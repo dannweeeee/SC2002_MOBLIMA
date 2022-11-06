@@ -54,6 +54,7 @@ public class MovieBookerApp {
 					switch (option) {
 					case -1:
 						System.out.println("Goodbye!");
+						System.exit(0);
 						return;
 					case 1:
 						movieBooker.showAllMovies();
@@ -82,8 +83,8 @@ public class MovieBookerApp {
 					case 9:
 						movieBooker.addExamples();
 						break;
-          case 10:
-            Admin admin = new Admin(movieBooker);
+          			case 10:
+            			Admin admin = new Admin(movieBooker);
 						admin.start();
 						return;
 					default:
