@@ -11,6 +11,7 @@ import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Show;
 import Moblima.Entities.User;
+import Moblima.Entities.Cinema.HallType;
 import Moblima.Handlers.CinemaHandler;
 import Moblima.Handlers.CineplexHandler;
 import Moblima.Handlers.MovieHandler;
@@ -29,10 +30,10 @@ public class ExampleAdder {
 		
 		Cineplex jurong = cineplexHandler.addCineplex("JurongPoint");
 		CinemaHandler JurongPoint = new CinemaHandler("JurongPoint");
-		JurongPoint.addCinema("Standard", 35, jurong);
-		JurongPoint.addCinema("Platinum", 10, jurong);
+		JurongPoint.addCinema(HallType.STANDARD, 35, jurong);
+		JurongPoint.addCinema(HallType.PREMIUM, 10, jurong);
 		cineplexHandler.getAllCineplex().get(cineplexHandler.getSize()-1).setHall(JurongPoint);
-		JurongPoint.addCinema("VIP", 1, jurong);
+		JurongPoint.addCinema(HallType.VIP, 1, jurong);
 		
 		User ayush = new User("Ayush","ayus@gmail.com",3293131);
 
@@ -52,9 +53,17 @@ public class ExampleAdder {
 	
 	public static void showExample() {
 		CineplexHandler cineplexHandler = CineplexHandler.getInstance();
+		ShowHandler showHandler = ShowHandler.getInstance();
+		
+		System.out.println("Show all cineplexes:");
 		cineplexHandler.printAllCineplex();
-		System.out.println("\nShow all cinemas:");
-		cineplexHandler.getAllCineplex().get(0).printAllCinema();
+		System.out.println("\n\nShow all cinemas:");
+		for (Cineplex temp : cineplexHandler.getAllCineplex()) {
+			temp.printAllCinema();
+		}
+		System.out.println("\nShow all shows:");
+		System.out.println(showHandler.getAllShows());
+		
 	}
 	
 	public static void readMovieFromTextFile(String fileName) throws FileNotFoundException{

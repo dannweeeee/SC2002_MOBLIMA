@@ -6,45 +6,34 @@ import java.io.FileReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import javax.print.event.PrintEvent;
-
 import Moblima.DataBase.ExampleAdder;
-import Moblima.Entities.Booking;
 import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Rating;
 import Moblima.Entities.Review;
-import Moblima.Entities.Seats;
+
 import Moblima.Entities.Show;
 import Moblima.Entities.Ticket;
 import Moblima.Entities.User;
 import Moblima.Handlers.SeatHandler;
 import Moblima.Handlers.ShowHandler;
 import Moblima.Handlers.UserHandler;
+import Moblima.Handlers.BookingController;
 import Moblima.Handlers.CinemaHandler;
 import Moblima.Handlers.CineplexHandler;
 import Moblima.Handlers.MovieHandler;
-import Moblima.Utils.Settings;
 import Moblima.Utils.UtilityInputs;
 
 public class MovieBooker implements MovieBookerInterface{
-	
-	
-	private CinemaHandler CinemaHandler;
-	private Cinema cinema;
-	private Cineplex cineplex;
+
 	private Scanner in;
-	
 	private UserHandler userhandler;
 	SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");
-
-
 	
 	public MovieBooker() {
 		userhandler= new UserHandler();
@@ -68,11 +57,28 @@ public class MovieBooker implements MovieBookerInterface{
 	}
 	
 	public void bookingMenu() {
-		
+		BookingController bookController = new BookingController(userhandler);
+		User user1 = UtilityInputs.getUserInformation();
+		userhandler.getUsers().add(user1);
+		int choice = 0;
+		ArrayList<Ticket> tickets = new ArrayList<>();
+		while(true){
+			BookingController.bookMenu();
+			choice = bookController.getMenuChoice();
+			if (choice == 4) return;
+			ArrayList<Show> shows = bookController.getShowList(choice);
+			if (shows == null) {
+				continue;
+			}
+			ArrayList<Ticket> ticket = bookController.bookShow(shows, user1);
+			if (ticket == null){
+				continue;
+			}
+			tickets.addAll(ticket);			
+		}
 	}
 	
     public void showAllMoviesTicket() {
-
 		MovieHandler movieHandler = MovieHandler.getInstance();
 		int count =1;
 		System.out.println("Sort Movies by: \n1.Ticket sales \n2.Ratings");

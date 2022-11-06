@@ -1,15 +1,19 @@
 package Moblima.Entities;
 
-import java.util.ArrayList;
+import Moblima.Entities.Cinema.HallType;
 
 public class Cinema {
 	private static int idCounter=0;
 	    private int id;
 	    private int seat_capacity;
-	    private String classtype;
+	    private HallType classtype;
 	    private Cineplex cineplex;
 
-	    public Cinema(String classtype,int seat_capacity, Cineplex cineplex) {
+		public enum HallType{
+			STANDARD, PREMIUM, VIP
+		}
+
+	    public Cinema(HallType classtype,int seat_capacity, Cineplex cineplex) {
 	        idCounter += 1;
 	        this.id = idCounter;
 	        this.classtype= classtype;
@@ -29,7 +33,7 @@ public class Cinema {
 	    	return this.id;
 	    }
 	    
-	    public String getCinemaClass() {
+	    public HallType getCinemaClass() {
 	    	return this.classtype;
 	    }
 	    
@@ -41,7 +45,7 @@ public class Cinema {
 	    	this.seat_capacity = capacity;
 	    }
 	    
-	    public void setClass(String classType) {
+	    public void setClass(HallType classType) {
 	    	this.classtype = classType;
 	    }
 	    
