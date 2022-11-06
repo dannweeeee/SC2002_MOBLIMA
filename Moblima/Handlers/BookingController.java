@@ -35,6 +35,7 @@ public class BookingController {
 		this.userHandler = userHandler;
 	}
 
+
 	public static void bookMenu(){
 		System.out.println("--------------MOBLIMA BOOKING MENU!--------------");
 		System.out.println("| 01: List All Shows                            |");
@@ -93,7 +94,6 @@ public class BookingController {
 		ShowHandler.printAllShows(shows);
 		Show selectedShow = UtilityInputs.getShow(shows);
 		if (selectedShow == null) return null;
-
 		newBooking.setShow(selectedShow);
 		seatHandler.printAvailableSeats(selectedShow);
 		newBooking.setAdultTicket(UtilityInputs.getNumberOfTicket("Adult"));
@@ -138,7 +138,6 @@ public class BookingController {
 						System.out.println(e.getMessage());
 						continue;
 					}
-					
 				}
 			}
 			break;
@@ -233,7 +232,6 @@ public class BookingController {
 				adultPrice += Double.parseDouble(settings.getProperty("public_holiday_price_increase"));
 			}
 		}catch (NumberFormatException e) {}
-
 		newBooking.setAdultPrice(adultPrice);
 		newBooking.setStudentPrice(studentPrice);
 	}
@@ -276,7 +274,6 @@ public class BookingController {
 			}catch (InvalidInputException e){
 				System.out.println(e.getMessage());
 			}
-            
         }
     }
 

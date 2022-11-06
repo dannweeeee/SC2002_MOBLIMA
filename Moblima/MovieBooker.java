@@ -10,13 +10,13 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
 import Moblima.DataBase.ExampleAdder;
 import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Rating;
 import Moblima.Entities.Review;
+
 import Moblima.Entities.Show;
 import Moblima.Entities.Ticket;
 import Moblima.Entities.User;
