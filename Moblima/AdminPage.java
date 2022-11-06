@@ -1,12 +1,13 @@
 package Moblima;
 
+import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AdminPage {
     private static Scanner in;
     
-    public AdminPage() {
+    public AdminPage() throws FileNotFoundException {
 
         BookMyShowInterface BookMyShow = new BookMyShow();
 
@@ -29,7 +30,7 @@ public class AdminPage {
             System.out.println("| 06: Update Movie Showtime                      |");
             System.out.println("| 07: Remove Movie Showtime                      |");
             System.out.println("| 08: Configure System Settings                  |");
-            System.out.println("| 09: Movie Goer View                            |");
+            System.out.println("| 09: USER VIEW                                  |");
             System.out.println("--------------------------------------------------");
             System.out.println();
             while(true) {
@@ -41,23 +42,25 @@ public class AdminPage {
                     in.next();
                     continue;
                 }
-                
                 switch (option) {
                 case -1:
                     System.out.println("Goodbye!");
                     System.exit(0);
                     return;
                 case 1:
-                    BookMyShow.writeMovieToTextFile("MovieList.txt");
+                    BookMyShow.createMovie("MovieList.txt");
                     break;
                 case 2:
+                    BookMyShow.updateMovie("MovieList.txt");
                     break;
                 case 3:
+                    BookMyShow.removeMovie("MovieList.txt");
                     break;
                 case 4:
                     BookMyShow.showAllMovies();
                     break;
                 case 5:
+                    BookMyShow.createShow();
                     break;
                 case 6:
                     break;
@@ -67,7 +70,7 @@ public class AdminPage {
                     break;
                 case 9:
                     MovieGoer movieGoer = new MovieGoer();
-                break;
+                return;
                 }
             }
         } 

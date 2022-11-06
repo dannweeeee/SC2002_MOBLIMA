@@ -20,10 +20,11 @@ public interface BookMyShowInterface {
 
 	public void createShow();
 
-	public void writeMovieToTextFile(String fileName);
-	
-	public void showBookingHist();
-	
-	public void createRatingReview();
+	public void createMovie(String fileName);
 
+	public void updateMovie(String fileName);
+
+	public void showShowTimes();
+
+	public void removeMovie(String fileName);
 }
