@@ -15,11 +15,11 @@ public class movieHandler {
 	}
 	
 	public void sortByTicketSales() {
-		Collections.sort(movie, new SortbyTicket());
+		Collections.sort(movie, new SortbyTicket().reversed());
     }
 	
 	public void sortByRatings() {
-		Collections.sort(movie, new SortbyRating());
+		Collections.sort(movie, new SortbyRating().reversed());
     }
 	public void addMovie(Movie m){
 		movie.add(m);
