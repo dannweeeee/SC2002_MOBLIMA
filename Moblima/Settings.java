@@ -2,13 +2,14 @@ package Moblima;
 
 import java.util.Properties;
 
+
 /**
  * This class handles the settings of the admin module.
  * @author Nghia Nguyen
  * @version 1.0
  */
 public class Settings extends Properties {
-    public static final String SETTINGS_FILE_PATH = "Moblima/settings.ini";
+    private String SETTINGS_FILE_PATH = "Moblima/settings.ini";
 
     private static Settings instance = null;
 
@@ -36,7 +37,9 @@ public class Settings extends Properties {
      */
     public void load() {
         try {
-            super.load(new java.io.FileInputStream(SETTINGS_FILE_PATH));
+            //super.load(new java.io.FileInputStream(SETTINGS_FILE_PATH));
+            ClassLoader classLoader = getClass().getClassLoader();
+            super.load(classLoader.getResourceAsStream(SETTINGS_FILE_PATH));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -59,7 +62,7 @@ public class Settings extends Properties {
     public void print() {
         System.out.println("Property names          Property values");
         for (String key : stringPropertyNames()) {
-            System.out.printf("%-24s%-24s\n",key, getProperty(key));
+            System.out.printf("%-32s%-32s\n", key, getProperty(key));
         }
     }
 }
