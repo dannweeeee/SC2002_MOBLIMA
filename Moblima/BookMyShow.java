@@ -12,7 +12,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BookMyShow implements BookMyShowInterface{
-	
 	private movieHandler movieHandler;
 	private cineplexHandler cineplexHandler;
 	private cinemaHandler cinemaHandler;
@@ -56,8 +55,8 @@ public class BookMyShow implements BookMyShowInterface{
 		
 		User ayush = new User("Ayush","ayus@gmail.com",3293131);
 
-		Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
-        Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
+		//Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
+       // Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
         String dateInString = "Sunday, Dec 25, 2020 09:00:00 AM";
 		try {
 			Date date = formatter.parse(dateInString);
@@ -231,6 +230,7 @@ public class BookMyShow implements BookMyShowInterface{
 
 	public boolean isHoliday(Settings settings, Calendar cal){
 		String ph_dates = settings.getProperty("public_holiday_dates");
+		if (ph_dates == null) return false;
 		String[] arrOfStr = ph_dates.split(",");
 		for (String s : arrOfStr){
 			if (Integer.parseInt(s.split("/", 2)[0]) == cal.get(Calendar.DAY_OF_MONTH) && Integer.parseInt(s.split("/", 2)[1]) == cal.get(Calendar.MONTH) + 1){
@@ -316,48 +316,49 @@ public class BookMyShow implements BookMyShowInterface{
         }
     }
 
-	public void showAllMoviesTicket() {
-		System.out.println("Sort Movies by: 1.Ticket sales, 2.Ratings");
-		int sort = scanner.nextInt();
-        scanner.nextLine();
-        int count =1;
-        if(sort==1) {
+    public void showAllMoviesTicket() {
+		int count =1;
+		System.out.println("Sort Movies by: \n1.Ticket sales \n2.Ratings");
+		System.out.print("Enter Option: ");
+        int sortOption = BookingInputs.getIntUserInput();
+        
+        if(sortOption==1) {
         	movieHandler.sortByTicketSales();
         	for (Movie temp : movieHandler.getMovie()) {
+        		if(count>5) break;
     			System.out.print(count+": ");
     			System.out.print(temp);
     			System.out.println("Ticket Sales: "+temp.getTicketsSize());
+    			System.out.println();
     			count++;
-    			if(count==6) {break;}
     		}
         }
         else {
         	movieHandler.sortByRatings();
 	        for (Movie temp : movieHandler.getMovie()) {
-				System.out.print(count+": ");
+	        	if(count>5) break;
+	        	System.out.print(count+": ");
 				System.out.print(temp);
-				if (temp.getAverageRatings()==-1) {
-					System.out.println("Ratings: NA");
-				}else
-					System.out.println("Ratings: "+temp.getAverageRatings());
+				System.out.println("Ratings: "+temp.getAverageRatings());
+				System.out.println();
 				count++;
-				if(count==6) {break;}
 			}
         }
 	}
 
 	// should be in movie handler
-	public void searchMovie(String searchString) {
+	public void searchMovie() {
+		String searchString = BookingInputs.getSearchString();
 		System.out.println("Showing results for: "+searchString);
-		for (Movie temp : movieHandler.getMovie()) {
-			if(temp.getName().contentEquals(searchString)) {
+		ArrayList<Movie> searchResult = movieHandler.searchMovie(searchString);
+		if (searchResult != null) {
+			for (Movie temp : searchResult) {
 				System.out.println(temp);
-				System.out.print("Average Movie Rating: ");
-				System.out.println(temp.getAverageRatings());
-				System.out.println("Most Recent Reviews:");
-				System.out.println(temp.getReview());
 			}
+		}else {
+			System.out.println("No results found for \""+searchString+"\"");
 		}
+
 	}
 
 	// add this to showhandler
@@ -412,7 +413,7 @@ public class BookMyShow implements BookMyShowInterface{
 		return movieHandler;
 	}
 
-	public void createMovie(String fileName){
+	public void createMovie(String fileName) throws IndexOutOfBoundsException {
         in = new Scanner(System.in);
         String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;
         System.out.print("Enter full name of Movie: ");
@@ -432,14 +433,32 @@ public class BookMyShow implements BookMyShowInterface{
 		int movieOption = 0, moviePartOption = 0;
 		String movieName, movieStatus, movieDirector, movieSynopsis, movieCasts;
 		String movieUpdateName, movieUpdateStatus, movieUpdateDirector, movieUpdateSynopsis, movieUpdateCasts;
+		
 		showAllMovies();
-		System.out.print("Which Movie would you like to update? (e.g. 1): ");
-		try{
-			movieOption = in.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("Invalid Input. Please re-enter.");
-			in.next();
-		}
+		do{
+			System.out.print("Choose digit of Movie to update (Enter '-1' to go back): ");
+			try{
+				in = new Scanner(System.in);
+				movieOption = in.nextInt();
+				if (movieOption > 0 && movieOption < movieHandler.sizeMovie()){
+					break;
+				}
+				else if (movieOption<0){
+					movieOption = in.nextInt();
+					throw new IllegalArgumentException("Input out of bounds. Please re-enter. ");
+				}
+				else{
+					System.out.println("Input out of bounds. Please re-enter. ");
+				}
+			}catch(IllegalArgumentException iae){
+				System.out.println(iae.getMessage());
+				in.next();
+			}catch(Exception e) {
+				System.out.println("Invalid Input. Please re-enter. ");
+				in.next();
+			}
+		} while(movieOption != -1);
+
 		Movie selectedMovie = movieHandler.getMovie().get(movieOption-1);
 		movieName = selectedMovie.getName();
 		movieStatus = selectedMovie.getStatus();
@@ -455,7 +474,13 @@ public class BookMyShow implements BookMyShowInterface{
 
 		do{
 			System.out.println("Select which to update (Enter '-1' to confirm & exit): ");
-			moviePartOption = in.nextInt();
+			try {
+				moviePartOption = in.nextInt();
+			}catch(Exception e) {
+				System.out.println("Invalid Input. Please re-enter.");
+				in.next();
+				continue;
+			}
 			switch(moviePartOption){
 				case 1:
 					System.out.print("Update full name of Movie: ");
@@ -494,7 +519,7 @@ public class BookMyShow implements BookMyShowInterface{
 		System.out.println(selectedMovie);
 	}
 
-	public void removeMovie(String fileName){
+	public void removeMovie(String fileName) throws IndexOutOfBoundsException {
 		int movieRemoveOption = 0;
 		showAllMovies();
 		System.out.print("Which Movie would you like to update? (e.g. 1): ");
@@ -524,7 +549,6 @@ public class BookMyShow implements BookMyShowInterface{
 	public void createRatingReview() {
 		int option=0;
 		User useri=null;
-		Movie choice=null;
 		System.out.print("Enter your Email: ");
 		String email=in.nextLine();
 		for(User temp: userhandler.getUsers()) {
@@ -536,53 +560,51 @@ public class BookMyShow implements BookMyShowInterface{
 			return;
 		}
 		do {
-		System.out.println("| 01: Rate a Movie                           |");
-		System.out.println("| 02: Review a Movie                         |");
-		System.out.println("| 03: Exit                                   |");
-		option = scanner.nextInt();
-        scanner.nextLine();
-        switch(option){
-		case 1:
-			choice=null;
-			System.out.println("Which Movie would you like to rate?");
-			String name=in.nextLine();
-			for (Movie temp : movieHandler.getMovie()) {
-				if(temp.getName().contentEquals(name)) {
-					choice=temp;
-					break;
-				}
-			}
-			if(choice!=null) {
-			System.out.println("Enter your rating from 1 to 5:");
-			double score = scanner.nextInt();
-	        scanner.nextLine();
-			choice.addRatings(new Rating(score,useri));
-			System.out.println("Rating added");}
-			else System.out.println("Movie does not exist");
-			break;
-		case 2:
-			choice=null;
-			System.out.println("Which Movie would you like to review?");
-			String name1=in.nextLine();
-			for (Movie temp : movieHandler.getMovie()) {
-				if(temp.getName().contentEquals(name1)) {
-					choice=temp;
-					break;
-				}
+			
+            System.out.println();
+            System.out.println("----------------REVIEW/RATING MENU---------------");
+        	System.out.println("| 01: Rate a Movie                              |");
+        	System.out.println("| 02: Review a Movie                            |");
+        	System.out.println("| 03: Exit                                      |");
+            System.out.println("-------------------------------------------------");
+            System.out.println();
+            
+			option = BookingInputs.getIntUserInput();
+	        
+	        switch(option){
+			case 1:
+				System.out.println("Which Movie would you like to rate?");
+				String name=in.nextLine();
 				
-			}
-			if(choice!=null) {
-			System.out.println("Enter your review:");
-			String text = in.nextLine();
-			choice.addReview(new Review(text,useri));
-			System.out.println("Review added");}
-			else System.out.println("Movie does not exist");
-			break;
-		case 3:
-			break;
-		default:
-			System.out.println("Invalid Input");
-	}
+				for (Movie temp : movieHandler.getMovie()) {
+					if(temp.getName().contentEquals(name)) {
+						System.out.println("Enter your rating from 1 to 5:");
+						double score = scanner.nextInt();
+				        scanner.nextLine();
+						temp.addRatings(new Rating(score,useri));
+						System.out.println("Rating added");
+						break;
+					}
+				}
+				break;
+			case 2:
+				System.out.println("Which Movie would you like to review?");
+				String name1=in.nextLine();
+				for (Movie temp : movieHandler.getMovie()) {
+					if(temp.getName().contentEquals(name1)) {
+						System.out.println("Enter your review:");
+						String text = in.nextLine();
+						temp.addReview(new Review(text,useri));
+						System.out.println("Review added");
+						break;
+					}
+				}
+				break;
+			case 3:
+				break;
+			default:
+				System.out.println("Invalid Input");
+	        }
 		}while(option!=3);
 	}
   
@@ -609,3 +631,4 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 	
 }
+

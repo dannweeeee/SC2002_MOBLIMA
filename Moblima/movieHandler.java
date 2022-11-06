@@ -13,6 +13,10 @@ public class movieHandler {
 	public ArrayList<Movie> getMovie(){
 		return movie;
 	}
+
+	public int sizeMovie(){
+		return movie.size();
+	}
 	
 	public void sortByTicketSales() {
 		Collections.sort(movie, new SortbyTicket().reversed());
@@ -31,6 +35,16 @@ public class movieHandler {
 			temp.getName();
 			count++;
 		}
+	}
+	
+	public ArrayList<Movie> searchMovie(String searchString) {
+		ArrayList<Movie> results = new ArrayList<>();
+		for (Movie temp : this.getMovie()) {
+			if(temp.getName().toLowerCase().contains(searchString)) {
+				results.add(temp);
+			}
+		}
+		return results;
 	}
 
 	public Movie createMovie(String movieName, String movieStatus, String movieDirector, String movieSynopsis, String movieCaString){
