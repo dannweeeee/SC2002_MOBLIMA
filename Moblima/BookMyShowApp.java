@@ -34,7 +34,7 @@ public class BookMyShowApp {
 	        	System.out.println("| 07: Show Booking History                      |");
 	        	System.out.println("| 08: Search Movie                              |");
 	        	System.out.println("| 09: Create Show                               |");
-				System.out.println("| 10: ADMIN Login                               |");
+				    System.out.println("| 10: ADMIN Login                               |");
 	            System.out.println("-------------------------------------------------");
 	            System.out.println();
      
@@ -69,7 +69,7 @@ public class BookMyShowApp {
         			bookMyShow.showAllMoviesTicket();
         			break;
         		case 6:
-					bookMyShow.BookMovie();
+					    bookMyShow.BookMovie();
         			break;
         		case 7:
         			bookMyShow.showBookingHist();

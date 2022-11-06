@@ -102,8 +102,6 @@ public class SeatHandler {
 
     public void removeSeats(Seats seat, Show s){
         ArrayList<Seats> allSeats = getSeatList(s);
-
-        System.out.println("removing seat: " + seat.getSeat());
         for (Seats seats : allSeats){
             if (seats.getSeat().equals(seat.getSeat())){
                 seats.setRow("X");
