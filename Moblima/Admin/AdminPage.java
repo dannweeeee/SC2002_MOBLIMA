@@ -4,15 +4,15 @@ import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import Moblima.BookMyShow;
-import Moblima.BookMyShowInterface;
+import Moblima.MovieBooker;
+import Moblima.MovieBookerInterface;
 
 public class AdminPage {
     private static Scanner in;
     
     public AdminPage() throws FileNotFoundException {
 
-        BookMyShowInterface BookMyShow = new BookMyShow();
+        MovieBookerInterface BookMyShow = new MovieBooker();
 
         try {
 			BookMyShow.readMovieFromTextFile("MovieList.txt");

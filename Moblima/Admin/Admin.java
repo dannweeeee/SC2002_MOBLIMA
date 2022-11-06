@@ -2,8 +2,8 @@ package Moblima.Admin;
 
 import java.io.FileNotFoundException;
 
-import Moblima.BookMyShowApp;
-import Moblima.BookMyShowInterface;
+import Moblima.MovieBookerApp;
+import Moblima.MovieBookerInterface;
 import Moblima.Utils.SettingsController;
 import Moblima.Utils.SettingsForm;
 
@@ -17,7 +17,7 @@ public class Admin implements LoginObserver {
     private LoginPage loginUI;
     private AdminForm adminUI;
     private SettingsController settingsController;
-    private BookMyShowInterface showManager;
+    private MovieBookerInterface showManager;
 
     /**
      * Constructor for Admin.
@@ -71,14 +71,14 @@ public class Admin implements LoginObserver {
         loginUI = null;
         adminUI = null;
         settingsController = null;
-        BookMyShowApp.showUserView(showManager);
+        MovieBookerApp.showUserView(showManager);
     }
 
     /**
      * Inject a BookMyShow object into the admin module.
      * @param bookMyShow the <code>BookMyShow</code> object to be injected.
      */
-    public void attachBookMyShow(BookMyShowInterface bookMyShow) {
+    public void attachBookMyShow(MovieBookerInterface bookMyShow) {
         this.showManager = bookMyShow;
     }
 

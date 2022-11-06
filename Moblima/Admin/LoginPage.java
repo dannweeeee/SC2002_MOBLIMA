@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import Moblima.BookMyShow;
+import Moblima.MovieBooker;
 
 public class LoginPage implements ActionListener{
     JFrame frame = new JFrame();
@@ -28,7 +28,7 @@ public class LoginPage implements ActionListener{
 
     LoginObserver loginObservers[] = new LoginObserver[10];
     HashMap<String,String> logininfo = new HashMap<String,String>();
-    BookMyShow bookMyShow = new BookMyShow();
+    MovieBooker movieBooker = new MovieBooker();
 
     LoginPage(HashMap<String,String> loginInfoOriginal){
 
