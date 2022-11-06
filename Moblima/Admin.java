@@ -1,5 +1,7 @@
 package Moblima;
 
+import java.io.FileNotFoundException;
+
 /**
  * Controller of the admin module. Creates and delegates tasks to other classes.
  * @author Nghia Nguyen
@@ -52,7 +54,11 @@ public class Admin implements LoginObserver {
      * Launch the admin UI when the login is successful.
      */
     public void loginSuccess() {
-        //this.start();
+        try {
+            AdminPage adminPage = new AdminPage();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
         adminUI.show();
     }
 
