@@ -22,17 +22,16 @@ public class BookMyShowApp {
 			while(true) {
 	            System.out.println();
 	            System.out.println("-----------------MOBLIMA MAIN MENU---------------");
-	        	System.out.println("| 01: View Movies                               |");
+	        	System.out.println("| 01: Show all Movies                           |");
 	        	System.out.println("| 02: View Showtimes                            |");
 	        	System.out.println("| 03: Review/Rate Movies                        |");
-	        	System.out.println("| 04: Show all Movies                           |");
-	        	System.out.println("| 05: Initialize/Show Example                   |");
-	        	System.out.println("| 06: View Top 5 Movies                         |");
-	        	System.out.println("| 07: Booking  Menu                             |");
-	        	System.out.println("| 08: Show Booking History                      |");
-	        	System.out.println("| 09: Search Movie                              |");
-	        	System.out.println("| 10: Create Show                               |");
-				System.out.println("| 11: ADMIN VIEW                                |");
+	        	System.out.println("| 04: Initialize/Show Example                   |");
+	        	System.out.println("| 05: View Top 5 Movies                         |");
+	        	System.out.println("| 06: Booking  Menu                             |");
+	        	System.out.println("| 07: Show Booking History                      |");
+	        	System.out.println("| 08: Search Movie                              |");
+	        	System.out.println("| 09: Create Show                               |");
+				System.out.println("| 10: ADMIN Login                               |");
 	            System.out.println("-------------------------------------------------");
 	            System.out.println();
      
@@ -49,7 +48,7 @@ public class BookMyShowApp {
         			System.out.println("Goodbye!");
         			return;
         		case 1:
-					//BookMyShow.showMovies();
+					BookMyShow.showAllMovies();
         			break;
         		case 2:
 					BookMyShow.showShowTimes();
@@ -58,33 +57,30 @@ public class BookMyShowApp {
         			BookMyShow.createRatingReview();
         			break;
         		case 4:
-        			BookMyShow.showAllMovies();
-        			break;
-        		case 5:
 					BookMyShow.initializeExample();
 					System.out.println("Done!");
 					BookMyShow.showExample();
         			break;
-        		case 6:
+        		case 5:
         			BookMyShow.showAllMoviesTicket();
         			break;
-        		case 7:
+        		case 6:
 					BookMyShow.BookMovie();
         			break;
-        		case 8:
+        		case 7:
         			BookMyShow.showBookingHist();
         			break;
-        		case 9:
+        		case 8:
 					String searchString="";
 					System.out.print("Enter the movie title: ");
 					in.nextLine();
 					searchString = in.nextLine();
 					BookMyShow.searchMovie(searchString);
         			break;
-        		case 10:
+        		case 9:
 					BookMyShow.createShow();
         			break;
-        		case 11:
+        		case 10:
 					Admin admin = Admin.getInstance();
 					admin.start();
         			return;
