@@ -56,8 +56,8 @@ public class BookMyShow implements BookMyShowInterface{
 		
 		User ayush = new User("Ayush","ayus@gmail.com",3293131);
 
-		Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
-        Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
+		//Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
+       // Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
         String dateInString = "Sunday, Dec 25, 2020 09:00:00 AM";
 		try {
 			Date date = formatter.parse(dateInString);
