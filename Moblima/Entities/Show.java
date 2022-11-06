@@ -67,12 +67,11 @@ public class Show {
    
     @Override
     public String toString() {
-        return this.movie.getName() + "\n" +
-                "id =" + id +
-                "\nShow Time=" + showTime +
-                "\nmovie=" + movie.getName() +
-                "\ntheater=" + theater.getCinemaID() +
-                "\navailableSeats=" + availableSeats +
-                '}';
+        return 	"Show id = " + id +
+        		"\nMovie = " + movie.getName() +
+                "\nShow Time = " + showTime +
+                "\nCinema = " + theater.getCinemaID() +
+                "\nAvailable Seats = " + availableSeats + "\n\n"
+                ;
     }
 }
