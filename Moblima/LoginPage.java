@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -82,7 +83,6 @@ public class LoginPage implements ActionListener{
 
 
                     notifyLoginObservers();
-                    
                 }
                 else{
                     messageLabel.setForeground(Color.red);
