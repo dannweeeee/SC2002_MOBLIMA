@@ -52,9 +52,17 @@ public class ExampleAdder {
 	
 	public static void showExample() {
 		CineplexHandler cineplexHandler = CineplexHandler.getInstance();
+		ShowHandler showHandler = ShowHandler.getInstance();
+		
+		System.out.println("Show all cineplexes:");
 		cineplexHandler.printAllCineplex();
-		System.out.println("\nShow all cinemas:");
-		cineplexHandler.getAllCineplex().get(0).printAllCinema();
+		System.out.println("\n\nShow all cinemas:");
+		for (Cineplex temp : cineplexHandler.getAllCineplex()) {
+			temp.printAllCinema();
+		}
+		System.out.println("\nShow all shows:");
+		System.out.println(showHandler.getAllShows());
+		
 	}
 	
 	public static void readMovieFromTextFile(String fileName) throws FileNotFoundException{
