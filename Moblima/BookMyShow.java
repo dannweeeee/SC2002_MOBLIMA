@@ -43,8 +43,11 @@ public class BookMyShow implements BookMyShowInterface{
 		
 		User ayush = new User("Ayush","ayus@gmail.com",3293131);
 
-		Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
-        Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
+		Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...");
+		movieHandler.addMovie(ironMan);
+        Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...");
+		movieHandler.addMovie(avengers);
+
         String dateInString = "Friday, Jun 7, 2020 09:00:00 AM";
 		try {
 			Date date = formatter.parse(dateInString);
@@ -91,7 +94,8 @@ public class BookMyShow implements BookMyShowInterface{
 	    		movieDirector = read.next();
 	    		movieSynopsis = read.next();
 	    		movieCast = read.next();
-	    		newMovie = new Movie(movieName, movieStatus, movieDirector, movieSynopsis, movieCast, movieHandler);
+	    		newMovie = new Movie(movieName, movieStatus, movieDirector, movieSynopsis, movieCast);
+				movieHandler.addMovie(newMovie);
 	    	}
 	    	read.close();
 	}
@@ -349,8 +353,7 @@ public class BookMyShow implements BookMyShowInterface{
         movieAddSynopsis = in.nextLine();
         System.out.print("Enter casts of Movie (e.g. Steve Rogers, Borat, Mr Bean): ");
         movieAddCasts = in.nextLine();
-		Movie addNewMovie;
-        addNewMovie = new Movie(movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts, movieHandler);
+        Movie addNewMovie = movieHandler.createMovie(movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts);
     }
 
 	public void updateMovie(String fileName){
@@ -386,31 +389,31 @@ public class BookMyShow implements BookMyShowInterface{
 					System.out.print("Update full name of Movie: ");
 					in = new Scanner(System.in);
 					movieUpdateName = in.nextLine();
-					selectedMovie.updateName(movieUpdateName);
+					selectedMovie.setName(movieUpdateName);
 					break;
 				case 2:
 					System.out.print("Update status of Movie (Coming Soon, Now Showing): ");
 					in = new Scanner(System.in);
 					movieUpdateStatus = in.nextLine();
-					selectedMovie.updateStatus(movieUpdateStatus);
+					selectedMovie.setStatus(movieUpdateStatus);
 					break;
 				case 3:
 					System.out.print("Update director of Movie: ");
 					in = new Scanner(System.in);
 					movieUpdateDirector = in.nextLine();
-					selectedMovie.updateDirector(movieUpdateDirector);
+					selectedMovie.setDirector(movieUpdateDirector);
 					break;
 				case 4:
 					System.out.print("Update casts of Movie (e.g. Steve Rogers, Borat, Mr Bean): ");
 					in = new Scanner(System.in);
 					movieUpdateCasts = in.nextLine();
-					selectedMovie.updateCasts(movieUpdateCasts);
+					selectedMovie.setCast(movieUpdateCasts);
 					break;
 				case 5:
 					System.out.print("Update synopsis of movie: ");
 					in = new Scanner(System.in);
 					movieUpdateSynopsis = in.nextLine();
-					selectedMovie.updateSynopsis(movieUpdateSynopsis);
+					selectedMovie.setSynopsis(movieUpdateSynopsis);
 					break;
 				default:
 					System.out.println("Invalid Input");
@@ -432,8 +435,9 @@ public class BookMyShow implements BookMyShowInterface{
 		Movie selectedMovie = movieHandler.getMovie().get(movieRemoveOption-1);
 		System.out.println("The following movie has been deleted!");
 		System.out.println(selectedMovie);
-		selectedMovie.removeMovie(movieRemoveOption-1);
+		movieHandler.removeMovie(movieRemoveOption-1);
 	}
+
 	public void showBookingHist() {
 		for (Ticket temp : userhandler.getUsers().get(0).getTickets()) {
 			System.out.println( "Ticket{" +
@@ -444,6 +448,7 @@ public class BookMyShow implements BookMyShowInterface{
 	                '}');
 		}
 	}
+
 	public void createRatingReview() {
 		int option=0;
 

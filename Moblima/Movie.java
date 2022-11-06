@@ -11,11 +11,11 @@ public class Movie  {
 	    private String review;
 	    private ArrayList<Rating> ratings;
 	    private ArrayList<Review> reviews;
-	    private movieHandler movieH;
+
 	    private double Ratings;
 	    public ArrayList<Ticket> ticketlist;
 
-	    public Movie(String name,String status, String director, String synopsis, String cast, movieHandler movieH) {
+	    public Movie(String name,String status, String director, String synopsis, String cast) {
 	        this.name = name;
 	        this.status = status;
 	        this.director = director;
@@ -24,7 +24,7 @@ public class Movie  {
 	        this.ratings = new ArrayList<>();
 	        this.reviews = new ArrayList<>();
 	        this.ticketlist=new ArrayList<>();
-	        movieH.getMovie().add(this);
+	
 	    }
 	    
 	    /**
@@ -150,28 +150,4 @@ public class Movie  {
 	                ;
 	    }
 
-		
-	    public void updateName(String movieUpdateName) {
-	        name = movieUpdateName;
-	    }
-
-		public void updateStatus(String movieUpdateStatus) {
-	        status = movieUpdateStatus;
-	    }
-
-		public void updateDirector(String movieUpdateDirector) {
-	        director = movieUpdateDirector;
-	    }
-
-		public void updateSynopsis(String movieUpdateSynopsis) {
-	        synopsis = movieUpdateSynopsis;
-	    }
-
-		public void updateCasts(String movieUpdateCasts) {
-	        cast = movieUpdateCasts;
-	    }
-
-		public void removeMovie(int movieID){
-			movieH.getMovie().remove(this);
-		}
 }
