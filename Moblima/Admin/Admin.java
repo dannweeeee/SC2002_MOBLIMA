@@ -1,7 +1,5 @@
 package Moblima.Admin;
 
-import java.io.FileNotFoundException;
-
 import Moblima.MovieBookerApp;
 import Moblima.MovieBookerInterface;
 import Moblima.Utils.SettingsController;
@@ -9,33 +7,22 @@ import Moblima.Utils.SettingsForm;
 
 /**
  * Controller of the admin module. Creates and delegates tasks to other classes.
- * @author Nghia Nguyen
+ * @author Our team
  * @version 1.0
  */
-public class Admin implements LoginObserver {
-    private static Admin instance = null;
+public class Admin implements AdminLogic, LoginObserver {
     private LoginPage loginUI;
     private AdminForm adminUI;
     private SettingsController settingsController;
-    private MovieBookerInterface showManager;
+    private MovieBookerInterface movieBooker;
 
     /**
      * Constructor for Admin.
      */
-    private Admin() {
+    public Admin(MovieBookerInterface movieBooker) {
+        this.movieBooker = movieBooker;
         adminUI = new AdminForm(this);
         settingsController = new SettingsController(new SettingsForm());
-    }
-
-    /**
-     * Get the single instance of the Admin class.
-     * @return the instance of the Admin class.
-     */
-    public static Admin getInstance() {
-        if (instance == null) {
-            instance = new Admin();
-        }
-        return instance;
     }
 
     /**
@@ -67,19 +54,38 @@ public class Admin implements LoginObserver {
      * Exit the admin module.
      */
     public void exit() {
-        instance = null;
         loginUI = null;
         adminUI = null;
         settingsController = null;
-        MovieBookerApp.showUserView(showManager);
+        MovieBookerApp.showUserView(movieBooker);
     }
 
-    /**
-     * Inject a BookMyShow object into the admin module.
-     * @param bookMyShow the <code>BookMyShow</code> object to be injected.
-     */
-    public void attachBookMyShow(MovieBookerInterface bookMyShow) {
-        this.showManager = bookMyShow;
+    public void createMovie() {
+        // Put implementation of createMovie here, or call similar method in another class
+    }
+
+    public void updateMovie() {
+        // Put implementation of updateMovie here, or call similar method in another class
+    }
+
+    public void removeMovie() {
+        // Put implementation of removeMovie here, or call similar method in another class
+    }
+
+    public void showAllMovies() {
+        movieBooker.showAllMovies();
+    }
+
+    public void createShow() {
+        // Put implementation of createShow here, or call similar method in another class
+    }
+
+    public void updateShow() {
+        // Put implementation of updateShow here, or call similar method in another class
+    }
+
+    public void removeShow() {
+        // Put implementation of removeShow here, or call similar method in another class
     }
 
     /**
@@ -87,25 +93,5 @@ public class Admin implements LoginObserver {
      */
     public void manageSettings() {
         settingsController.launch();
-    }
-
-    public void createMovie() {
-        showManager.createMovie("MovieList.txt");
-    }
-
-    public void updateMovie() {
-        showManager.updateMovie("MovieList.txt");
-    }
-
-    public void removeMovie() {
-        showManager.removeMovie("MovieList.txt");
-    }
-
-    public void showAllMovies() {
-        showManager.showAllMovies();
-    }
-
-    public void createShow() {
-        showManager.createShow();
     }
 }
