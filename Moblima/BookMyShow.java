@@ -43,18 +43,13 @@ public class BookMyShow implements BookMyShowInterface{
 		
 		User ayush = new User("Ayush","ayus@gmail.com",3293131);
 
-		Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...");
-		movieHandler.addMovie(ironMan);
-        Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...");
-		movieHandler.addMovie(avengers);
-
         String dateInString = "Friday, Jun 7, 2020 09:00:00 AM";
 		try {
 			Date date = formatter.parse(dateInString);
-			Show show1 = showHandler.addShows(date, ironMan, cineplexHandler.getAllCineplex().get(0).getHall().get(0), seatHandler);
-			Show show2 = showHandler.addShows(date,avengers,cineplexHandler.getAllCineplex().get(0).getHall().get(0), seatHandler);
-			Show show3 = showHandler.addShows(date,avengers,cineplexHandler.getAllCineplex().get(0).getHall().get(1), seatHandler);
-			Show show4 = showHandler.addShows(date,avengers,cineplexHandler.getAllCineplex().get(0).getHall().get(2), seatHandler);
+			Show show1 = showHandler.addShows(date, movieHandler.getMovie().get(0), cineplexHandler.getAllCineplex().get(0).getHall().get(0), seatHandler);
+			Show show2 = showHandler.addShows(date,movieHandler.getMovie().get(1),cineplexHandler.getAllCineplex().get(0).getHall().get(0), seatHandler);
+			Show show3 = showHandler.addShows(date,movieHandler.getMovie().get(1),cineplexHandler.getAllCineplex().get(0).getHall().get(1), seatHandler);
+			Show show4 = showHandler.addShows(date,movieHandler.getMovie().get(1),cineplexHandler.getAllCineplex().get(0).getHall().get(2), seatHandler);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -466,6 +461,7 @@ public class BookMyShow implements BookMyShowInterface{
 	public void createRatingReview() {
 		int option=0;
 		User useri=null;
+		Movie choice=null;
 		System.out.print("Enter your Email: ");
 		String email=in.nextLine();
 		for(User temp: userhandler.getUsers()) {
@@ -484,32 +480,40 @@ public class BookMyShow implements BookMyShowInterface{
         scanner.nextLine();
         switch(option){
 		case 1:
+			choice=null;
 			System.out.println("Which Movie would you like to rate?");
 			String name=in.nextLine();
-			
 			for (Movie temp : movieHandler.getMovie()) {
 				if(temp.getName().contentEquals(name)) {
-					System.out.println("Enter your rating from 1 to 5:");
-					double score = scanner.nextInt();
-			        scanner.nextLine();
-					temp.addRatings(new Rating(score,useri));
-					System.out.println("Rating added");
+					choice=temp;
 					break;
 				}
 			}
+			if(choice!=null) {
+			System.out.println("Enter your rating from 1 to 5:");
+			double score = scanner.nextInt();
+	        scanner.nextLine();
+			choice.addRatings(new Rating(score,useri));
+			System.out.println("Rating added");}
+			else System.out.println("Movie does not exist");
 			break;
 		case 2:
+			choice=null;
 			System.out.println("Which Movie would you like to review?");
 			String name1=in.nextLine();
 			for (Movie temp : movieHandler.getMovie()) {
 				if(temp.getName().contentEquals(name1)) {
-					System.out.println("Enter your review:");
-					String text = in.nextLine();
-					temp.addReview(new Review(text,useri));
-					System.out.println("Review added");
+					choice=temp;
 					break;
 				}
+				
 			}
+			if(choice!=null) {
+			System.out.println("Enter your review:");
+			String text = in.nextLine();
+			choice.addReview(new Review(text,useri));
+			System.out.println("Review added");}
+			else System.out.println("Movie does not exist");
 			break;
 		case 3:
 			break;
