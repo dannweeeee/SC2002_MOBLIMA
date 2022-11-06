@@ -14,7 +14,6 @@ import java.util.Scanner;
 import javax.print.event.PrintEvent;
 
 public class BookMyShow implements BookMyShowInterface{
-	
 	private movieHandler movieHandler;
 	private cineplexHandler cineplexHandler;
 	private cinemaHandler cinemaHandler;
@@ -233,6 +232,7 @@ public class BookMyShow implements BookMyShowInterface{
 
 	public boolean isHoliday(Settings settings, Calendar cal){
 		String ph_dates = settings.getProperty("public_holiday_dates");
+		if (ph_dates == null) return false;
 		String[] arrOfStr = ph_dates.split(",");
 		for (String s : arrOfStr){
 			if (Integer.parseInt(s.split("/", 2)[0]) == cal.get(Calendar.DAY_OF_MONTH) && Integer.parseInt(s.split("/", 2)[1]) == cal.get(Calendar.MONTH) + 1){
@@ -319,7 +319,6 @@ public class BookMyShow implements BookMyShowInterface{
     }
 
     public void showAllMoviesTicket() {
-		
 		int count =1;
 		System.out.println("Sort Movies by: \n1.Ticket sales \n2.Ratings");
 		System.out.print("Enter Option: ");
@@ -351,7 +350,6 @@ public class BookMyShow implements BookMyShowInterface{
 
 	// should be in movie handler
 	public void searchMovie() {
-		
 		String searchString = BookingInputs.getSearchString();
 		System.out.println("Showing results for: "+searchString);
 		ArrayList<Movie> searchResult = movieHandler.searchMovie(searchString);
@@ -549,7 +547,7 @@ public class BookMyShow implements BookMyShowInterface{
 	                '}');
 		}
 	}
-
+  
 	public void createRatingReview() {
 		int option=0;
 		User useri=null;

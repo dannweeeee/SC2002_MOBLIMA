@@ -75,11 +75,7 @@ public class MovieGoer {
         			BookMyShow.showAllMoviesTicket();
         			break;
         		case 10:
-        			String searchString="";
-        			System.out.print("Enter the movie title: ");
-        			in.nextLine();
-        			searchString = in.nextLine();
-        			BookMyShow.searchMovie(searchString);
+        			BookMyShow.searchMovie();
         			break;
         		case 11:
         			BookMyShow.createShow();
