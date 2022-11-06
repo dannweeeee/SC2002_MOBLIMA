@@ -8,10 +8,10 @@ public class BookMyShowApp {
 	
 	public static void main(String[] args) {
 		
-		BookMyShowInterface BookMyShow = new BookMyShow();
+		BookMyShowInterface bookMyShow = new BookMyShow();
 		
 		try {
-			BookMyShow.readMovieFromTextFile("MovieList.txt");
+			bookMyShow.readMovieFromTextFile("MovieList.txt");
 		}catch (Exception e) {
 			System.out.println("Movies File Read Error");
 		}
@@ -48,40 +48,41 @@ public class BookMyShowApp {
         			System.out.println("Goodbye!");
         			return;
         		case 1:
-					BookMyShow.showAllMovies();
+					bookMyShow.showAllMovies();
         			break;
         		case 2:
-					BookMyShow.showShowTimes();
+					bookMyShow.showShowTimes();
         			break;
         		case 3:
-        			BookMyShow.createRatingReview();
+        			bookMyShow.createRatingReview();
         			break;
         		case 4:
-					BookMyShow.initializeExample();
+					bookMyShow.initializeExample();
 					System.out.println("Done!");
-					BookMyShow.showExample();
+					bookMyShow.showExample();
         			break;
         		case 5:
-        			BookMyShow.showAllMoviesTicket();
+        			bookMyShow.showAllMoviesTicket();
         			break;
         		case 6:
-					BookMyShow.BookMovie();
+					bookMyShow.BookMovie();
         			break;
         		case 7:
-        			BookMyShow.showBookingHist();
+        			bookMyShow.showBookingHist();
         			break;
         		case 8:
 					String searchString="";
 					System.out.print("Enter the movie title: ");
 					in.nextLine();
 					searchString = in.nextLine();
-					BookMyShow.searchMovie(searchString);
+					bookMyShow.searchMovie(searchString);
         			break;
         		case 9:
-					BookMyShow.createShow();
+					bookMyShow.createShow();
         			break;
         		case 10:
 					Admin admin = Admin.getInstance();
+					admin.attachBookMyShow(bookMyShow);
 					admin.start();
         			return;
         		}
