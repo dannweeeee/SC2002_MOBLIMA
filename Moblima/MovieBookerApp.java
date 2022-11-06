@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import Moblima.Admin.Admin;
 import Moblima.DataBase.ExampleAdder;
+import Moblima.Exceptions.InvalidInputException;
 
 public class MovieBookerApp {
 	private static Scanner in;
@@ -49,43 +50,49 @@ public class MovieBookerApp {
         			in.next();
         			continue;
         		}
-        		switch (option) {
-        		case -1:
-        			System.out.println("Goodbye!");
-        			return;
-        		case 1:
-					bookMyShow.showAllMovies();
-        			break;
-        		case 2:
-        			bookMyShow.searchMovie();
-        			break;
-        		case 3:
-        			bookMyShow.showShowTimes();
-        			break;
-        		case 4:
-        			bookMyShow.showAllMoviesTicket();
-        			break;
-        		case 5:
-        			bookMyShow.createRatingReview();
-        			break;
-        		case 6:
-					bookMyShow.bookingMenu();
-        			break;
-        		case 7:
-        			bookMyShow.showBookingHist();
-        			break;
-        		case 8:
-					
-        			break;
-        		case 9:
-        			bookMyShow.addExamples();
-        			break;
-        		case 10:
-					Admin admin = Admin.getInstance();
-					admin.attachBookMyShow(bookMyShow);
-					admin.start();
-        			return;
-        		}
+				try{
+					switch (option) {
+					case -1:
+						System.out.println("Goodbye!");
+						return;
+					case 1:
+						bookMyShow.showAllMovies();
+						break;
+					case 2:
+						bookMyShow.searchMovie();
+						break;
+					case 3:
+						bookMyShow.showShowTimes();
+						break;
+					case 4:
+						bookMyShow.showAllMoviesTicket();
+						break;
+					case 5:
+						bookMyShow.createRatingReview();
+						break;
+					case 6:
+						bookMyShow.bookingMenu();
+						break;
+					case 7:
+						bookMyShow.showBookingHist();
+						break;
+					case 8:
+						
+						break;
+					case 9:
+						bookMyShow.addExamples();
+						break;
+					case 10:
+						Admin admin = Admin.getInstance();
+						admin.attachBookMyShow(bookMyShow);
+						admin.start();
+						return;
+					default:
+						throw new InvalidInputException("Invalid input, please enter only numbers listed on the menu only");
+					}
+				} catch(InvalidInputException e){
+					System.out.println(e.getMessage());
+				}
         	}
 		} while(option != -1);
 	}

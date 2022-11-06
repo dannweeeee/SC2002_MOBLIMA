@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
-import Moblima.Utils.Settings;
+import Moblima.Entities.Cinema.HallType;
 
 public class CinemaHandler {
 	
@@ -16,7 +16,7 @@ public class CinemaHandler {
 		this.cineplexName = cineplexName;
 	}
 	
-	public void addCinema(String classtype, int seat_capacity, Cineplex cineplex) {
+	public void addCinema(HallType classtype, int seat_capacity, Cineplex cineplex) {
 		Cinema newCinema = new Cinema(classtype,seat_capacity, cineplex);
 		allCinema.add(newCinema);
 	}
