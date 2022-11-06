@@ -66,7 +66,7 @@ public class Admin implements LoginObserver {
         loginUI = null;
         adminUI = null;
         settingsController = null;
-        BookMyShowApp.main(null);
+        BookMyShowApp.showUserView(showManager);
     }
 
     /**
