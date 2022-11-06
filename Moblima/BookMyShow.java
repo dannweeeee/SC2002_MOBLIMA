@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -25,6 +26,18 @@ public class BookMyShow implements BookMyShowInterface{
 	private UserHandler userhandler;
 	SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");
 	Scanner scanner = new Scanner(System.in);
+
+	private final String STUDENT_PRICE_STANDARD = "ticket_price_student_standard";
+	private final String ADULT_PRICE_STANDARD = "ticket_price_adult_standard";
+
+	private final String STUDENT_PRICE_PREMIUM = "ticket_price_student_premium";
+	private final String ADULT_PRICE_PREMIUM = "ticket_price_adult_premium";
+
+	private final String STUDENT_PRICE_VIP = "ticket_price_student_vip";
+	private final String ADULT_PRICE_VIP = "ticket_price_adult_vip";
+
+	private final String TUESDAY_DISCOUNT = "tuesday_discount_price";
+	private final int TUESDAY = 2;
 	
 	public BookMyShow() {
 		this.movieHandler = new movieHandler();
@@ -45,18 +58,15 @@ public class BookMyShow implements BookMyShowInterface{
 		
 		User ayush = new User("Ayush","ayus@gmail.com",3293131);
 
-		Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...");
-		movieHandler.addMovie(ironMan);
-        Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...");
-		movieHandler.addMovie(avengers);
-
-        String dateInString = "Friday, Jun 7, 2020 09:00:00 AM";
+		//Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
+       // Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
+        String dateInString = "Sunday, Dec 25, 2020 09:00:00 AM";
 		try {
 			Date date = formatter.parse(dateInString);
-			Show show1 = showHandler.addShows(date, ironMan, cineplexHandler.getAllCineplex().get(0).getHall().get(0), seatHandler);
-			Show show2 = showHandler.addShows(date,avengers,cineplexHandler.getAllCineplex().get(0).getHall().get(0), seatHandler);
-			Show show3 = showHandler.addShows(date,avengers,cineplexHandler.getAllCineplex().get(0).getHall().get(1), seatHandler);
-			Show show4 = showHandler.addShows(date,avengers,cineplexHandler.getAllCineplex().get(0).getHall().get(2), seatHandler);
+			Show show1 = showHandler.addShows(date, movieHandler.getMovie().get(0), cineplexHandler.getAllCineplex().get(0).getHall().get(0), seatHandler);
+			Show show2 = showHandler.addShows(date,movieHandler.getMovie().get(1),cineplexHandler.getAllCineplex().get(0).getHall().get(0), seatHandler);
+			Show show3 = showHandler.addShows(date,movieHandler.getMovie().get(1),cineplexHandler.getAllCineplex().get(0).getHall().get(1), seatHandler);
+			Show show4 = showHandler.addShows(date,movieHandler.getMovie().get(1),cineplexHandler.getAllCineplex().get(0).getHall().get(2), seatHandler);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -179,6 +189,7 @@ public class BookMyShow implements BookMyShowInterface{
 			System.out.println("Not enough tickets remaining");
 			return null;
 		}
+
         while (true){
 			for(int j = 0; j < totalTickets; j++){
 				while (true){
@@ -220,28 +231,74 @@ public class BookMyShow implements BookMyShowInterface{
         return ticketList;
     }
 
+	public boolean isHoliday(Settings settings, Calendar cal){
+		String ph_dates = settings.getProperty("public_holiday_dates");
+		String[] arrOfStr = ph_dates.split(",");
+		for (String s : arrOfStr){
+			if (Integer.parseInt(s.split("/", 2)[0]) == cal.get(Calendar.DAY_OF_MONTH) && Integer.parseInt(s.split("/", 2)[1]) == cal.get(Calendar.MONTH) + 1){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void calcPrice(Booking newBooking){
 		Settings settings = Settings.getInstance();
+		Calendar calendar = Calendar.getInstance();
 		Double studentPrice = 0.0;
 		Double adultPrice = 0.0;
 		String cinemaClass = newBooking.getShow().getCinema().getCinemaClass();
-		if (cinemaClass== "Standard"){
-			studentPrice = Double.parseDouble(settings.getProperty("ticket_price_student_standard"));
-			adultPrice = Double.parseDouble(settings.getProperty("ticket_price_adult_standard"));
-		} else if (cinemaClass == "Platinum"){
-			studentPrice = Double.parseDouble(settings.getProperty("ticket_price_student_premium"));
-			adultPrice = Double.parseDouble(settings.getProperty("ticket_price_adult_premium"));
-		} else {
-			studentPrice = Double.parseDouble(settings.getProperty("ticket_price_student_vip"));
-			adultPrice = Double.parseDouble(settings.getProperty("ticket_price_adult_vip"));
+		Date showtime = newBooking.getShow().getShowTime();
+		calendar.setTime(showtime);
+
+		try{
+			if (cinemaClass== "Standard"){
+				studentPrice = Double.parseDouble(settings.getProperty(STUDENT_PRICE_STANDARD));
+				adultPrice = Double.parseDouble(settings.getProperty(ADULT_PRICE_STANDARD));
+			} else if (cinemaClass == "Platinum"){
+				studentPrice = Double.parseDouble(settings.getProperty(STUDENT_PRICE_PREMIUM));
+				adultPrice = Double.parseDouble(settings.getProperty(ADULT_PRICE_PREMIUM));
+			} else {
+				studentPrice = Double.parseDouble(settings.getProperty(STUDENT_PRICE_VIP));
+				adultPrice = Double.parseDouble(settings.getProperty(ADULT_PRICE_VIP));
+			}
+			
+			if (calendar.get(Calendar.DAY_OF_WEEK) == TUESDAY){
+				studentPrice -= Double.parseDouble(settings.getProperty(TUESDAY_DISCOUNT));
+				adultPrice -= Double.parseDouble(settings.getProperty(TUESDAY_DISCOUNT));
+			}
+
+			if (isHoliday(settings, calendar)){
+				studentPrice += Double.parseDouble(settings.getProperty("public_holiday_price_increase"));
+				adultPrice += Double.parseDouble(settings.getProperty("public_holiday_price_increase"));
+			}
+		} catch (NumberFormatException e){
+			System.out.println("Invalid pricing for student or adult, please check approach Admins or Call us");
+			return;
 		}
+		
 
 		newBooking.setAdultPrice(adultPrice);
 		newBooking.setStudentPrice(studentPrice);
 	}
 
+	public String generateTransactionID(Booking newBooking){
+		String transactionID = Integer.toString(newBooking.getShow().getCinema().getCinemaID());;
+		final int CINEMACODELENGTH = 4;
+		while (transactionID.length() < CINEMACODELENGTH){
+			transactionID = "0" + transactionID;
+		}
+		Date now = new Date();
+		SimpleDateFormat DateFor = new SimpleDateFormat("yyyyMMddHHmm");
+		String stringDate= DateFor.format(now);;
+
+		transactionID = transactionID + stringDate;
+		return transactionID;
+	}
+
     public int bookingConfirmation(Booking newBooking){
 		calcPrice(newBooking);
+		if (newBooking.getStudentPrice() == 0.0 || newBooking.getAdultPrice() == 0) return 0;
 		double totalPrice = newBooking.getStudentTicketNum() * newBooking.getStudentPrice() + newBooking.getAdultTicketNum() * newBooking.getAdultPrice();
         while(true){
             char confirmation = BookingInputs.getConfirmation(totalPrice);
@@ -249,6 +306,7 @@ public class BookMyShow implements BookMyShowInterface{
                 for (Seats s: newBooking.getSeats()){
                     seatHandler.removeSeats(s, newBooking.getShow());
                 }
+				System.out.println("Your transaction ID is: " + generateTransactionID(newBooking));
                 return 1;
             } else if (Character.toUpperCase(confirmation) == 'N'){
                 System.out.println("Booking unsuccessful");
@@ -260,34 +318,51 @@ public class BookMyShow implements BookMyShowInterface{
         }
     }
 
-	public void showAllMoviesTicket() {
-		System.out.println("Sort Movies by: 1.Ticket sales, 2.Ratings");
-		int sort = scanner.nextInt();
-        scanner.nextLine();
-        if(sort==1) {
-        	movieHandler.sortByTicketSales();
-        }
-        else {movieHandler.sortByRatings();}
+    public void showAllMoviesTicket() {
+		
 		int count =1;
-		for (Movie temp : movieHandler.getMovie()) {
-			System.out.print(count+": ");
-			System.out.println(temp);
-			count++;
-		}
+		System.out.println("Sort Movies by: \n1.Ticket sales \n2.Ratings");
+		System.out.print("Enter Option: ");
+        int sortOption = BookingInputs.getIntUserInput();
+        
+        if(sortOption==1) {
+        	movieHandler.sortByTicketSales();
+        	for (Movie temp : movieHandler.getMovie()) {
+        		if(count>5) break;
+    			System.out.print(count+": ");
+    			System.out.print(temp);
+    			System.out.println("Ticket Sales: "+temp.getTicketsSize());
+    			System.out.println();
+    			count++;
+    		}
+        }
+        else {
+        	movieHandler.sortByRatings();
+	        for (Movie temp : movieHandler.getMovie()) {
+	        	if(count>5) break;
+	        	System.out.print(count+": ");
+				System.out.print(temp);
+				System.out.println("Ratings: "+temp.getAverageRatings());
+				System.out.println();
+				count++;
+			}
+        }
 	}
 
 	// should be in movie handler
-	public void searchMovie(String searchString) {
+	public void searchMovie() {
+		
+		String searchString = BookingInputs.getSearchString();
 		System.out.println("Showing results for: "+searchString);
-		for (Movie temp : movieHandler.getMovie()) {
-			if(temp.getName().contentEquals(searchString)) {
+		ArrayList<Movie> searchResult = movieHandler.searchMovie(searchString);
+		if (searchResult != null) {
+			for (Movie temp : searchResult) {
 				System.out.println(temp);
-				System.out.print("Average Movie Rating: ");
-				System.out.println(temp.getAverageRatings());
-				System.out.println("Most Recent Reviews:");
-				System.out.println(temp.getReview());
 			}
+		}else {
+			System.out.println("No results found for \""+searchString+"\"");
 		}
+
 	}
 
 	// add this to showhandler
@@ -477,47 +552,87 @@ public class BookMyShow implements BookMyShowInterface{
 
 	public void createRatingReview() {
 		int option=0;
-
+		User useri=null;
+		System.out.print("Enter your Email: ");
+		String email=in.nextLine();
+		for(User temp: userhandler.getUsers()) {
+			if(temp.getEmail().contentEquals(email)) {
+				 useri=temp;}
+		}
+		if(useri==null){
+			System.out.print("User doesn't exist");
+			return;
+		}
 		do {
-		System.out.println("| 01: Rate a Movie                           |");
-		System.out.println("| 02: Review a Movie                         |");
-		System.out.println("| 03: Exit                                   |");
-		option = scanner.nextInt();
-        scanner.nextLine();
-        switch(option){
-		case 1:
-			System.out.println("Which Movie would you like to rate?");
-			String name=in.nextLine();
 			
-			for (Movie temp : movieHandler.getMovie()) {
-				if(temp.getName().contentEquals(name)) {
-					System.out.println("Enter your rating from 1 to 5:");
-					double score = scanner.nextInt();
-			        scanner.nextLine();
-					temp.addRatings(new Rating(score,userhandler.getUsers().get(userhandler.getSize())));
-					System.out.println("Review added");
+            System.out.println();
+            System.out.println("----------------REVIEW/RATING MENU---------------");
+        	System.out.println("| 01: Rate a Movie                              |");
+        	System.out.println("| 02: Review a Movie                            |");
+        	System.out.println("| 03: Exit                                      |");
+            System.out.println("-------------------------------------------------");
+            System.out.println();
+            
+			option = BookingInputs.getIntUserInput();
+	        
+	        switch(option){
+			case 1:
+				System.out.println("Which Movie would you like to rate?");
+				String name=in.nextLine();
+				
+				for (Movie temp : movieHandler.getMovie()) {
+					if(temp.getName().contentEquals(name)) {
+						System.out.println("Enter your rating from 1 to 5:");
+						double score = scanner.nextInt();
+				        scanner.nextLine();
+						temp.addRatings(new Rating(score,useri));
+						System.out.println("Rating added");
+						break;
+					}
 				}
-			}
-			break;
-		case 2:
-			System.out.println("Which Movie would you like to review?");
-			String name1=in.nextLine();
-			for (Movie temp : movieHandler.getMovie()) {
-				if(temp.getName().contentEquals(name1)) {
-					System.out.println("Enter your review:");
-					String text = in.nextLine();
-					temp.addReview(new Review(text,userhandler.getUsers().get(userhandler.getSize())));
-					System.out.println("Review added");
-					break;
+				break;
+			case 2:
+				System.out.println("Which Movie would you like to review?");
+				String name1=in.nextLine();
+				for (Movie temp : movieHandler.getMovie()) {
+					if(temp.getName().contentEquals(name1)) {
+						System.out.println("Enter your review:");
+						String text = in.nextLine();
+						temp.addReview(new Review(text,useri));
+						System.out.println("Review added");
+						break;
+					}
 				}
-			}
-			break;
-		case 3:
-			break;
-		default:
-			System.out.println("Invalid Input");
-	}
+				break;
+			case 3:
+				break;
+			default:
+				System.out.println("Invalid Input");
+	        }
 		}while(option!=3);
+	}
+  
+  	public void updateShowTime(){
+		Scanner newScanner = new Scanner(System.in);
+
+		while(true){
+			ShowHandler.printAllShows(showHandler.getAllShows());
+			System.out.println("Enter which show time you want to edit [-1 to exit] ");
+			int choice = BookingInputs.getIntUserInput();
+			if (choice == -1) break;
+			Show selectedShow = ShowHandler.getShowByID(showHandler.getAllShows(), choice);
+			System.out.println("You have selected\n" + selectedShow.toString());
+			System.out.println("Enter new show time for this movie [Format: Monday, Jun 10, 2022 12:00:00 AM] =>  ");
+			String dateInString = newScanner.next();
+			try{
+				Date date = formatter.parse(dateInString);
+				selectedShow.setShowTime(date);
+			} catch(ParseException e){
+				System.out.println("Invalid date input");
+				continue;
+			}
+		} //end of while	
 	}
 	
 }
+
