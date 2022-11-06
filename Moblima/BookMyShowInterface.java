@@ -21,5 +21,9 @@ public interface BookMyShowInterface {
 	public void createShow();
 
 	public void writeMovieToTextFile(String fileName);
+	
+	public void showBookingHist();
+	
+	public void createRatingReview();
 
 }

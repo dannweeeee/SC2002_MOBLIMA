@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
 public class BookMyShow implements BookMyShowInterface{
 	
 	private movieHandler movieHandler;
@@ -20,6 +21,7 @@ public class BookMyShow implements BookMyShowInterface{
 	private Scanner in;
 	private SeatHandler seatHandler;
 	private ShowHandler showHandler;
+	private UserHandler userhandler;
 	SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");
 	Scanner scanner = new Scanner(System.in);
 	
@@ -28,6 +30,7 @@ public class BookMyShow implements BookMyShowInterface{
 		this.cineplexHandler = new cineplexHandler();
 		this.showHandler = new ShowHandler();
 		this.seatHandler = new SeatHandler();
+		userhandler= new UserHandler();
 		in = new Scanner(System.in);
 	}
 	
@@ -108,6 +111,7 @@ public class BookMyShow implements BookMyShowInterface{
 		ArrayList<Show> allShows = null;
 		ArrayList<Ticket> tickets = null;
 		User user1 = getUserInformation();
+		userhandler.getUsers().add(user1);
 		Booking newBooking = new Booking(user1);
 		do{
 			System.out.println("--------------MOBLIMA BOOKING MENU!--------------");
@@ -385,4 +389,55 @@ public class BookMyShow implements BookMyShowInterface{
 		Movie addNewMovie;
         addNewMovie = new Movie(movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts, movieHandler);
     }
+	public void showBookingHist() {
+		for (Ticket temp : userhandler.getUsers().get(0).getTickets()) {
+			System.out.println( "Ticket{" +
+	                "owner='" +  userhandler.getUsers().get(0).getName() +
+	                ", bookingTime=" + temp.getBookingTime() +
+	                ", Seats booked=" + temp.getSeat().getSeat() +
+	                ", bookedShow=" + temp.getBookedShow()+
+	                '}');
+		}
+	}
+	public void createRatingReview() {
+		int option=0;
+		String name;
+		do {
+		System.out.println("| 01: Review a Movie                         |");
+		System.out.println("| 02: Rate a Movie                           |");
+		System.out.println("| 03: Exit                                   |");
+		option = scanner.nextInt();
+        scanner.nextLine();
+        switch(option){
+		case 1:
+			System.out.println("Which Movie would you like to rate?");
+			in.nextLine();
+			name = in.nextLine();
+			for (Movie temp : movieHandler.getMovie()) {
+				if(temp.getName().contentEquals(name)) {
+					System.out.println("Enter your rating from 1 to 5:");
+					double score = scanner.nextInt();
+			        scanner.nextLine();
+					temp.addRatings(new Rating(score,userhandler.getUsers().get(0)));
+				}
+			}
+			break;
+		case 2:
+			System.out.println("Which Movie would you like to rate?");
+			in.nextLine();
+			name = in.nextLine();
+			for (Movie temp : movieHandler.getMovie()) {
+				if(temp.getName().contentEquals(name)) {
+					System.out.println("Enter your review:");
+					in.nextLine();
+					String text = in.nextLine();
+					temp.addReview(new Review(text,userhandler.getUsers().get(0)));
+				}
+			}
+			break;
+		default:
+			System.out.println("Invalid Input");
+	}
+		}while(option!=3);
+	}
 }

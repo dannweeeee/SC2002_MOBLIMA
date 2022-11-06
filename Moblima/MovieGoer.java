@@ -52,7 +52,7 @@ public class MovieGoer {
 					LoginPage loginPage = new LoginPage(idandPasswords.getLoginInfo());
         			return;
         		case 2:
-        			BookMyShow.showMovies();
+        			//BookMyShow.showMovies();
         			break;
         		case 3:
         			break;
