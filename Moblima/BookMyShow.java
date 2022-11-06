@@ -255,47 +255,48 @@ public class BookMyShow implements BookMyShowInterface{
     }
 
 	public void showAllMoviesTicket() {
-		System.out.println("Sort Movies by: 1.Ticket sales, 2.Ratings");
-		int sort = scanner.nextInt();
-        scanner.nextLine();
-        int count =1;
-        if(sort==1) {
+		
+		int count =1;
+		System.out.println("Sort Movies by: \n1.Ticket sales \n2.Ratings");
+		System.out.print("Enter Option: ");
+        int sortOption = BookingInputs.getIntUserInput();
+        
+        if(sortOption==1) {
         	movieHandler.sortByTicketSales();
         	for (Movie temp : movieHandler.getMovie()) {
+        		if(count>5) break;
     			System.out.print(count+": ");
     			System.out.print(temp);
     			System.out.println("Ticket Sales: "+temp.getTicketsSize());
+    			System.out.println();
     			count++;
-    			if(count==6) {break;}
     		}
         }
         else {
         	movieHandler.sortByRatings();
 	        for (Movie temp : movieHandler.getMovie()) {
-				System.out.print(count+": ");
+	        	if(count>5) break;
+	        	System.out.print(count+": ");
 				System.out.print(temp);
-				if (temp.getAverageRatings()==-1) {
-					System.out.println("Ratings: NA");
-				}else
-					System.out.println("Ratings: "+temp.getAverageRatings());
+				System.out.println("Ratings: "+temp.getAverageRatings());
+				System.out.println();
 				count++;
-				if(count==6) {break;}
 			}
         }
 	}
 
-	// should be in movie handler
-	public void searchMovie(String searchString) {
-		System.out.println("Showing results for: "+searchString);
-		for (Movie temp : movieHandler.getMovie()) {
-			if(temp.getName().contentEquals(searchString)) {
-				System.out.println(temp);
-				System.out.print("Average Movie Rating: ");
-				System.out.println(temp.getAverageRatings());
-				System.out.println("Most Recent Reviews:");
-				System.out.println(temp.getReview());
-			}
+	public void searchMovie() {
+		String searchString = BookingInputs.getSearchString();
+		
+		Movie searchResult = movieHandler.searchMovie(searchString);
+		
+		if (searchResult!=null) {
+			System.out.println("Showing results for: "+searchString);
+			System.out.println();
+			System.out.println(searchResult);
 		}
+		else 
+			System.out.println("No results found for: "+searchString);
 	}
 
 	// add this to showhandler
@@ -448,6 +449,7 @@ public class BookMyShow implements BookMyShowInterface{
 		System.out.println(selectedMovie);
 		selectedMovie.removeMovie(movieRemoveOption-1);
 	}
+	
 	public void showBookingHist() {
 		for (Ticket temp : userhandler.getUsers().get(userhandler.getSize()).getTickets()) {
 			System.out.println( "Ticket{" +
@@ -458,6 +460,7 @@ public class BookMyShow implements BookMyShowInterface{
 	                '}');
 		}
 	}
+	
 	public void createRatingReview() {
 		int option=0;
 		User useri=null;
@@ -472,45 +475,51 @@ public class BookMyShow implements BookMyShowInterface{
 			return;
 		}
 		do {
-		System.out.println("| 01: Rate a Movie                           |");
-		System.out.println("| 02: Review a Movie                         |");
-		System.out.println("| 03: Exit                                   |");
-		option = scanner.nextInt();
-        scanner.nextLine();
-        switch(option){
-		case 1:
-			System.out.println("Which Movie would you like to rate?");
-			String name=in.nextLine();
 			
-			for (Movie temp : movieHandler.getMovie()) {
-				if(temp.getName().contentEquals(name)) {
-					System.out.println("Enter your rating from 1 to 5:");
-					double score = scanner.nextInt();
-			        scanner.nextLine();
-					temp.addRatings(new Rating(score,useri));
-					System.out.println("Rating added");
-					break;
+            System.out.println();
+            System.out.println("----------------REVIEW/RATING MENU---------------");
+        	System.out.println("| 01: Rate a Movie                              |");
+        	System.out.println("| 02: Review a Movie                            |");
+        	System.out.println("| 03: Exit                                      |");
+            System.out.println("-------------------------------------------------");
+            System.out.println();
+            
+			option = BookingInputs.getIntUserInput();
+	        
+	        switch(option){
+			case 1:
+				System.out.println("Which Movie would you like to rate?");
+				String name=in.nextLine();
+				
+				for (Movie temp : movieHandler.getMovie()) {
+					if(temp.getName().contentEquals(name)) {
+						System.out.println("Enter your rating from 1 to 5:");
+						double score = scanner.nextInt();
+				        scanner.nextLine();
+						temp.addRatings(new Rating(score,useri));
+						System.out.println("Rating added");
+						break;
+					}
 				}
-			}
-			break;
-		case 2:
-			System.out.println("Which Movie would you like to review?");
-			String name1=in.nextLine();
-			for (Movie temp : movieHandler.getMovie()) {
-				if(temp.getName().contentEquals(name1)) {
-					System.out.println("Enter your review:");
-					String text = in.nextLine();
-					temp.addReview(new Review(text,useri));
-					System.out.println("Review added");
-					break;
+				break;
+			case 2:
+				System.out.println("Which Movie would you like to review?");
+				String name1=in.nextLine();
+				for (Movie temp : movieHandler.getMovie()) {
+					if(temp.getName().contentEquals(name1)) {
+						System.out.println("Enter your review:");
+						String text = in.nextLine();
+						temp.addReview(new Review(text,useri));
+						System.out.println("Review added");
+						break;
+					}
 				}
-			}
-			break;
-		case 3:
-			break;
-		default:
-			System.out.println("Invalid Input");
-	}
+				break;
+			case 3:
+				break;
+			default:
+				System.out.println("Invalid Input");
+	        }
 		}while(option!=3);
 	}
 	

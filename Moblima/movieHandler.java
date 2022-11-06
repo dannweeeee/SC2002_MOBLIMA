@@ -31,6 +31,15 @@ public class movieHandler {
 			count++;
 		}
 	}
+	
+	public Movie searchMovie(String searchString) {
+		for (Movie temp : this.getMovie()) {
+			if(temp.getName().compareToIgnoreCase(searchString)==0) {
+				return temp;
+			}
+		}
+		return null;
+	}
 
 	
 }

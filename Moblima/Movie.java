@@ -128,15 +128,15 @@ public class Movie  {
 	    	return ticketlist.size();
 	    }
 	    
-	    public double getAverageRatings() {
+	    public String getAverageRatings() {
 	    	Ratings=0;
 	    	if(ratings.size()<2) {
-	    		return -1;
+	    		return "NA";
 	    	}
 	    	else {
 	    		for (Rating temp : ratings) {
 	    			Ratings+=temp.GetRating();}
-	    		return Ratings/ratings.size();
+	    		return Double.toString(Ratings/ratings.size());
 	    	}
 	    }
 	    
