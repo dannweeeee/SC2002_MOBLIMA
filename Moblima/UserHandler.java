@@ -13,6 +13,6 @@ public class UserHandler {
 		return users;
 	}
 	public int getSize() {
-		return count;
+		return users.size()-1;
 	}
 }

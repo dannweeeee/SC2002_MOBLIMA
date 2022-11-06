@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Admin",
+            "request": "launch",
+            "mainClass": "Moblima.Admin",
+            "projectName": "SC2002_MOBLIMA"
+        },
+        {
+            "type": "java",
             "name": "Launch BookMyShowApp",
             "request": "launch",
             "mainClass": "Moblima.BookMyShowApp",

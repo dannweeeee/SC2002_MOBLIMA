@@ -12,6 +12,7 @@ public class Admin implements LoginObserver {
     private LoginPage loginUI;
     private AdminForm adminUI;
     private SettingsController settingsController;
+    private BookMyShowInterface showManager;
 
     /**
      * Constructor for Admin.
@@ -54,11 +55,6 @@ public class Admin implements LoginObserver {
      * Launch the admin UI when the login is successful.
      */
     public void loginSuccess() {
-        try {
-            AdminPage adminPage = new AdminPage();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        }
         adminUI.show();
     }
 
@@ -70,7 +66,15 @@ public class Admin implements LoginObserver {
         loginUI = null;
         adminUI = null;
         settingsController = null;
-        BookMyShowApp.main(null);
+        BookMyShowApp.showUserView(showManager);
+    }
+
+    /**
+     * Inject a BookMyShow object into the admin module.
+     * @param bookMyShow the <code>BookMyShow</code> object to be injected.
+     */
+    public void attachBookMyShow(BookMyShowInterface bookMyShow) {
+        this.showManager = bookMyShow;
     }
 
     /**
@@ -78,5 +82,25 @@ public class Admin implements LoginObserver {
      */
     public void manageSettings() {
         settingsController.launch();
+    }
+
+    public void createMovie() {
+        showManager.createMovie("MovieList.txt");
+    }
+
+    public void updateMovie() {
+        showManager.updateMovie("MovieList.txt");
+    }
+
+    public void removeMovie() {
+        showManager.removeMovie("MovieList.txt");
+    }
+
+    public void showAllMovies() {
+        showManager.showAllMovies();
+    }
+
+    public void createShow() {
+        showManager.createShow();
     }
 }
