@@ -262,16 +262,30 @@ public class BookMyShow implements BookMyShowInterface{
 		System.out.println("Sort Movies by: 1.Ticket sales, 2.Ratings");
 		int sort = scanner.nextInt();
         scanner.nextLine();
+        int count =1;
         if(sort==1) {
         	movieHandler.sortByTicketSales();
+        	for (Movie temp : movieHandler.getMovie()) {
+    			System.out.print(count+": ");
+    			System.out.print(temp);
+    			System.out.println("Ticket Sales: "+temp.getTicketsSize());
+    			count++;
+    			if(count==6) {break;}
+    		}
         }
-        else {movieHandler.sortByRatings();}
-		int count =1;
-		for (Movie temp : movieHandler.getMovie()) {
-			System.out.print(count+": ");
-			System.out.println(temp);
-			count++;
-		}
+        else {
+        	movieHandler.sortByRatings();
+	        for (Movie temp : movieHandler.getMovie()) {
+				System.out.print(count+": ");
+				System.out.print(temp);
+				if (temp.getAverageRatings()==-1) {
+					System.out.println("Ratings: NA");
+				}else
+					System.out.println("Ratings: "+temp.getAverageRatings());
+				count++;
+				if(count==6) {break;}
+			}
+        }
 	}
 
 	// should be in movie handler
@@ -451,7 +465,17 @@ public class BookMyShow implements BookMyShowInterface{
 
 	public void createRatingReview() {
 		int option=0;
-
+		User useri=null;
+		System.out.print("Enter your Email: ");
+		String email=in.nextLine();
+		for(User temp: userhandler.getUsers()) {
+			if(temp.getEmail().contentEquals(email)) {
+				 useri=temp;}
+		}
+		if(useri==null){
+			System.out.print("User doesn't exist");
+			return;
+		}
 		do {
 		System.out.println("| 01: Rate a Movie                           |");
 		System.out.println("| 02: Review a Movie                         |");
@@ -468,8 +492,9 @@ public class BookMyShow implements BookMyShowInterface{
 					System.out.println("Enter your rating from 1 to 5:");
 					double score = scanner.nextInt();
 			        scanner.nextLine();
-					temp.addRatings(new Rating(score,userhandler.getUsers().get(userhandler.getSize())));
-					System.out.println("Review added");
+					temp.addRatings(new Rating(score,useri));
+					System.out.println("Rating added");
+					break;
 				}
 			}
 			break;
@@ -480,7 +505,7 @@ public class BookMyShow implements BookMyShowInterface{
 				if(temp.getName().contentEquals(name1)) {
 					System.out.println("Enter your review:");
 					String text = in.nextLine();
-					temp.addReview(new Review(text,userhandler.getUsers().get(userhandler.getSize())));
+					temp.addReview(new Review(text,useri));
 					System.out.println("Review added");
 					break;
 				}
