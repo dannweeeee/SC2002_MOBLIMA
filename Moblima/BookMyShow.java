@@ -538,9 +538,20 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 
 	public void showBookingHist() {
-		for (Ticket temp : userhandler.getUsers().get(userhandler.getSize()).getTickets()) {
+		User user_test=null;
+		System.out.print("Enter your Email: ");
+		String email=in.nextLine();
+		for(User temp: userhandler.getUsers()) {
+			if(temp.getEmail().contentEquals(email)) {
+				user_test=temp;}
+		}
+		if(user_test==null){
+			System.out.print("User doesn't exist");
+			return;
+		}
+		for (Ticket temp : user_test.getTickets()) {
 			System.out.println( "Ticket{" +
-	                " owner='" +  userhandler.getUsers().get(userhandler.getSize()).getName() +
+	                " owner='" +  user_test.getName() +
 	                ", bookingTime=" + temp.getBookingTime() +
 	                ", Seats booked=" + temp.getSeat().getSeat() +
 	                ", bookedShow=" + temp.getBookedShow()+
@@ -551,6 +562,7 @@ public class BookMyShow implements BookMyShowInterface{
 	public void createRatingReview() {
 		int option=0;
 		User useri=null;
+		Movie choice=null;
 		System.out.print("Enter your Email: ");
 		String email=in.nextLine();
 		for(User temp: userhandler.getUsers()) {
@@ -571,7 +583,8 @@ public class BookMyShow implements BookMyShowInterface{
             System.out.println("-------------------------------------------------");
             System.out.println();
             
-			option = BookingInputs.getIntUserInput();
+            option = scanner.nextInt();
+            scanner.nextLine();
 	        
 	        switch(option){
 			case 1:
@@ -580,28 +593,36 @@ public class BookMyShow implements BookMyShowInterface{
 				
 				for (Movie temp : movieHandler.getMovie()) {
 					if(temp.getName().contentEquals(name)) {
-						System.out.println("Enter your rating from 1 to 5:");
-						double score = scanner.nextInt();
-				        scanner.nextLine();
-						temp.addRatings(new Rating(score,useri));
-						System.out.println("Rating added");
+						choice=temp;
 						break;
 					}
 				}
-				break;
+				if(choice!=null) {
+					System.out.println("Enter your rating from 1 to 5:");
+					Double score = scanner.nextDouble();
+			        scanner.nextLine();
+					choice.addRatings(new Rating(score,useri));
+					System.out.println("Rating added");}
+					else System.out.println("Movie does not exist");
+					break;
+				
 			case 2:
 				System.out.println("Which Movie would you like to review?");
 				String name1=in.nextLine();
 				for (Movie temp : movieHandler.getMovie()) {
 					if(temp.getName().contentEquals(name1)) {
-						System.out.println("Enter your review:");
-						String text = in.nextLine();
-						temp.addReview(new Review(text,useri));
-						System.out.println("Review added");
+						choice=temp;
 						break;
 					}
 				}
-				break;
+				if(choice!=null) {
+					System.out.println("Enter your review:");
+					String text = in.nextLine();
+					choice.addReview(new Review(text,useri));
+					System.out.println("Review added");}
+					else System.out.println("Movie does not exist");
+					break;
+				
 			case 3:
 				break;
 			default:
