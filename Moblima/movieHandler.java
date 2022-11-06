@@ -13,6 +13,10 @@ public class movieHandler {
 	public ArrayList<Movie> getMovie(){
 		return movie;
 	}
+
+	public int sizeMovie(){
+		return movie.size();
+	}
 	
 	public void sortByTicketSales() {
 		Collections.sort(movie, new SortbyTicket().reversed());

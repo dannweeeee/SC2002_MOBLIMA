@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.print.event.PrintEvent;
+
 public class BookMyShow implements BookMyShowInterface{
 	
 	private movieHandler movieHandler;
@@ -340,7 +342,7 @@ public class BookMyShow implements BookMyShowInterface{
 		return movieHandler;
 	}
 
-	public void createMovie(String fileName){
+	public void createMovie(String fileName) throws IndexOutOfBoundsException {
         in = new Scanner(System.in);
         String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;
         System.out.print("Enter full name of Movie: ");
@@ -360,14 +362,32 @@ public class BookMyShow implements BookMyShowInterface{
 		int movieOption = 0, moviePartOption = 0;
 		String movieName, movieStatus, movieDirector, movieSynopsis, movieCasts;
 		String movieUpdateName, movieUpdateStatus, movieUpdateDirector, movieUpdateSynopsis, movieUpdateCasts;
+		
 		showAllMovies();
-		System.out.print("Which Movie would you like to update? (e.g. 1): ");
-		try{
-			movieOption = in.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("Invalid Input. Please re-enter.");
-			in.next();
-		}
+		do{
+			System.out.print("Choose digit of Movie to update (Enter '-1' to go back): ");
+			try{
+				in = new Scanner(System.in);
+				movieOption = in.nextInt();
+				if (movieOption > 0 && movieOption < movieHandler.sizeMovie()){
+					break;
+				}
+				else if (movieOption<0){
+					movieOption = in.nextInt();
+					throw new IllegalArgumentException("Input out of bounds. Please re-enter. ");
+				}
+				else{
+					System.out.println("Input out of bounds. Please re-enter. ");
+				}
+			}catch(IllegalArgumentException iae){
+				System.out.println(iae.getMessage());
+				in.next();
+			}catch(Exception e) {
+				System.out.println("Invalid Input. Please re-enter. ");
+				in.next();
+			}
+		} while(movieOption != -1);
+
 		Movie selectedMovie = movieHandler.getMovie().get(movieOption-1);
 		movieName = selectedMovie.getName();
 		movieStatus = selectedMovie.getStatus();
@@ -383,7 +403,13 @@ public class BookMyShow implements BookMyShowInterface{
 
 		do{
 			System.out.println("Select which to update (Enter '-1' to confirm & exit): ");
-			moviePartOption = in.nextInt();
+			try {
+				moviePartOption = in.nextInt();
+			}catch(Exception e) {
+				System.out.println("Invalid Input. Please re-enter.");
+				in.next();
+				continue;
+			}
 			switch(moviePartOption){
 				case 1:
 					System.out.print("Update full name of Movie: ");
@@ -422,7 +448,7 @@ public class BookMyShow implements BookMyShowInterface{
 		System.out.println(selectedMovie);
 	}
 
-	public void removeMovie(String fileName){
+	public void removeMovie(String fileName) throws IndexOutOfBoundsException {
 		int movieRemoveOption = 0;
 		showAllMovies();
 		System.out.print("Which Movie would you like to update? (e.g. 1): ");
