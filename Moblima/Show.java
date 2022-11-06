@@ -46,6 +46,10 @@ public class Show {
         return showTime;
     }
 
+    public void setShowTime(Date date){
+        this.showTime = date;
+    }
+
     public void updateShow(){
     }
 
@@ -56,7 +60,6 @@ public class Show {
         ticket.setBookingTime(new Date());
         ticket.setSeat(seats);
         ticket.setPrice(price);
-        System.out.println("Successfully booked");
         user.bookingHistory.add(ticket);
         this.movie.addticket(ticket);
         return ticket;
@@ -64,12 +67,12 @@ public class Show {
    
     @Override
     public String toString() {
-        return "Show{" +
-                "id=" + id +
-                ", showTime=" + showTime +
-                ", movie=" + movie.getName() +
-                ", theater=" + theater.getCinemaID() +
-                ", availableSeats=" + availableSeats +
+        return this.movie.getName() + "\n" +
+                "id =" + id +
+                "\nShow Time=" + showTime +
+                "\nmovie=" + movie.getName() +
+                "\ntheater=" + theater.getCinemaID() +
+                "\navailableSeats=" + availableSeats +
                 '}';
     }
 }

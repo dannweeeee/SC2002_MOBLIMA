@@ -10,6 +10,8 @@ public interface BookMyShowInterface {
 
 	public void showExample();
 
+	//public void showMovies();
+
 	public void showAllMovies();
 	
 	public void BookMovie();
@@ -27,4 +29,8 @@ public interface BookMyShowInterface {
 	public void showShowTimes();
 
 	public void removeMovie(String fileName);
+	
+	public void showBookingHist();
+	
+	public void createRatingReview();
 }

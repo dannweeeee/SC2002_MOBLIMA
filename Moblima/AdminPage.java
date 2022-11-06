@@ -69,8 +69,9 @@ public class AdminPage {
                 case 8:
                     break;
                 case 9:
-                    MovieGoer movieGoer = new MovieGoer();
-                return;
+                    Admin admin = Admin.getInstance();
+                    admin.exit();
+                    break;
                 }
             }
         } 

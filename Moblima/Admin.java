@@ -1,16 +1,15 @@
 package Moblima;
 
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 /**
  * Controller of the admin module. Creates and delegates tasks to other classes.
  * @author Nghia Nguyen
  * @version 1.0
  */
-public class Admin {
+public class Admin implements LoginObserver {
     private static Admin instance = null;
-    private StaffLoginForm loginUI;
+    private LoginPage loginUI;
     private AdminForm adminUI;
     private SettingsController settingsController;
 
@@ -18,7 +17,6 @@ public class Admin {
      * Constructor for Admin.
      */
     private Admin() {
-        loginUI = new StaffLoginForm(new StaffAccount(new StaffAccountFileIO_I()));
         adminUI = new AdminForm(this);
         settingsController = new SettingsController(new SettingsForm());
     }
@@ -38,25 +36,41 @@ public class Admin {
      * Start the admin module.
      */
     public void start() {
-        if (!login()) return;
-        adminUI.show();
+        //adminUI.show();
+        login();
     }
 
     /**
      * Launch the login function.
      * @return <code>true</code> if the login is successful, <code>false</code> otherwise.
      */
-    private boolean login() {
-        return loginUI.show();
+    private void login() {
+        IDandPasswords idandPasswords = new IDandPasswords();
+		loginUI = new LoginPage(idandPasswords.getLoginInfo());
+        loginUI.addLoginObserver(this);
     }
 
     /**
-     * Log out and restart the admin module.
+     * Launch the admin UI when the login is successful.
      */
-    public void logout() {
+    public void loginSuccess() {
+        try {
+            AdminPage adminPage = new AdminPage();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        adminUI.show();
+    }
+
+    /**
+     * Exit the admin module.
+     */
+    public void exit() {
+        instance = null;
         loginUI = null;
         adminUI = null;
-        start();
+        settingsController = null;
+        BookMyShowApp.main(null);
     }
 
     /**

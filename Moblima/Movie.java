@@ -170,4 +170,8 @@ public class Movie  {
 		public void updateCasts(String movieUpdateCasts) {
 	        cast = movieUpdateCasts;
 	    }
+
+		public void removeMovie(int movieID){
+			movieH.getMovie().remove(this);
+		}
 }
