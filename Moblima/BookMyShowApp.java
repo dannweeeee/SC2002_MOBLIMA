@@ -3,6 +3,8 @@ package Moblima;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Moblima.Admin.Admin;
+
 public class BookMyShowApp {
 	private static Scanner in;
 	
@@ -11,7 +13,7 @@ public class BookMyShowApp {
 		BookMyShowInterface bookMyShow = new BookMyShow();
 		
 		try {
-			bookMyShow.readMovieFromTextFile("MovieList.txt");
+			bookMyShow.readMovieFromTextFile("Moblima/Utils/MovieList.txt");
 		}catch (Exception e) {
 			System.out.println("Movies File Read Error");
 		}

@@ -13,15 +13,32 @@ import java.util.Scanner;
 
 import javax.print.event.PrintEvent;
 
+import Moblima.Entities.Booking;
+import Moblima.Entities.Cinema;
+import Moblima.Entities.Cineplex;
+import Moblima.Entities.Movie;
+import Moblima.Entities.Rating;
+import Moblima.Entities.Review;
+import Moblima.Entities.Seats;
+import Moblima.Entities.Show;
+import Moblima.Entities.Ticket;
+import Moblima.Entities.User;
+import Moblima.Handlers.SeatHandler;
+import Moblima.Handlers.ShowHandler;
+import Moblima.Handlers.UserHandler;
+import Moblima.Handlers.CinemaHandler;
+import Moblima.Handlers.CineplexHandler;
+import Moblima.Handlers.MovieHandler;
+import Moblima.Utils.Settings;
+
 public class BookMyShow implements BookMyShowInterface{
-	private movieHandler movieHandler;
-	private cineplexHandler cineplexHandler;
-	private cinemaHandler cinemaHandler;
+	
+	
+	private CinemaHandler CinemaHandler;
 	private Cinema cinema;
 	private Cineplex cineplex;
 	private Scanner in;
-	private SeatHandler seatHandler;
-	private ShowHandler showHandler;
+	
 	private UserHandler userhandler;
 	SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");
 	Scanner scanner = new Scanner(System.in);
@@ -39,17 +56,18 @@ public class BookMyShow implements BookMyShowInterface{
 	private final int TUESDAY = 2;
 	
 	public BookMyShow() {
-		this.movieHandler = new movieHandler();
-		this.cineplexHandler = new cineplexHandler();
-		this.showHandler = new ShowHandler();
-		this.seatHandler = new SeatHandler();
 		userhandler= new UserHandler();
 		in = new Scanner(System.in);
 	}
 	
 	public void initializeExample() {
+		CineplexHandler cineplexHandler = CineplexHandler.getInstance();
+		MovieHandler movieHandler = MovieHandler.getInstance();
+		ShowHandler showHandler = ShowHandler.getInstance();
+		SeatHandler seatHandler = SeatHandler.getInstance();
+		
 		Cineplex jurong = cineplexHandler.addCineplex("JurongPoint");
-		cinemaHandler JurongPoint = new cinemaHandler("JurongPoint");
+		CinemaHandler JurongPoint = new CinemaHandler("JurongPoint");
 		JurongPoint.addCinema("Standard", 35, jurong);
 		JurongPoint.addCinema("Platinum", 10, jurong);
 		cineplexHandler.getAllCineplex().get(cineplexHandler.getSize()-1).setHall(JurongPoint);
@@ -72,16 +90,19 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 
 	public void showShowTimes(){
+		ShowHandler showHandler = ShowHandler.getInstance();
 		ShowHandler.printAllShows(showHandler.getAllShows());
 	}
 	
 	public void showExample() {
+		CineplexHandler cineplexHandler = CineplexHandler.getInstance();
 		cineplexHandler.printAllCineplex();
 		System.out.println("Show all cinemas:");
 		cineplexHandler.getAllCineplex().get(0).printAllCinema();
 	}
 	
 	public void showAllMovies() {
+		MovieHandler movieHandler = MovieHandler.getInstance();
 		System.out.println("Showing all movies...");
 		int count =1;
 		for (Movie temp : movieHandler.getMovie()) {
@@ -92,26 +113,29 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 	
 	public void readMovieFromTextFile(String fileName) throws FileNotFoundException{
-	    	FileReader movieDatabase = new FileReader(fileName);
-	    	Scanner read = new Scanner(movieDatabase);
-	    	read.useDelimiter("\\||\\r\\n");
-	    	read.nextLine();
-	    	String movieName, movieStatus, movieDirector, movieSynopsis, movieCast;
-	    	Movie newMovie;
-	    	while(read.hasNext()) {
-	    		//read.next();
-	    		movieName = read.next();
-	    		movieStatus = read.next();
-	    		movieDirector = read.next();
-	    		movieSynopsis = read.next();
-	    		movieCast = read.next();
-	    		newMovie = new Movie(movieName, movieStatus, movieDirector, movieSynopsis, movieCast);
-				movieHandler.addMovie(newMovie);
-	    	}
-	    	read.close();
+		MovieHandler movieHandler = MovieHandler.getInstance();
+    	FileReader movieDatabase = new FileReader(fileName);
+    	Scanner read = new Scanner(movieDatabase);
+    	read.useDelimiter("\\||\\r\\n");
+    	read.nextLine();
+    	String movieName, movieStatus, movieDirector, movieSynopsis, movieCast;
+    	Movie newMovie;
+    	while(read.hasNext()) {
+    		//read.next();
+    		movieName = read.next();
+    		movieStatus = read.next();
+    		movieDirector = read.next();
+    		movieSynopsis = read.next();
+    		movieCast = read.next();
+    		newMovie = new Movie(movieName, movieStatus, movieDirector, movieSynopsis, movieCast);
+			movieHandler.addMovie(newMovie);
+    	}
+    	read.close();
 	}
 	
 	public void BookMovie() {
+		CineplexHandler cineplexHandler = CineplexHandler.getInstance();
+		ShowHandler showHandler = ShowHandler.getInstance();
 		int booking_option = 0;
 		User user1 = BookingInputs.getUserInformation();
 		userhandler.getUsers().add(user1);
@@ -158,6 +182,7 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 
 	public ArrayList<Ticket> bookShow (ArrayList<Show> shows, User user1){
+		SeatHandler seatHandler = SeatHandler.getInstance();
 		Booking newBooking = new Booking(user1);
 		ShowHandler.printAllShows(shows);
 		Show selectedShow = BookingInputs.getShow(shows);
@@ -182,6 +207,7 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 
 	public ArrayList<Seats> selectSeats (Booking newBooking){
+		SeatHandler seatHandler = SeatHandler.getInstance();
         ArrayList<Seats> chosenSeats = new ArrayList<Seats>();
 		int totalTickets = newBooking.getAdultTicketNum() + newBooking.getStudentTicketNum();
 		if (!seatHandler.checkCapacity(totalTickets, newBooking.getShow())){
@@ -297,6 +323,7 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 
     public int bookingConfirmation(Booking newBooking){
+    	SeatHandler seatHandler = SeatHandler.getInstance();
 		calcPrice(newBooking);
 		if (newBooking.getStudentPrice() == 0.0 || newBooking.getAdultPrice() == 0) return 0;
 		double totalPrice = newBooking.getStudentTicketNum() * newBooking.getStudentPrice() + newBooking.getAdultTicketNum() * newBooking.getAdultPrice();
@@ -319,6 +346,8 @@ public class BookMyShow implements BookMyShowInterface{
     }
 
     public void showAllMoviesTicket() {
+
+		MovieHandler movieHandler = MovieHandler.getInstance();
 		int count =1;
 		System.out.println("Sort Movies by: \n1.Ticket sales \n2.Ratings");
 		System.out.print("Enter Option: ");
@@ -350,6 +379,7 @@ public class BookMyShow implements BookMyShowInterface{
 
 	// should be in movie handler
 	public void searchMovie() {
+		MovieHandler movieHandler = MovieHandler.getInstance();
 		String searchString = BookingInputs.getSearchString();
 		System.out.println("Showing results for: "+searchString);
 		ArrayList<Movie> searchResult = movieHandler.searchMovie(searchString);
@@ -365,6 +395,10 @@ public class BookMyShow implements BookMyShowInterface{
 
 	// add this to showhandler
 	public void createShow() {
+		CineplexHandler cineplexHandler = CineplexHandler.getInstance();
+		MovieHandler movieHandler = MovieHandler.getInstance();
+		ShowHandler showHandler = ShowHandler.getInstance();
+		SeatHandler seatHandler = SeatHandler.getInstance();
 		int movieOption = -1, cineplexOption =-1, cinemaOption =-1;
 		String dateInString;
 		Date showtime = null;
@@ -407,31 +441,28 @@ public class BookMyShow implements BookMyShowInterface{
 			in.next();
 		}
 		
-		Show show1 = new Show(showtime,selectedMovie,cineplexHandler.getAllCineplex().get(cineplexOption-1).getHall().get(cinemaOption-1));
+		Show show1 = showHandler.addShows(showtime,selectedMovie,cineplexHandler.getAllCineplex().get(cineplexOption-1).getHall().get(cinemaOption-1), seatHandler);
 		System.out.println(show1);
 	}
 
-	public movieHandler getMovieDatabase() {
-		return movieHandler;
-	}
-
 	public void createMovie(String fileName) throws IndexOutOfBoundsException {
-        in = new Scanner(System.in);
+		MovieHandler movieHandler = MovieHandler.getInstance();
         String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;
         System.out.print("Enter full name of Movie: ");
-        movieAddName = in.nextLine();
+        movieAddName = BookingInputs.getSearchString();
         System.out.print("Enter status of Movie (Coming Soon, Now Showing): ");
-        movieAddStatus = in.nextLine();
+        movieAddStatus = BookingInputs.getSearchString();
         System.out.print("Enter director of Movie: ");
-        movieAddDirector = in.nextLine();
+        movieAddDirector = BookingInputs.getSearchString();
         System.out.print("Enter synopsis of Movie: ");
-        movieAddSynopsis = in.nextLine();
+        movieAddSynopsis = BookingInputs.getSearchString();
         System.out.print("Enter casts of Movie (e.g. Steve Rogers, Borat, Mr Bean): ");
-        movieAddCasts = in.nextLine();
+        movieAddCasts = BookingInputs.getSearchString();
         Movie addNewMovie = movieHandler.createMovie(movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts);
     }
 
 	public void updateMovie(String fileName){
+		MovieHandler movieHandler = MovieHandler.getInstance();
 		int movieOption = 0, moviePartOption = 0;
 		String movieName, movieStatus, movieDirector, movieSynopsis, movieCasts;
 		String movieUpdateName, movieUpdateStatus, movieUpdateDirector, movieUpdateSynopsis, movieUpdateCasts;
@@ -522,6 +553,7 @@ public class BookMyShow implements BookMyShowInterface{
 	}
 
 	public void removeMovie(String fileName) throws IndexOutOfBoundsException {
+		MovieHandler movieHandler = MovieHandler.getInstance();
 		int movieRemoveOption = 0;
 		showAllMovies();
 		System.out.print("Which Movie would you like to update? (e.g. 1): ");
@@ -560,6 +592,7 @@ public class BookMyShow implements BookMyShowInterface{
 	}
   
 	public void createRatingReview() {
+		MovieHandler movieHandler = MovieHandler.getInstance();
 		int option=0;
 		User useri=null;
 		Movie choice=null;
@@ -632,6 +665,7 @@ public class BookMyShow implements BookMyShowInterface{
 	}
   
   	public void updateShowTime(){
+		ShowHandler showHandler = ShowHandler.getInstance();
 		Scanner newScanner = new Scanner(System.in);
 
 		while(true){

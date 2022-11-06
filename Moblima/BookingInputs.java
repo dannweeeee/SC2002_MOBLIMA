@@ -3,6 +3,11 @@ package Moblima;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Moblima.Entities.Seats;
+import Moblima.Entities.Show;
+import Moblima.Entities.User;
+import Moblima.Handlers.ShowHandler;
+
 public class BookingInputs {
     public BookingInputs(){}
 
