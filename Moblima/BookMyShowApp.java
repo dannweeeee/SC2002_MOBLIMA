@@ -15,7 +15,10 @@ public class BookMyShowApp {
 		}catch (Exception e) {
 			System.out.println("Movies File Read Error");
 		}
-		
+		showUserView(bookMyShow);
+	}
+
+	public static void showUserView(BookMyShowInterface bookMyShow) {
 		int option = 0;
 		in = new Scanner(System.in);
 		do {
@@ -29,9 +32,15 @@ public class BookMyShowApp {
 	        	System.out.println("| 05: Review/Rate Menu                          |");
 	        	System.out.println("| 06: Booking  Menu                             |");
 	        	System.out.println("| 07: Show Booking History                      |");
+<<<<<<< HEAD
 	        	System.out.println("| 08:                                           |");
 	        	System.out.println("| 09: Initialize/Show Example                   |");
 				System.out.println("| 10: ADMIN Login                               |");
+=======
+	        	System.out.println("| 08: Search Movie                              |");
+	        	System.out.println("| 09: Create Show                               |");
+				    System.out.println("| 10: ADMIN Login                               |");
+>>>>>>> main
 	            System.out.println("-------------------------------------------------");
 	            System.out.println();
      
@@ -46,6 +55,7 @@ public class BookMyShowApp {
         		switch (option) {
         		case -1:
         			System.out.println("Goodbye!");
+					System.exit(0);
         			return;
         		case 1:
 					bookMyShow.showAllMovies();
@@ -63,7 +73,7 @@ public class BookMyShowApp {
         			bookMyShow.createRatingReview();
         			break;
         		case 6:
-					bookMyShow.BookMovie();
+					    bookMyShow.BookMovie();
         			break;
         		case 7:
         			bookMyShow.showBookingHist();
