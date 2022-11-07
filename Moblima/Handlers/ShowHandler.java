@@ -78,5 +78,10 @@ public class ShowHandler {
         }
         return results;
     }
+
+    public void removeShow(Show show){
+        this.allShows.remove(show);
+        show = null;
+    }
    
 }

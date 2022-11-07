@@ -1,14 +1,21 @@
 package Moblima.Admin;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import Moblima.MovieBookerApp;
 import Moblima.MovieBookerInterface;
 import Moblima.Entities.Movie;
+import Moblima.Entities.Show;
 import Moblima.Utils.SettingsController;
 import Moblima.Utils.SettingsForm;
+import Moblima.Utils.UtilityInputs;
+import Moblima.Handlers.CineplexHandler;
 import Moblima.Handlers.MovieHandler;
+import Moblima.Handlers.SeatHandler;
 import Moblima.Handlers.ShowHandler;
 
 /**
@@ -26,6 +33,8 @@ public class Admin implements AdminLogic, LoginObserver {
     private MovieHandler movieHandler;
     private ShowHandler showHandler;
     private Scanner in;
+
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss a");
 
     /**
      * Constructor for Admin.
@@ -68,17 +77,16 @@ public class Admin implements AdminLogic, LoginObserver {
     }
 
     public void createMovie() {
-        in = new Scanner(System.in);
         String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;
         System.out.print("Enter full name of Movie: ");
-        movieAddName = in.nextLine();
+        movieAddName = UtilityInputs.getStringUserInput();
         System.out.print("Enter status of Movie (Coming Soon, Now Showing): ");
         while (true){
-            movieAddStatus = in.nextLine();
-            if (movieAddStatus == "Coming Soon"){
+            movieAddStatus = UtilityInputs.getStringUserInput();
+            if (movieAddStatus.equals("Coming Soon")){
                 break;
             }
-            else if (movieAddStatus == "Now Showing"){
+            else if (movieAddStatus.equals("Now Showing")){
                 break;
             }
             else{
@@ -86,29 +94,24 @@ public class Admin implements AdminLogic, LoginObserver {
             }
         }
         System.out.print("Enter director of Movie: ");
-        movieAddDirector = in.nextLine();
+        movieAddDirector = UtilityInputs.getStringUserInput();
         System.out.print("Enter synopsis of Movie: ");
-        movieAddSynopsis = in.nextLine();
+        movieAddSynopsis = UtilityInputs.getStringUserInput();
         System.out.print("Enter casts of Movie (e.g. Steve Rogers, Borat, Mr Bean): ");
-        movieAddCasts = in.nextLine();
+        movieAddCasts = UtilityInputs.getStringUserInput();
         Movie addNewMovie = movieHandler.createMovie(movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts);
         System.out.print("The following Movie has been added!: ");
         System.out.print(addNewMovie);
     }
 
     public void updateMovie() {
-        in = new Scanner(System.in);
         int movieOption = 0, moviePartOption = 0;
-        String movieName, movieStatus, movieDirector, movieSynopsis, movieCasts;
-        String movieUpdateName, movieUpdateStatus, movieUpdateDirector, movieUpdateSynopsis, movieUpdateCasts;
-        showAllMovies();
+        String movieUpdateValue;
+        movieBooker.showAllMovies();
         System.out.print("Which Movie would you like to update? (e.g. 1): ");
         while (true){
-            try{
-                movieOption = in.nextInt();
-            }catch(Exception e){
-                in.next();
-            }
+            movieOption = UtilityInputs.getIntUserInput();
+            if (movieOption == -1) continue;
             if (movieOption < movieHandler.sizeMovie()+1 && movieOption > 0){
                 break;
             }
@@ -117,72 +120,56 @@ public class Admin implements AdminLogic, LoginObserver {
             }
         }
         Movie selectedMovie = movieHandler.getMovie().get(movieOption-1);
-        movieName = selectedMovie.getName();
-        movieStatus = selectedMovie.getStatus();
-        movieDirector = selectedMovie.getDirector();
-        movieSynopsis = selectedMovie.getSynopsis();
-        movieCasts = selectedMovie.getCast();
+        System.out.println("1.Title: " + selectedMovie.getName());
+        System.out.println("2.Status: " + selectedMovie.getStatus());
+        System.out.println("3.Director: " + selectedMovie.getDirector());
+        System.out.println("4.Cast: " + selectedMovie.getCast());
+        System.out.println("5.Synopsis: " + selectedMovie.getSynopsis());
 
-        System.out.println("1.Title: " + movieName);
-        System.out.println("2.Status: " + movieStatus);
-        System.out.println("3.Director: " + movieDirector);
-        System.out.println("4.Cast: " + movieCasts);
-        System.out.println("5.Synopsis: " + movieSynopsis);
-
-        do{
-            System.out.println("Select which to update (Enter '-1' to confirm & exit): ");
-            moviePartOption = in.nextInt();
+        while(true){
+            System.out.println("Select which to update (Enter '0' to confirm & exit): ");
+            moviePartOption = UtilityInputs.getIntUserInput();
+            if (moviePartOption == 0){
+                break;
+            }
+            if (moviePartOption < 0 && moviePartOption > 5){
+                System.out.println("Invalid Input. Please re-enter");
+                continue;
+            }
+            System.out.println("Enter updated value");
+            movieUpdateValue = UtilityInputs.getStringUserInput();
             switch(moviePartOption){
                 case 1:
-                    System.out.print("Update full name of Movie: ");
-                    in = new Scanner(System.in);
-                    movieUpdateName = in.nextLine();
-                    selectedMovie.updateName(movieUpdateName);
+                    selectedMovie.updateName(movieUpdateValue);
                     break;
                 case 2:
-                    System.out.print("Update status of Movie (Coming Soon, Now Showing): ");
-                    in = new Scanner(System.in);
-                    movieUpdateStatus = in.nextLine();
-                    selectedMovie.updateStatus(movieUpdateStatus);
+                    selectedMovie.updateStatus(movieUpdateValue);
                     break;
                 case 3:
-                    System.out.print("Update director of Movie: ");
-                    in = new Scanner(System.in);
-                    movieUpdateDirector = in.nextLine();
-                    selectedMovie.updateDirector(movieUpdateDirector);
+                    selectedMovie.updateDirector(movieUpdateValue);
                     break;
                 case 4:
-                    System.out.print("Update casts of Movie (e.g. Steve Rogers, Borat, Mr Bean): ");
-                    in = new Scanner(System.in);
-                    movieUpdateCasts = in.nextLine();
-                    selectedMovie.updateCasts(movieUpdateCasts);
+                    selectedMovie.updateCasts(movieUpdateValue);
                     break;
                 case 5:
-                    System.out.print("Update synopsis of movie: ");
-                    in = new Scanner(System.in);
-                    movieUpdateSynopsis = in.nextLine();
-                    selectedMovie.updateSynopsis(movieUpdateSynopsis);
+                    selectedMovie.updateSynopsis(movieUpdateValue);
                     break;
-                default:
-                    System.out.println("Invalid Input. Please re-enter");
             }
-        } while(moviePartOption != -1);
+        } 
         System.out.println(selectedMovie);
-
     }
 
     public void removeMovie() {
         int movieRemoveOption = 0;
-		showAllMovies();
+		movieBooker.showAllMovies();
 		System.out.print("Which Movie would you like to delete? (e.g. 1): ");
         while (true){
-            try{
-                movieRemoveOption = in.nextInt();
-            }catch(Exception e){
-                in.next();
-            }
+            movieRemoveOption = UtilityInputs.getIntUserInput();
             if (movieRemoveOption < movieHandler.sizeMovie()+1 && movieRemoveOption > 0){
                 break;
+            }
+            else if (movieRemoveOption == -1){
+                continue;
             }
             else{
                 System.out.println("Invalid Input. Please re-enter.");
@@ -194,23 +181,95 @@ public class Admin implements AdminLogic, LoginObserver {
 		movieHandler.removeMovie(movieRemoveOption-1);
     }
 
-    public void showAllMovies() {
-        movieBooker.showAllMovies();
-    }
-
     public void createShow() {
-        // Put implementation of createShow here, or call similar method in another class
+        CineplexHandler cineplexHandler = CineplexHandler.getInstance();
+		MovieHandler movieHandler = MovieHandler.getInstance();
+		ShowHandler showHandler = ShowHandler.getInstance();
+		SeatHandler seatHandler = SeatHandler.getInstance();
+		int movieOption = -1, cineplexOption =-1, cinemaOption =-1;
+		String dateInString;
+		Date showtime = null;
+		
+		movieBooker.showAllMovies();
+		System.out.print("Select Movie to create show:");
+		movieOption = UtilityInputs.getIntUserInput();
+		Movie selectedMovie = movieHandler.getMovie().get(movieOption-1);
+		while(true){
+            System.out.print("Enter date and showtime (E.g. 31/07/2022 09:00:00 AM): ");
+		    dateInString = UtilityInputs.getStringUserInput();
+		    try {
+		    	showtime = formatter.parse(dateInString);
+		    	System.out.println(showtime);
+                break;
+		    } catch (ParseException e) {
+		    	System.out.println("Wrong format. Please re-enter.");
+		    }
+        }
+        if (cineplexHandler.getAllCineplex().size() != 0 ){
+            cineplexHandler.printAllCineplex();
+            System.out.print("Select Cineplex: ");
+		    cineplexOption = UtilityInputs.getIntUserInput();
+
+            if (cineplexHandler.getAllCineplex().get(cineplexOption-1).getHall().size() != 0){
+		        cineplexHandler.getAllCineplex().get(cineplexOption-1).printAllCinema();
+		        System.out.print("Select Cinema: ");
+		        cinemaOption = UtilityInputs.getIntUserInput();
+		
+		        Show show1 = showHandler.addShows(showtime,selectedMovie,cineplexHandler.getAllCineplex().get(cineplexOption-1).getHall().get(cinemaOption-1), seatHandler);
+		        System.out.println(show1);
+            }
+            else{
+                System.out.print("No Cinema");
+            }
+        }
+        else{
+            System.out.print("No Cineplex");
+        }
     }
 
     public void updateShow() {
-        // Put implementation of updateShow here, or call similar method in another class
+        ShowHandler showHandler = ShowHandler.getInstance();
+		while(true){
+            if (showHandler.getAllShows().size() != 0 ){
+			    ShowHandler.printAllShows(showHandler.getAllShows());
+			    System.out.println("Enter which show time you want to edit [-1 to exit] ");
+			    int choice = UtilityInputs.getIntUserInput();
+			    if (choice == -1) break;
+			    Show selectedShow = ShowHandler.getShowByID(showHandler.getAllShows(), choice);
+			    System.out.println("You have selected\n" + selectedShow.toString());
+			    System.out.println("Enter new show time for this movie [Format: 31/07/2022 12:00:00 AM] =>  ");
+			    String dateInString = UtilityInputs.getStringUserInput();
+			    try{
+				    Date date = formatter.parse(dateInString);
+				    selectedShow.setShowTime(date);
+			    } catch(ParseException e){
+				    System.out.println("Invalid date input");
+				    continue;
+			    }
+            }else{
+                System.out.print("No Shows");
+                break;
+            }
+		} //end of while	
     }
 
-    public void removeShow() {
-        // Put implementation of removeShow here, or call similar method in another class
+    public void deleteShow(){
+        if (showHandler.getAllShows().size() != 0 ){
+            ArrayList<Show> allShows = ShowHandler.getInstance().getAllShows();
+            ShowHandler.printAllShows(allShows);
+            Show selectedShow = UtilityInputs.getShow(allShows);
+            ShowHandler.getInstance().removeShow(selectedShow);
+            System.out.println("Show has been removed");
+        }else{
+            System.out.print("No Shows");
+        }
     }
 
     public void manageSettings() {
         settingsController.launch();
+    }
+
+    public void showAllMovies(){
+        movieBooker.showAllMovies();
     }
 }

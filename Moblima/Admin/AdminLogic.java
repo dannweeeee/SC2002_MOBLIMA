@@ -49,7 +49,7 @@ public interface AdminLogic {
     /**
      * Remove an existing movie showtime.
      */
-    public void removeShow();
+    public void deleteShow();
 
     /**
      * Launch configure system settings.

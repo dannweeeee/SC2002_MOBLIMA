@@ -76,7 +76,7 @@ public final class AdminForm extends Form {
                 admin.updateShow();
                 break;
             case 7:
-                admin.removeShow();
+                admin.deleteShow();
                 break;
             case 8:
                 admin.manageSettings();
