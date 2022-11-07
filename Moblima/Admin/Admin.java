@@ -38,9 +38,6 @@ public class Admin implements AdminLogic, LoginObserver {
         showHandler = ShowHandler.getInstance();
     }
 
-    /**
-     * Start the admin module.
-     */
     public void start() {
         //adminUI.show();
         login();
@@ -63,9 +60,6 @@ public class Admin implements AdminLogic, LoginObserver {
         adminUI.show();
     }
 
-    /**
-     * Exit the admin module.
-     */
     public void exit() {
         loginUI = null;
         adminUI = null;
@@ -216,9 +210,6 @@ public class Admin implements AdminLogic, LoginObserver {
         // Put implementation of removeShow here, or call similar method in another class
     }
 
-    /**
-     * Launch the settings function.
-     */
     public void manageSettings() {
         settingsController.launch();
     }
