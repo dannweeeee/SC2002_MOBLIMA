@@ -1,5 +1,6 @@
 package Moblima.Admin;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Moblima.MovieBookerApp;
@@ -78,7 +79,18 @@ public class Admin implements AdminLogic, LoginObserver {
         System.out.print("Enter full name of Movie: ");
         movieAddName = in.nextLine();
         System.out.print("Enter status of Movie (Coming Soon, Now Showing): ");
-        movieAddStatus = in.nextLine();
+        while (true){
+            movieAddStatus = in.nextLine();
+            if (movieAddStatus == "Coming Soon"){
+                break;
+            }
+            else if (movieAddStatus == "Now Showing"){
+                break;
+            }
+            else{
+                System.out.println("Invalid Input. Please re-enter.");
+            }
+        }
         System.out.print("Enter director of Movie: ");
         movieAddDirector = in.nextLine();
         System.out.print("Enter synopsis of Movie: ");
@@ -97,11 +109,18 @@ public class Admin implements AdminLogic, LoginObserver {
         String movieUpdateName, movieUpdateStatus, movieUpdateDirector, movieUpdateSynopsis, movieUpdateCasts;
         showAllMovies();
         System.out.print("Which Movie would you like to update? (e.g. 1): ");
-        try{
-            movieOption = in.nextInt();
-        }catch(Exception e) {
-            System.out.println("Invalid Input. Please re-enter.");
-            in.next();
+        while (true){
+            try{
+                movieOption = in.nextInt();
+            }catch(Exception e){
+                in.next();
+            }
+            if (movieOption < movieHandler.sizeMovie()+1 && movieOption > 0){
+                break;
+            }
+            else{
+                System.out.println("Invalid Input. Please re-enter.");
+            }
         }
         Movie selectedMovie = movieHandler.getMovie().get(movieOption-1);
         movieName = selectedMovie.getName();
@@ -151,7 +170,7 @@ public class Admin implements AdminLogic, LoginObserver {
                     selectedMovie.updateSynopsis(movieUpdateSynopsis);
                     break;
                 default:
-                    System.out.println("Invalid Input");
+                    System.out.println("Invalid Input. Please re-enter");
             }
         } while(moviePartOption != -1);
         System.out.println(selectedMovie);
@@ -162,12 +181,19 @@ public class Admin implements AdminLogic, LoginObserver {
         int movieRemoveOption = 0;
 		showAllMovies();
 		System.out.print("Which Movie would you like to delete? (e.g. 1): ");
-		try{
-			movieRemoveOption = in.nextInt();
-		}catch(Exception e) {
-			System.out.println("Invalid Input. Please re-enter.");
-			in.next();
-		}
+        while (true){
+            try{
+                movieRemoveOption = in.nextInt();
+            }catch(Exception e){
+                in.next();
+            }
+            if (movieRemoveOption < movieHandler.sizeMovie()+1 && movieRemoveOption > 0){
+                break;
+            }
+            else{
+                System.out.println("Invalid Input. Please re-enter.");
+            }
+        }
 		Movie selectedMovie = movieHandler.getMovie().get(movieRemoveOption-1);
 		System.out.println("The following movie has been deleted!");
 		System.out.println(selectedMovie);
