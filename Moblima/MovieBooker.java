@@ -31,13 +31,12 @@ import Moblima.Utils.UtilityInputs;
 
 public class MovieBooker implements MovieBookerInterface{
 
-	private Scanner in;
+
 	private UserHandler userhandler;
 	SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");
 	
 	public MovieBooker() {
 		userhandler= new UserHandler();
-		in = new Scanner(System.in);
 	}
 	
 	public void showShowTimes(){
@@ -138,17 +137,11 @@ public class MovieBooker implements MovieBookerInterface{
 		
 		showAllMovies();
 		System.out.print("Select Movie to create show:");
-		try{
-			movieOption = in.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("Invalid Input. Please re-enter.");
-			in.next();
-		}
+		movieOption = UtilityInputs.getIntUserInput();
 		Movie selectedMovie = movieHandler.getMovie().get(movieOption-1);
 		
 		System.out.print("Enter date and showtime (E.g. Friday, Jun 7, 2020 09:00:00 AM): ");
-		in.nextLine();
-		dateInString = in.nextLine();
+		dateInString = UtilityInputs.getSearchString();
 		try {
 			showtime = formatter.parse(dateInString);
 			System.out.println(showtime);
@@ -158,21 +151,11 @@ public class MovieBooker implements MovieBookerInterface{
 		
 		cineplexHandler.printAllCineplex();
 		System.out.print("Select Cineplex: ");
-		try{
-			cineplexOption = in.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("Invalid Input. Please re-enter.");
-			in.next();
-		}
-		
+		cineplexOption = UtilityInputs.getIntUserInput();
+
 		cineplexHandler.getAllCineplex().get(cineplexOption-1).printAllCinema();
 		System.out.print("Select Cinema: ");
-		try{
-			cinemaOption = in.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("Invalid Input. Please re-enter.");
-			in.next();
-		}
+		cinemaOption = UtilityInputs.getIntUserInput();
 		
 		Show show1 = showHandler.addShows(showtime,selectedMovie,cineplexHandler.getAllCineplex().get(cineplexOption-1).getHall().get(cinemaOption-1), seatHandler);
 		System.out.println(show1);
@@ -183,15 +166,15 @@ public class MovieBooker implements MovieBookerInterface{
 		MovieHandler movieHandler = MovieHandler.getInstance();
         String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;
         System.out.print("Enter full name of Movie: ");
-        movieAddName = UtilityInputs.getSearchString();
+        movieAddName = UtilityInputs.getStringUserInput();
         System.out.print("Enter status of Movie (Coming Soon, Now Showing): ");
-        movieAddStatus = UtilityInputs.getSearchString();
+        movieAddStatus = UtilityInputs.getStringUserInput();
         System.out.print("Enter director of Movie: ");
-        movieAddDirector = UtilityInputs.getSearchString();
+        movieAddDirector = UtilityInputs.getStringUserInput();
         System.out.print("Enter synopsis of Movie: ");
-        movieAddSynopsis = UtilityInputs.getSearchString();
+        movieAddSynopsis = UtilityInputs.getStringUserInput();
         System.out.print("Enter casts of Movie (e.g. Steve Rogers, Borat, Mr Bean): ");
-        movieAddCasts = UtilityInputs.getSearchString();
+        movieAddCasts = UtilityInputs.getStringUserInput();
         Movie addNewMovie = movieHandler.createMovie(movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts);
     }
 	// move to admin module
@@ -204,14 +187,13 @@ public class MovieBooker implements MovieBookerInterface{
 		showAllMovies();
 		do{
 			System.out.print("Choose digit of Movie to update (Enter '-1' to go back): ");
-			try{
-				in = new Scanner(System.in);
-				movieOption = in.nextInt();
+			try{	
+				movieOption = UtilityInputs.getIntUserInput();
 				if (movieOption > 0 && movieOption < movieHandler.sizeMovie()){
 					break;
 				}
 				else if (movieOption<0){
-					movieOption = in.nextInt();
+					movieOption = UtilityInputs.getIntUserInput();
 					throw new IllegalArgumentException("Input out of bounds. Please re-enter. ");
 				}
 				else{
@@ -242,7 +224,7 @@ public class MovieBooker implements MovieBookerInterface{
 		do{
 			System.out.println("Select which to update (Enter '-1' to confirm & exit): ");
 			try {
-				moviePartOption = in.nextInt();
+				moviePartOption = UtilityInputs.getIntUserInput();
 			}catch(Exception e) {
 				System.out.println("Invalid Input. Please re-enter.");
 				in.next();
@@ -251,32 +233,27 @@ public class MovieBooker implements MovieBookerInterface{
 			switch(moviePartOption){
 				case 1:
 					System.out.print("Update full name of Movie: ");
-					in = new Scanner(System.in);
-					movieUpdateName = in.nextLine();
+					movieUpdateName = UtilityInputs.getStringUserInput();
 					selectedMovie.setName(movieUpdateName);
 					break;
 				case 2:
 					System.out.print("Update status of Movie (Coming Soon, Now Showing): ");
-					in = new Scanner(System.in);
-					movieUpdateStatus = in.nextLine();
+					movieUpdateStatus = UtilityInputs.getStringUserInput();
 					selectedMovie.setStatus(movieUpdateStatus);
 					break;
 				case 3:
 					System.out.print("Update director of Movie: ");
-					in = new Scanner(System.in);
-					movieUpdateDirector = in.nextLine();
+					movieUpdateDirector = UtilityInputs.getStringUserInput();
 					selectedMovie.setDirector(movieUpdateDirector);
 					break;
 				case 4:
 					System.out.print("Update casts of Movie (e.g. Steve Rogers, Borat, Mr Bean): ");
-					in = new Scanner(System.in);
-					movieUpdateCasts = in.nextLine();
+					movieUpdateCasts = UtilityInputs.getStringUserInput();
 					selectedMovie.setCast(movieUpdateCasts);
 					break;
 				case 5:
 					System.out.print("Update synopsis of movie: ");
-					in = new Scanner(System.in);
-					movieUpdateSynopsis = in.nextLine();
+					movieUpdateSynopsis = UtilityInputs.getStringUserInput();
 					selectedMovie.setSynopsis(movieUpdateSynopsis);
 					break;
 				default:
@@ -292,7 +269,7 @@ public class MovieBooker implements MovieBookerInterface{
 		showAllMovies();
 		System.out.print("Which Movie would you like to update? (e.g. 1): ");
 		try{
-			movieRemoveOption = in.nextInt();
+			movieRemoveOption = UtilityInputs.getIntUserInput();
 		}catch(InputMismatchException e) {
 			System.out.println("Invalid Input. Please re-enter.");
 			in.next();
@@ -329,7 +306,7 @@ public class MovieBooker implements MovieBookerInterface{
 	public void showBookingHist() {
 		User user_test=null;
 		System.out.print("Enter your Email: ");
-		String email=in.nextLine();
+		String email=UtilityInputs.getStringUserInput();
 		for(User temp: userhandler.getUsers()) {
 			if(temp.getEmail().contentEquals(email)) {
 				user_test=temp;}
@@ -354,7 +331,7 @@ public class MovieBooker implements MovieBookerInterface{
 		User useri=null;
 		Movie choice=null;
 		System.out.print("Enter your Email: ");
-		String email=in.nextLine();
+		String email=UtilityInputs.getStringUserInput();
 		for(User temp: userhandler.getUsers()) {
 			if(temp.getEmail().contentEquals(email)) {
 				 useri=temp;}
@@ -379,7 +356,7 @@ public class MovieBooker implements MovieBookerInterface{
 			case 1:
 				choice=null;
 				System.out.println("Which Movie would you like to rate?");
-				String name=in.nextLine();
+				String name=UtilityInputs.getStringUserInput();
 				
 				for (Movie temp : movieHandler.getMovie()) {
 					if(temp.getName().contentEquals(name)) {
@@ -398,7 +375,7 @@ public class MovieBooker implements MovieBookerInterface{
 			case 2:
 				choice=null;
 				System.out.println("Which Movie would you like to review?");
-				String name1=in.nextLine();
+				String name1=UtilityInputs.getSearchString();
 				for (Movie temp : movieHandler.getMovie()) {
 					if(temp.getName().contentEquals(name1)) {
 						choice=temp;
@@ -407,7 +384,7 @@ public class MovieBooker implements MovieBookerInterface{
 				}
 				if(choice!=null) {
 					System.out.println("Enter your review:");
-					String text = in.nextLine();
+					String text = UtilityInputs.getStringUserInput();
 					choice.addReview(new Review(text,useri));
 					System.out.println("Review added");}
 					else System.out.println("Movie does not exist");
