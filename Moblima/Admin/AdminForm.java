@@ -41,10 +41,10 @@ public final class AdminForm extends Form {
             System.out.println("| 06: Update Movie Showtime                      |");
             System.out.println("| 07: Remove Movie Showtime                      |");
             System.out.println("| 08: Configure System Settings                  |");
-            System.out.println("| 09: USER VIEW                                  |");
+            System.out.println("| 09: ADMIN LOGOUT                               |");
             System.out.println("--------------------------------------------------");
             System.out.println();
-            System.out.print("Admin Main Menu - Enter option ('-1' to exit): ");
+            System.out.print("Admin Main Menu - Enter option ('-1' to exit app): ");
             try {
                 option = sc.nextInt();
             }catch(InputMismatchException e) {

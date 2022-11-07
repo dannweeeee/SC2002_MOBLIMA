@@ -38,11 +38,11 @@ public class MovieBookerApp {
 	        	System.out.println("| 07: Show Booking History                      |");
 	        	System.out.println("| 08:                                           |");
 	        	System.out.println("| 09: Initialize/Show Example                   |");
-				System.out.println("| 10: ADMIN Login                               |");
+				System.out.println("| 10: ADMIN LOGIN                               |");
 	            System.out.println("-------------------------------------------------");
 	            System.out.println();
      
-        		System.out.print("Main Menu - Enter option ('-1' to exit):");
+        		System.out.print("Main Menu - Enter option ('-1' to exit app):");
         		try {
         			option = in.nextInt();
         		}catch(InputMismatchException e) {
