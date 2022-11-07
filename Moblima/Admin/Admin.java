@@ -36,7 +36,6 @@ public class Admin implements AdminLogic, LoginObserver {
     private MovieBookerInterface movieBooker;
     private MovieHandler movieHandler;
     private ShowHandler showHandler;
-    private Scanner in;
 
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss a");
 
@@ -294,7 +293,7 @@ public class Admin implements AdminLogic, LoginObserver {
     }
 
     public void updateCineplex(){
-        
+
     }
 
     public void removeCineplex(){
