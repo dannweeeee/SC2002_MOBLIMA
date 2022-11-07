@@ -33,15 +33,21 @@ public final class AdminForm extends Form {
         do {
             System.out.println();
             System.out.println("-------------MOBLIMA ADMIN MAIN MENU--------------");
-            System.out.println("| 01: Create Movie Listing                       |");
-            System.out.println("| 02: Update Movie Listing                       |");
-            System.out.println("| 03: Remove Movie Listing                       |");
-            System.out.println("| 04: View all Movie Listings                    |");
+            System.out.println("| 01: View all Movie Listings                    |");
+            System.out.println("| 02: Create Movie Listing                       |");
+            System.out.println("| 03: Update Movie Listing                       |");
+            System.out.println("| 04: Remove Movie Listing                       |");
             System.out.println("| 05: Create Movie Showtime                      |");
             System.out.println("| 06: Update Movie Showtime                      |");
             System.out.println("| 07: Remove Movie Showtime                      |");
-            System.out.println("| 08: Configure System Settings                  |");
-            System.out.println("| 09: ADMIN LOGOUT                               |");
+            System.out.println("| 08: Create Cineplex                            |");
+            System.out.println("| 09: Update Cineplex                            |");
+            System.out.println("| 10: Remove Cineplex                            |");
+            System.out.println("| 11: Create Cinema                              |");
+            System.out.println("| 12: Update Cinema                              |");
+            System.out.println("| 13: Remove Cinema                              |");
+            System.out.println("| 14: Configure System Settings                  |");
+            System.out.println("| 15: ADMIN LOGOUT                               |");
             System.out.println("--------------------------------------------------");
             System.out.println();
             System.out.print("Admin Main Menu - Enter option ('-1' to exit app): ");
@@ -58,16 +64,16 @@ public final class AdminForm extends Form {
                 System.exit(0);
                 return null;
             case 1:
-                admin.createMovie();
+                admin.showAllMovies();
                 break;
             case 2:
-                admin.updateMovie();
+                admin.createMovie();
                 break;
             case 3:
-                admin.removeMovie();
+                admin.updateMovie();
                 break;
             case 4:
-                admin.showAllMovies();
+                admin.removeMovie();
                 break;
             case 5:
                 admin.createShow();
@@ -79,9 +85,27 @@ public final class AdminForm extends Form {
                 admin.deleteShow();
                 break;
             case 8:
-                admin.manageSettings();
+                admin.addNewCineplex();
                 break;
             case 9:
+                admin.updateCineplex();
+                break;
+            case 10:
+                admin.removeCineplex();
+                break;
+            case 11:
+                admin.addNewCinema();
+                break;
+            case 12:
+                admin.updateCinema();
+                break;
+            case 13:
+                admin.removeCinema();
+                break;
+            case 14:
+                admin.manageSettings();
+                break;
+            case 15:
                 admin.exit();
                 this.exit();
                 break;

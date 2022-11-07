@@ -21,21 +21,21 @@ public class CineplexHandler {
 		allCineplex = new ArrayList<Cineplex>();
 	}
 	
-	public Cineplex addCineplex(String location) {
+	public Cineplex addCineplex(String location, CinemaHandler cinemaHandler) {
 		Cineplex newCineplex = new Cineplex(location);
 		allCineplex.add(newCineplex);
 		cineplexCounter++;
+		cinemaHandler.initializeCinema(newCineplex);
 		return newCineplex;
-	}
+	   }
 	
 	public void printAllCineplex() {
-		int count =1;
-		for (Cineplex temp : allCineplex) {
-			temp.setCineplexNo(count);
-			System.out.print(temp);
-			count++;
+		Cineplex temp;
+		for (int i = 0; i < allCineplex.size(); i++) {
+		 temp = allCineplex.get(i);
+		 System.out.print(i + ". " + temp);
 		}
-	}
+	   }
 	
 	public ArrayList<Cineplex> getAllCineplex(){
 		return allCineplex;
@@ -44,5 +44,10 @@ public class CineplexHandler {
 	public int getSize() {
 		return cineplexCounter;
 	}
+
+	public void removeCineplex(Cineplex c){
+		this.allCineplex.remove(c);
+		c = null;
+	   }
 	
 }

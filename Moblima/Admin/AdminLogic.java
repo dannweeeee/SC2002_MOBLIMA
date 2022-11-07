@@ -51,6 +51,18 @@ public interface AdminLogic {
      */
     public void deleteShow();
 
+    public void addNewCineplex();
+
+    public void updateCineplex();
+
+    public void removeCineplex();
+
+    public void addNewCinema();
+
+    public void updateCinema();
+
+    public void removeCinema();
+
     /**
      * Launch configure system settings.
      */
