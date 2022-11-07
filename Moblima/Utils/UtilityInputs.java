@@ -53,6 +53,12 @@ public class UtilityInputs {
 		searchString = searchString.toLowerCase();
 		return searchString;
 	}
+    
+    public static String getStringUserInput() {
+    	Scanner in = new Scanner(System.in);
+    	String inputString = in.nextLine();
+    	return inputString;
+    }
 
     public static Seats getSeatSelection(int number){
 		while(true){
@@ -74,18 +80,15 @@ public class UtilityInputs {
 
     public static Show getShow(ArrayList<Show> allShows){
         while (true){
-            System.out.print("Please enter the show number to watch [0 to exit] => ");
+            System.out.print("Please enter the show number [0 to exit] => ");
             int choice = getIntUserInput();
-            
-            if (choice == 0){
-                break;
-            } else if (choice > allShows.size() || choice < 0){
-                System.out.println("Input out of range");
-            } else {
-				return ShowHandler.getShowByID(allShows, choice);
+            if (choice == 0) break;
+            for (Show s : allShows){
+            	if (s.getID() == choice)
+            		return ShowHandler.getShowByID(allShows, choice);
             }
             System.out.println("Invalid input, please try again");
-            }
+        }
         return null;
     }
 
