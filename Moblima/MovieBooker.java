@@ -377,6 +377,7 @@ public class MovieBooker implements MovieBookerInterface{
 	        
 	        switch(option){
 			case 1:
+				choice=null;
 				System.out.println("Which Movie would you like to rate?");
 				String name=in.nextLine();
 				
@@ -395,6 +396,7 @@ public class MovieBooker implements MovieBookerInterface{
 					break;
 				
 			case 2:
+				choice=null;
 				System.out.println("Which Movie would you like to review?");
 				String name1=in.nextLine();
 				for (Movie temp : movieHandler.getMovie()) {
