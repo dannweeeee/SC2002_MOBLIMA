@@ -15,11 +15,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import Moblima.MovieBooker;
+import Moblima.MovieBookerApp;
 
 public class LoginPage implements ActionListener{
+    private AdminLogic admin;
     JFrame frame = new JFrame();
     JButton loginButton = new JButton("Login");
     JButton resetButton = new JButton("Reset");
+    JButton exitButton = new JButton("Exit");
     JTextField userIDField = new JTextField();
     JPasswordField userPasswordField = new JPasswordField();
     JLabel userIDLabel = new JLabel("userID: ");
@@ -49,6 +52,9 @@ public class LoginPage implements ActionListener{
         resetButton.setBounds(225,200,100,25);
         resetButton.addActionListener(this);
 
+        exitButton.setBounds(175,250,100,25);
+        exitButton.addActionListener(this);
+
         frame.add(userIDLabel);
         frame.add(userPasswordLabel);
         frame.add(messageLabel);
@@ -56,8 +62,10 @@ public class LoginPage implements ActionListener{
         frame.add(userPasswordField);
         frame.add(loginButton);
         frame.add(resetButton);
+        frame.add(exitButton);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.getRootPane().setDefaultButton(loginButton);
         frame.setSize(420,420);
         frame.setLayout(null);
         frame.setVisible(true);
@@ -69,6 +77,11 @@ public class LoginPage implements ActionListener{
         if(e.getSource()==resetButton){
             userIDField.setText("");
             userPasswordField.setText("");
+        }
+
+        if(e.getSource()==exitButton){
+            frame.dispose();
+            MovieBookerApp.showUserView(movieBooker);
         }
         
         if(e.getSource()==loginButton){
