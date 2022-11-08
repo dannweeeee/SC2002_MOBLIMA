@@ -31,6 +31,6 @@ public class Cineplex {
 	
 	@Override
     public String toString() {
-        return cineplexNo + ": " + location;
+        return location;
     }
 }

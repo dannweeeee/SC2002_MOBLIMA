@@ -36,7 +36,7 @@ public class Admin implements AdminLogic, LoginObserver {
     private MovieHandler movieHandler;
     private ShowHandler showHandler;
 
-    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss a");
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
     /**
      * Constructor for Admin.

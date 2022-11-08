@@ -61,14 +61,22 @@ public class BookingController {
 					shows = showHandler.getAllShows();
 					break;
 				case 2:
-					String searchString = UtilityInputs.getSearchString();
-					shows = showHandler.searchShows(searchString);
+					while (true) {
+						String searchString = UtilityInputs.getSearchString();
+						if (searchString.equals("0")) return null;
+						shows = showHandler.searchShows(searchString);
+						if (shows.isEmpty()) {
+							System.out.println("No Results found for: "+searchString);
+							System.out.println("Please re-enter...");
+						}else break;
+					}
+					
 					break;
 				case 3:
 					cineplexHandler.printAllCineplex();
 					try{
 						int userInput = UtilityInputs.getCineplex();
-						if (userInput > cineplexHandler.getSize()) throw new InvalidInputException("Cineplex does not exist");
+						if (userInput-1 > cineplexHandler.getSize()) throw new InvalidInputException("Cineplex does not exist");
 						shows = showHandler.getAllShowsByLocation(cineplexHandler.getAllCineplex().get(userInput-1));
 					} catch(InvalidInputException e ){
 						System.out.println(e.getMessage());

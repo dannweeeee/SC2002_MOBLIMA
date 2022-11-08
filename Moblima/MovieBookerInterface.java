@@ -10,7 +10,7 @@ public interface MovieBookerInterface {
 
 	void showShowTimes();
 
-	void showAllMoviesTicket();
+	void showSortedMovies();
 
 	void createRatingReview();
 
