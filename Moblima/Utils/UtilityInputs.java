@@ -66,7 +66,7 @@ public class UtilityInputs {
 			Scanner in = new Scanner(System.in);
 			String seats = in.nextLine();
 
-			if (seats == "XX" || seats.length() != 2){
+			if (seats.equalsIgnoreCase("XX") || seats.length() != 2){
 				System.out.println("Invalid seat");
 				continue;
 			} else if (seats == "0") return null;
