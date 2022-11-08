@@ -30,12 +30,12 @@ public class CineplexHandler {
 	   }
 	
 	public void printAllCineplex() {
-		Cineplex temp;
-		for (int i = 0; i < allCineplex.size(); i++) {
-		 temp = allCineplex.get(i);
-		 System.out.print(i + ". " + temp);
+		int count = 1;
+		for (Cineplex temp : allCineplex){
+			System.out.print(count++ + ". " + temp);
 		}
-	   }
+		System.out.println();
+    }
 	
 	public ArrayList<Cineplex> getAllCineplex(){
 		return allCineplex;
