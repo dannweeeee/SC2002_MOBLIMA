@@ -13,6 +13,19 @@ import Moblima.Entities.User;
 public class UserHandler {
 	private ArrayList<User> users;
 	private static int count=0;
+	private static UserHandler instance = null;
+	
+    /**
+     * Get method for instance of UserHandler
+     * @return instance
+     */
+    public static UserHandler getInstance() {
+        if (instance == null) {
+            instance = new UserHandler();
+        }
+        return instance;
+    }
+	
 	/**
 	 * 
 	 */
