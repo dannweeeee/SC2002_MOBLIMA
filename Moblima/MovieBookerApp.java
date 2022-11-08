@@ -1,14 +1,13 @@
 package Moblima;
 
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 import Moblima.Admin.Admin;
 import Moblima.DataBase.ExampleAdder;
 import Moblima.Exceptions.InvalidInputException;
+import Moblima.Utils.UtilityInputs;
 
 public class MovieBookerApp {
-	private static Scanner in;
 	
 	public static void main(String[] args) {
 		
@@ -24,7 +23,6 @@ public class MovieBookerApp {
 
 	public static void showUserView(MovieBookerInterface movieBooker) {
 		int option = 0;
-		in = new Scanner(System.in);
 		do {
 			while(true) {
 	            System.out.println();
@@ -42,17 +40,13 @@ public class MovieBookerApp {
 	            System.out.println("-------------------------------------------------");
 	            System.out.println();
      
-        		System.out.print("Main Menu - Enter option ('-1' to exit app): ");
-        		try {
-        			option = in.nextInt();
-        		}catch(InputMismatchException e) {
-        			System.out.println("Invalid Input. Please re-enter.");
-        			in.next();
-        			continue;
-        		}
+        		System.out.print("Main Menu - Enter option ('0' to exit app): ");
+        		
+        		option = UtilityInputs.getIntUserInput();
+        		
 				try{
 					switch (option) {
-					case -1:
+					case 0:
 						System.out.println("Goodbye!");
 						System.exit(0);
 						return;
@@ -66,7 +60,7 @@ public class MovieBookerApp {
 						movieBooker.showShowTimes();
 						break;
 					case 4:
-						movieBooker.showAllMoviesTicket();
+						movieBooker.showSortedMovies();
 						break;
 					case 5:
 						movieBooker.createRatingReview();

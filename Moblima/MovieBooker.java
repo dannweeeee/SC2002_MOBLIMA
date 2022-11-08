@@ -20,6 +20,7 @@ import Moblima.Entities.Review;
 import Moblima.Entities.Show;
 import Moblima.Entities.Ticket;
 import Moblima.Entities.User;
+import Moblima.Exceptions.InvalidInputException;
 import Moblima.Handlers.SeatHandler;
 import Moblima.Handlers.ShowHandler;
 import Moblima.Handlers.UserHandler;
@@ -28,12 +29,13 @@ import Moblima.Handlers.CinemaHandler;
 import Moblima.Handlers.CineplexHandler;
 import Moblima.Handlers.MovieHandler;
 import Moblima.Utils.UtilityInputs;
+import Moblima.Exceptions.InvalidInputException;
 
 public class MovieBooker implements MovieBookerInterface{
 
 
 	private UserHandler userhandler;
-	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss a");
+	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
 	public MovieBooker() {
 		userhandler= new UserHandler();
@@ -77,44 +79,61 @@ public class MovieBooker implements MovieBookerInterface{
 		}
 	}
 	
-    public void showAllMoviesTicket() {
+    public void showSortedMovies() {
 		MovieHandler movieHandler = MovieHandler.getInstance();
 		int count =1;
-		System.out.println("Sort Movies by: \n1.Ticket sales \n2.Ratings");
+		
+		System.out.println();
+        System.out.println("----------------SHOW MOVIES BY:------------------");
+     	System.out.println("| 01: Top 5 in Ticket sales                     |");
+     	System.out.println("| 02: Top 5 in Ratings                          |");
+     	System.out.println("| 03: Exit                                      |");
+        System.out.println("-------------------------------------------------");
+        System.out.println();
 		System.out.print("Enter Option: ");
         int sortOption = UtilityInputs.getIntUserInput();
-        
-        if(sortOption==1) {
-        	movieHandler.sortByTicketSales();
-        	for (Movie temp : movieHandler.getMovie()) {
-        		if(count>5) break;
-    			System.out.print(count+": ");
-    			System.out.print(temp);
-    			System.out.println("Ticket Sales: "+temp.getTicketsSize());
-    			System.out.println();
-    			count++;
-    		}
-        }
-        else {
-        	movieHandler.sortByRatings();
-	        for (Movie temp : movieHandler.getMovie()) {
-	        	if(count>5) break;
-	        	System.out.print(count+": ");
-				System.out.print(temp);
-				System.out.println("Ratings: "+temp.getAverageRatings());
-				System.out.println();
-				count++;
-			}
-        }
+        try {
+	        switch(sortOption) {
+	        case 1:
+	        	movieHandler.sortByTicketSales();
+	        	for (Movie temp : movieHandler.getMovie()) {
+	        		if(count>5) break;
+	    			System.out.print(count+": ");
+	    			System.out.print(temp);
+	    			System.out.println("Ticket Sales: "+temp.getTicketsSize());
+	    			System.out.println();
+	    			count++;
+	    		}
+		        break;
+	        case 2:
+		    	movieHandler.sortByRatings();
+		        for (Movie temp : movieHandler.getMovie()) {
+		        	if(count>5) break;
+		        	System.out.print(count+": ");
+					System.out.print(temp);
+					System.out.println("Ratings: "+temp.getAverageRatings());
+					System.out.println();
+					count++;
+				}
+		        break;
+	        case 3:
+	        	break;
+	        default:
+	        	throw new InvalidInputException("Invalid Input, please enter only 1 - 3");
+	        }
+        }catch(InvalidInputException e){
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public void searchMovie() {
+		
 		MovieHandler movieHandler = MovieHandler.getInstance();
 		String searchString = UtilityInputs.getSearchString();
-		
-		System.out.println("Showing results for: "+searchString);
 		ArrayList<Movie> searchResult = movieHandler.searchMovie(searchString);
-		if (searchResult != null) {
+		
+		if (!searchResult.isEmpty()) {
+			System.out.println("Showing results for: "+searchString);
 			for (Movie temp : searchResult) {
 				System.out.println(temp);
 			}
