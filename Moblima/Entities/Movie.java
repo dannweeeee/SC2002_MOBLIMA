@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import Moblima.Handlers.MovieHandler;
 
+/**
+ * @author pc
+ *
+ */
 public class Movie  {
 	 	private String name;
 	    private String status;
@@ -98,37 +102,65 @@ public class Movie  {
 			Ratings = ratings;
 		}
 
+		/**
+		 * @param set synopsis
+		 */
 		public void setSynopsis(String synopsis) {
 	    	this.synopsis=synopsis;
 	    }
 	    
+	    /**
+	     * @param set cast
+	     */
 	    public void setCast(String cast) {
 	    	this.cast=cast;
 	    }
 
+	    /**
+	     * @return name
+	     */
 	    public String getName() {
 	        return name;
 	    }
 
+	    /**
+	     * @param R
+	     */
 	    public void addRatings(Rating R) {
 	        this.ratings.add(R);
 	    }
+	    
+	    /**
+	     * @param R
+	     */
 	    public void addReview(Review R) {
 	        this.reviews.add(R);
 	    }
 	    
+	    /**
+	     * @return
+	     */
 	    public ArrayList<Review> getReview(){
 	        return reviews;
 	    }
 	    
+	    /**
+	     * @param ticket
+	     */
 	    public void addticket(Ticket ticket) {
 	    	ticketlist.add(ticket);
 	    }
 	    
+	    /**
+	     * @return
+	     */
 	    public int getTicketsSize() {
 	    	return ticketlist.size();
 	    }
 	    
+	    /**
+	     * @return
+	     */
 	    public String getAverageRatings() {
 	    	Ratings=0;
 	    	if(ratings.size()<2) {
@@ -141,6 +173,9 @@ public class Movie  {
 	    	}
 	    }
 	    
+	    /**
+	     *
+	     */
 	    @Override
 	    public String toString() {
 	        return "Title: " + name + "\n" +
@@ -152,26 +187,44 @@ public class Movie  {
 	    }
 
 		
+	    /**
+	     * @param movieUpdateName
+	     */
 	    public void updateName(String movieUpdateName) {
 	        name = movieUpdateName;
 	    }
 
+		/**
+		 * @param movieUpdateStatus
+		 */
 		public void updateStatus(String movieUpdateStatus) {
 	        status = movieUpdateStatus;
 	    }
 
+		/**
+		 * @param movieUpdateDirector
+		 */
 		public void updateDirector(String movieUpdateDirector) {
 	        director = movieUpdateDirector;
 	    }
 
+		/**
+		 * @param movieUpdateSynopsis
+		 */
 		public void updateSynopsis(String movieUpdateSynopsis) {
 	        synopsis = movieUpdateSynopsis;
 	    }
 
+		/**
+		 * @param movieUpdateCasts
+		 */
 		public void updateCasts(String movieUpdateCasts) {
 	        cast = movieUpdateCasts;
 	    }
 
+		/**
+		 * @param movieID
+		 */
 		public void removeMovie(int movieID){
 			movieH.getMovie().remove(this);
 		}
