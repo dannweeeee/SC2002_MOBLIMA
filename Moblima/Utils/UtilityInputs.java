@@ -27,7 +27,7 @@ public class UtilityInputs {
 	}
 	
 	public static Double getDoubleUserInput() {
-		Double intInput = -1.0;
+		Double intInput = null;
 		String input = "";
 		Scanner in = new Scanner(System.in);
 		input = in.nextLine();
@@ -37,6 +37,7 @@ public class UtilityInputs {
 			System.out.println("Invalid input: " + input + " is not a number");
 			System.out.println("");
 		}
+		
 		return intInput;
 	}
 
