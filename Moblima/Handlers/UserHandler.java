@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import Moblima.Entities.User;
 
 /**
+ * Handler for user objects
+ * stores user array
  * @author Ian
- *
+ *@see User
  */
 public class UserHandler {
 	private ArrayList<User> users;
@@ -19,16 +21,12 @@ public class UserHandler {
 		count++;
 	}
 	/**
-	 * @return
+	 * Get method for array of users
+	 * @return users
 	 */
 	public ArrayList<User> getUsers(){
 		return users;
 	}
-	/**
-	 * @return
-	 */
-	public int getSize() {
-		return users.size()-1;
-	}
+	
 }
 

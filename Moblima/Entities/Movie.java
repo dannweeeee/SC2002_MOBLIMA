@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Moblima.Handlers.MovieHandler;
 
 /**
+ * Movie class
  * @author pc
  *
  */
@@ -110,56 +111,61 @@ public class Movie  {
 	    }
 	    
 	    /**
-	     * @param set cast
+	     * Set casts of movie
+	     * @param  cast
 	     */
 	    public void setCast(String cast) {
 	    	this.cast=cast;
 	    }
 
 	    /**
-	     * @return name
+	     * @return name of movie
 	     */
 	    public String getName() {
 	        return name;
 	    }
 
+	   
 	    /**
-	     * @param R
+	     * add Rating to movie list of ratings
+	     * @param Rating 
 	     */
-	    public void addRatings(Rating R) {
-	        this.ratings.add(R);
+	    public void addRatings(Rating Rating) {
+	        this.ratings.add(Rating);
 	    }
 	    
 	    /**
-	     * @param R
+	     * adds Review to Movie
+	     * @param Review 
 	     */
-	    public void addReview(Review R) {
-	        this.reviews.add(R);
+	    public void addReview(Review Review) {
+	        this.reviews.add(Review);
 	    }
 	    
 	    /**
-	     * @return
+	     * @return list of reviews
 	     */
 	    public ArrayList<Review> getReview(){
 	        return reviews;
 	    }
 	    
 	    /**
-	     * @param ticket
+	     * add ticket to movie
+	     * @param  ticket 
 	     */
 	    public void addticket(Ticket ticket) {
 	    	ticketlist.add(ticket);
 	    }
 	    
 	    /**
-	     * @return
+	     * @return size of ticket list
 	     */
 	    public int getTicketsSize() {
 	    	return ticketlist.size();
 	    }
 	    
 	    /**
-	     * @return
+	     * @return AverageRatings of movie
 	     */
 	    public String getAverageRatings() {
 	    	Ratings=0;
@@ -174,7 +180,7 @@ public class Movie  {
 	    }
 	    
 	    /**
-	     *
+	     *String format for movie
 	     */
 	    @Override
 	    public String toString() {
@@ -223,6 +229,7 @@ public class Movie  {
 	    }
 
 		/**
+		 * removes movieID
 		 * @param movieID
 		 */
 		public void removeMovie(int movieID){

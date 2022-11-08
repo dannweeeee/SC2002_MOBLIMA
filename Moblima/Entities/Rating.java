@@ -1,6 +1,7 @@
 package Moblima.Entities;
 
 /**
+ * Rating class
  * @author Ian
  *
  *
@@ -20,6 +21,7 @@ public class Rating {
     }
 
     /**
+     * Set method for rating 
      * @param rating
      */
     public void SetRating(double rating) {
@@ -28,14 +30,16 @@ public class Rating {
     }
 
     /**
-     * @return
+     * Get method for rating
+     * @return rating
      */
     public double GetRating() {
 
         return rating;
     }
     /**
-     * @return
+     * Get method for User
+     * @return user 
      */
     public User GetUser() {
 

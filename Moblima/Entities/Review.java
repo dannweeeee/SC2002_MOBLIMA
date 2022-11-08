@@ -18,6 +18,7 @@ public class Review {
     }
 
     /**
+     * Set method for review
      * @param review
      */
     public void SetReview(String review) {
@@ -26,14 +27,16 @@ public class Review {
     }
 
     /**
-     * @return
+     * Get method for review
+     * @return review
      */
     public String GetReview() {
 
         return this.Review;
     }
     /**
-     * @return
+     * Get method for user
+     * @return user
      */
     public User GetUser() {
 
