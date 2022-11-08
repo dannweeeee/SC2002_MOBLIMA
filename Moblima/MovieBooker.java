@@ -39,11 +39,12 @@ import Moblima.Exceptions.InvalidInputException;
 public class MovieBooker implements MovieBookerInterface{
 
 
-	private UserHandler userhandler;
+	
+	
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
 	public MovieBooker() {
-		userhandler= new UserHandler();
+		
 	}
 	
 	public void showShowTimes(){
@@ -63,6 +64,7 @@ public class MovieBooker implements MovieBookerInterface{
 	}
 	
 	public void bookingMenu() {
+		UserHandler userhandler=UserHandler.getInstance();
 		BookingController bookController = new BookingController(userhandler);
 		User user1 = UtilityInputs.getUserInformation();
 		userhandler.getUsers().add(user1);
@@ -163,6 +165,7 @@ public class MovieBooker implements MovieBookerInterface{
 	
 	
 	public void showBookingHist() {
+		UserHandler userhandler= UserHandler.getInstance();
 		User user_test=null;
 		System.out.print("Enter your Email: ");
 		String email=UtilityInputs.getStringUserInput();
@@ -187,6 +190,7 @@ public class MovieBooker implements MovieBookerInterface{
      */
 	public void createRatingReview() {
 		MovieHandler movieHandler = MovieHandler.getInstance();
+		UserHandler userhandler= UserHandler.getInstance();
 		int option=0;
 		User useri=null;
 		Movie choice=null;
