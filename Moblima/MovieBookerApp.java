@@ -42,7 +42,7 @@ public class MovieBookerApp {
 	            System.out.println("-------------------------------------------------");
 	            System.out.println();
      
-        		System.out.print("Main Menu - Enter option ('-1' to exit app):");
+        		System.out.print("Main Menu - Enter option ('-1' to exit app): ");
         		try {
         			option = in.nextInt();
         		}catch(InputMismatchException e) {

@@ -110,7 +110,7 @@ public final class AdminForm extends Form {
                 this.exit();
                 break;
             default:
-                System.out.println("Invalid Input. Please re-enter.");
+                System.out.println("Invalid Input. Please re-enter: ");
                 continue;
             }
         } while(!exitFlag);
