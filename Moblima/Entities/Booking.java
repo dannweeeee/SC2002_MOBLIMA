@@ -1,6 +1,10 @@
 package Moblima.Entities;
 import java.util.ArrayList;
 
+/**
+ * @author 
+ *
+ */
 public class Booking {
     private int studentTicket;
     private int adultTicket;
@@ -10,6 +14,9 @@ public class Booking {
     private double adultPrice;
     private double studentPrice;
 
+    /**
+     * @param user
+     */
     public Booking(User user){
         seatList = new ArrayList<>();
         studentTicket = 0;
@@ -20,54 +27,114 @@ public class Booking {
         this.user = user;
     }
 
+    /**
+     * @return
+     */
     public double getAdultPrice(){
         return this.adultPrice;
     }
 
+    /**
+     * @param price
+     */
     public void setAdultPrice(Double price){
         this.adultPrice = price;
     }
 
+    /**
+     * @return
+     */
     public double getStudentPrice(){
         return this.studentPrice;
     }
 
+    /**
+     * @param price
+     */
     public void setStudentPrice(Double price){
         this.studentPrice = price;
     }
 
+    /**
+     * @return
+     */
     public User getUser(){
         return this.user;
     }
 
+    /**
+     * @return
+     */
     public int getStudentTicketNum(){
         return this.studentTicket;
     }
 
+    /**
+     * @param num
+     */
+    /**
+     * @param num
+     */
     public void setStudentTicket(int num){
         this.studentTicket = num;
     } 
 
+    /**
+     * @return
+     */
+    /**
+     * @return
+     */
     public int getAdultTicketNum(){
         return this.adultTicket;
     }
 
+    /**
+     * @param num
+     */
+    /**
+     * @param num
+     */
     public void setAdultTicket(int num){
         this.adultTicket = num;
     } 
 
+    /**
+     * @return
+     */
+    /**
+     * @return
+     */
     public ArrayList<Seats> getSeats() {
         return seatList;
     }
 
+    /**
+     * @param seats
+     */
+    /**
+     * @param seats
+     */
     public void setSeats(ArrayList<Seats> seats){
         this.seatList = seats;
     }
 
+    /**
+     * @param show
+     */
+    /**
+     * @param show
+     */
     public void setShow(Show show){
         this.selectedShow = show;
     }
 
+    /**
+     * @return
+     */
+    /**
+     * @return
+     */
     public Show getShow(){
         return this.selectedShow;
     }

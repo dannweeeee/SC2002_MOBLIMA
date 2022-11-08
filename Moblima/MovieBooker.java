@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author Our team
+ * @version 1.0
+ */
 package Moblima;
 
 import java.io.File;
@@ -78,7 +83,12 @@ public class MovieBooker implements MovieBookerInterface{
 			tickets.addAll(ticket);			
 		}
 	}
-	
+	/**
+	 * Sorts the array of movies according to either ticket sales or ratings
+	 * and prints the list of top 5 movies according to the user's choice of 
+	 * ticket sales or ratings
+	 * 
+	 */
 	public void showSortedMovies() {
 		MovieHandler movieHandler = MovieHandler.getInstance();
 		int count =1;
@@ -144,6 +154,13 @@ public class MovieBooker implements MovieBookerInterface{
 		}
 
 	}
+	/**
+	 * prompts the user for his/her email
+	 * searches the user array for his user account
+	 * if exists then shows his booking histories for the tickets the user purchased
+	 * ticket info includes: name of owner, booking time, seats booked and booked show
+	 */
+	
 	
 	public void showBookingHist() {
 		User user_test=null;
@@ -166,7 +183,13 @@ public class MovieBooker implements MovieBookerInterface{
 	                '}');
 		}
 	}
-  
+    /**
+     * prompts the user for email
+     * if user exists then a menu will be displayed for them to rate/review a movie
+     * displays a list of movie for users to rate/review
+     * adds the rating/review to the respective Movie
+     * 
+     */
 	public void createRatingReview() {
 		MovieHandler movieHandler = MovieHandler.getInstance();
 		int option=0;
