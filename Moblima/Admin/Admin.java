@@ -82,13 +82,19 @@ public class Admin implements AdminLogic, LoginObserver {
         String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;
         System.out.print("Enter full name of Movie: ");
         movieAddName = UtilityInputs.getStringUserInput();
-        System.out.print("Enter status of Movie (Coming Soon, Now Showing): ");
+        System.out.print("Enter status of Movie (Coming Soon, Now Showing, Preview, End of Showing): ");
         while (true){
             movieAddStatus = UtilityInputs.getStringUserInput();
             if (movieAddStatus.equals("Coming Soon")){
                 break;
             }
             else if (movieAddStatus.equals("Now Showing")){
+                break;
+            }
+            else if (movieAddStatus.equals("Preview")){
+                break;
+            }
+            else if (movieAddStatus.equals("End of Showing")){
                 break;
             }
             else{
