@@ -3,13 +3,11 @@ package Moblima.Entities;
 import Moblima.Entities.Cinema.HallType;
 
 /**
- * @author pc
+ * Cinema Class
+ * @author team
  *
  */
-/**
- * @author pc
- *
- */
+
 public class Cinema {
 	private static int idCounter=0;
 	    private int id;
@@ -35,41 +33,47 @@ public class Cinema {
 	    }
 
 		/**
-		 * @return
+		 * Get method for Cineplex of current Cinema
+		 * @return cineplex 
 		 */
 		public Cineplex getCineplex(){
 			return this.cineplex;
 		}
 
 	    /**
-	     * @return
+	     * Get method for seat_capacity of Cinema
+	     * @return seat_capacity
 	     */
 	    public int getCapacity() {
 	        return this.seat_capacity;
 	    }
 
 	    /**
-	     * @return
+	     * Get method for CinemaID
+	     * @return CinemaID
 	     */
 	    public int getCinemaID() {
 	    	return this.id;
 	    }
 	    
 	    /**
-	     * @return
+	     * Get method for classType of Cinema
+	     * @return classType
 	     */
 	    public HallType getCinemaClass() {
 	    	return this.classtype;
 	    }
 	    
 	    /**
-	     * @param id
+	     * Set method for CinemaID
+	     * @param id 
 	     */
 	    public void setCinemaID(int id) {
 	    	this.id = id;
 	    }
 	    
 	    /**
+	     * Set method for seat_capacity of Cinema
 	     * @param capacity
 	     */
 	    public void setCapacity(int capacity) {
@@ -77,14 +81,15 @@ public class Cinema {
 	    }
 	    
 	    /**
-	     * @param classType
+	     * Set method for classType of Cinema
+	     * @param classType 
 	     */
 	    public void setClass(HallType classType) {
 	    	this.classtype = classType;
 	    }
 	    
 	    /**
-	     *
+	     * String format for Cinema class
 	     */
 	    @Override
 	    public String toString() {

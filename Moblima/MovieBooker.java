@@ -175,12 +175,7 @@ public class MovieBooker implements MovieBookerInterface{
 			return;
 		}
 		for (Ticket temp : user_test.getTickets()) {
-			System.out.println( "Ticket{" +
-	                " owner='" +  user_test.getName() +
-	                ", bookingTime=" + temp.getBookingTime() +
-	                ", Seats booked=" + temp.getSeat().getSeat() +
-	                ", bookedShow=" + temp.getBookedShow()+
-	                '}');
+			System.out.println(temp);
 		}
 	}
     /**
