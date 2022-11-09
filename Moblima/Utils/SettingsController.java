@@ -31,8 +31,9 @@ public class SettingsController {
     /**
      * Modify settings in accordance with user input.
      * @param command   The user input.
+     * @return  <code>true</code> if the settings are updated successfully, <code>false</code> otherwise.
      */
-    public void manageSettings(String command) {
+    public boolean manageSettings(String command) {
         String[] inputTokens = command.split(" ");
         if (inputTokens.length == 2) {
             /*if (inputTokens[1].equals("-")) {
@@ -42,8 +43,9 @@ public class SettingsController {
             }*/
             settings.setProperty(inputTokens[0], inputTokens[1]);
             settings.save();
+            return true;
         } else {
-            System.out.println("Invalid input.");
+            return false;
         }
     }
 
