@@ -46,6 +46,13 @@ public class CinemaHandler {
 		cinemaList.add(newCinema);
 	}
 
+	public void updateCinema(HallType classtype, int seat_capacity, Cineplex cineplex) {
+		ArrayList <Cinema> cinemaList = getCinemaFromCineplex(cineplex);
+		for(Cinema temp: cinemaList){
+			if(temp.getCinemaClass()==classtype) temp.setCapacity(seat_capacity);
+		}
+	}
+
 
 	public void removeCinema(Cineplex c, Cinema cinema){
 		ArrayList<Cinema> cinemaList = getCinemaFromCineplex(c);

@@ -107,7 +107,7 @@ public final class AdminForm extends Form {
                 admin.removeCineplex();
                 break;
             case 13:
-                //viewallcinemas
+                admin.showAllCinemas();
                 break;
             case 14:
                 admin.addNewCinema();

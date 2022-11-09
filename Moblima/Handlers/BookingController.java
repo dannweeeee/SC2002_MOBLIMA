@@ -76,7 +76,7 @@ public class BookingController {
 					cineplexHandler.printAllCineplex();
 					try{
 						int userInput = UtilityInputs.getCineplex();
-						if (userInput-1 > cineplexHandler.getSize()) throw new InvalidInputException("Cineplex does not exist");
+						if (userInput > cineplexHandler.getSize()) throw new InvalidInputException("Cineplex does not exist");
 						shows = showHandler.getAllShowsByLocation(cineplexHandler.getAllCineplex().get(userInput-1));
 					} catch(InvalidInputException e ){
 						System.out.println(e.getMessage());
