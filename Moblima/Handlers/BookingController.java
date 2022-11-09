@@ -17,7 +17,6 @@ import Moblima.Exceptions.InvalidInputException;
 import Moblima.Exceptions.SeatsNotAvailableException;
 
 public class BookingController {
-	private UserHandler userHandler; 
 	private final String STUDENT_PRICE_STANDARD = "ticket_price_student_standard";
 	private final String ADULT_PRICE_STANDARD = "ticket_price_adult_standard";
 
@@ -31,9 +30,7 @@ public class BookingController {
 	private final String DISCOUNT_DAyS = "weekly_discount_days";
 	private final String DISCOUNT_DAYS_RATE = "weekly_discount_rates";
 	
-	public BookingController(UserHandler userHandler) {
-		this.userHandler = userHandler;
-	}
+	public BookingController() {}
 
 
 	public static void bookMenu(){
@@ -61,8 +58,16 @@ public class BookingController {
 					shows = showHandler.getAllShows();
 					break;
 				case 2:
-					String searchString = UtilityInputs.getSearchString();
-					shows = showHandler.searchShows(searchString);
+					while (true) {
+						String searchString = UtilityInputs.getSearchString();
+						if (searchString.equals("0")) return null;
+						shows = showHandler.searchShows(searchString);
+						if (shows.isEmpty()) {
+							System.out.println("No Results found for: "+searchString);
+							System.out.println("Please re-enter...");
+						}else break;
+					}
+					
 					break;
 				case 3:
 					cineplexHandler.printAllCineplex();
@@ -84,6 +89,7 @@ public class BookingController {
 		}
 		if (shows == null){
 			System.out.println("No shows found");
+			System.out.println();
 		}
 		return shows;
 	}

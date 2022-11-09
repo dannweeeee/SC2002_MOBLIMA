@@ -6,7 +6,6 @@ import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Show;
-import Moblima.Utils.Settings;
 
 import java.util.ArrayList;
 
@@ -78,4 +77,10 @@ public class ShowHandler {
         }
         return results;
     }
+
+    public void removeShow(Show show){
+        this.allShows.remove(show);
+        show = null;
+    }
+   
 }

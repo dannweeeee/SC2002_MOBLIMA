@@ -3,7 +3,6 @@ package Moblima.Handlers;
 import java.util.ArrayList;
 
 import Moblima.Entities.Movie;
-import Moblima.Utils.Settings;
 import Moblima.Utils.SortbyRating;
 import Moblima.Utils.SortbyTicket;
 

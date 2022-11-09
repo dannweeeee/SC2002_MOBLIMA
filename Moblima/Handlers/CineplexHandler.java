@@ -3,7 +3,6 @@ package Moblima.Handlers;
 import java.util.ArrayList;
 
 import Moblima.Entities.Cineplex;
-import Moblima.Utils.Settings;
 
 public class CineplexHandler {
 	
@@ -21,21 +20,25 @@ public class CineplexHandler {
 		allCineplex = new ArrayList<Cineplex>();
 	}
 	
-	public Cineplex addCineplex(String location) {
+	public Cineplex addCineplex(String location, CinemaHandler cinemaHandler) {
 		Cineplex newCineplex = new Cineplex(location);
 		allCineplex.add(newCineplex);
 		cineplexCounter++;
+		cinemaHandler.initializeCinema(newCineplex);
 		return newCineplex;
-	}
+	   }
+
+	public void removeCineplex(Cineplex c){
+		this.allCineplex.remove(c);
+		c = null;
+	   }
 	
 	public void printAllCineplex() {
-		int count =1;
-		for (Cineplex temp : allCineplex) {
-			temp.setCineplexNo(count);
-			System.out.print(temp);
-			count++;
+		int count = 1;
+		for (Cineplex temp : allCineplex){
+			System.out.println(count++ + ". " + temp);
 		}
-	}
+    }
 	
 	public ArrayList<Cineplex> getAllCineplex(){
 		return allCineplex;

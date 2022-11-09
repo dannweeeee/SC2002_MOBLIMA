@@ -6,7 +6,6 @@ import java.util.Map;
 
 import Moblima.Entities.Seats;
 import Moblima.Entities.Show;
-import Moblima.Utils.Settings;
 
 public class SeatHandler {
     private Map<Show, ArrayList<Seats>> allSeats;
