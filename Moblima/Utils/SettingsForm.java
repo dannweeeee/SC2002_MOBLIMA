@@ -35,6 +35,7 @@ public final class SettingsForm extends Form {
     public Object show() {
         exitFlag = false;
         while (!exitFlag) {
+            System.out.println();
             System.out.println("Settings");
             System.out.println("========");
             controller.print();
@@ -45,11 +46,16 @@ public final class SettingsForm extends Form {
             System.out.println("To exit, enter exit");
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
+            System.out.println();
             if (input.equals("exit")) {
                 exit();
             } else {
-                controller.manageSettings(input);
+                if (controller.manageSettings(input))
+                    System.out.println("Settings updated successfully");
+                else
+                    System.out.println("Invalid input. Please try again.");
             }
+            System.out.println();
         }
         return null;
     }
