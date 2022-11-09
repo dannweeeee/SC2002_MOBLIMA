@@ -1,7 +1,5 @@
 package Moblima;
 
-import java.io.FileNotFoundException;
-
 public interface MovieBookerInterface {
 
 	void showAllMovies();
@@ -10,7 +8,7 @@ public interface MovieBookerInterface {
 
 	void showShowTimes();
 
-	void showAllMoviesTicket();
+	void showSortedMovies();
 
 	void createRatingReview();
 

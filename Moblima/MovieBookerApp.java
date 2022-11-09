@@ -1,30 +1,26 @@
 package Moblima;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 import Moblima.Admin.Admin;
 import Moblima.DataBase.ExampleAdder;
 import Moblima.Exceptions.InvalidInputException;
+import Moblima.Utils.UtilityInputs;
 
 public class MovieBookerApp {
-	private static Scanner in;
 	
 	public static void main(String[] args) {
 		
-		MovieBookerInterface bookMyShow = new MovieBooker();
+		MovieBookerInterface movieBooker = new MovieBooker();
 		
 		try {
 			ExampleAdder.readMovieFromTextFile("Moblima/Utils/MovieList.txt");
 		}catch (Exception e) {
 			System.out.println("Movies File Read Error");
 		}
-		showUserView(bookMyShow);
+		showUserView(movieBooker);
 	}
 
-	public static void showUserView(MovieBookerInterface bookMyShow) {
+	public static void showUserView(MovieBookerInterface movieBooker) {
 		int option = 0;
-		in = new Scanner(System.in);
 		do {
 			while(true) {
 	            System.out.println();
@@ -38,53 +34,49 @@ public class MovieBookerApp {
 	        	System.out.println("| 07: Show Booking History                      |");
 	        	System.out.println("| 08:                                           |");
 	        	System.out.println("| 09: Initialize/Show Example                   |");
-				System.out.println("| 10: ADMIN Login                               |");
+				System.out.println("| 10: ADMIN LOGIN                               |");
 	            System.out.println("-------------------------------------------------");
 	            System.out.println();
      
-        		System.out.print("Main Menu - Enter option ('-1' to exit):");
-        		try {
-        			option = in.nextInt();
-        		}catch(InputMismatchException e) {
-        			System.out.println("Invalid Input. Please re-enter.");
-        			in.next();
-        			continue;
-        		}
+        		System.out.print("Main Menu - Enter option ('0' to exit app): ");
+        		
+        		option = UtilityInputs.getIntUserInput();
+        		
 				try{
 					switch (option) {
-					case -1:
+					case 0:
 						System.out.println("Goodbye!");
+						System.exit(0);
 						return;
 					case 1:
-						bookMyShow.showAllMovies();
+						movieBooker.showAllMovies();
 						break;
 					case 2:
-						bookMyShow.searchMovie();
+						movieBooker.searchMovie();
 						break;
 					case 3:
-						bookMyShow.showShowTimes();
+						movieBooker.showShowTimes();
 						break;
 					case 4:
-						bookMyShow.showAllMoviesTicket();
+						movieBooker.showSortedMovies();
 						break;
 					case 5:
-						bookMyShow.createRatingReview();
+						movieBooker.createRatingReview();
 						break;
 					case 6:
-						bookMyShow.bookingMenu();
+						movieBooker.bookingMenu();
 						break;
 					case 7:
-						bookMyShow.showBookingHist();
+						movieBooker.showBookingHist();
 						break;
 					case 8:
 						
 						break;
 					case 9:
-						bookMyShow.addExamples();
+						movieBooker.addExamples();
 						break;
-					case 10:
-						Admin admin = Admin.getInstance();
-						admin.attachBookMyShow(bookMyShow);
+          			case 10:
+            			Admin admin = new Admin(movieBooker);
 						admin.start();
 						return;
 					default:
