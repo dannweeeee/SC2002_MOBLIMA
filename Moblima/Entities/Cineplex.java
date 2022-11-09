@@ -1,48 +1,60 @@
 package Moblima.Entities;
 
-import java.util.ArrayList;
-
 import Moblima.Handlers.CinemaHandler;
 
+/**
+ * @author pc
+ *
+ */
 public class Cineplex {
 	private String location;
 	private CinemaHandler cinemaH;
 	private int cineplexNo;
     
+    /**
+     * @param location
+     */
     public Cineplex(String location) {
         this.location=location;
     }
     
+	/**
+	 * @return
+	 */
 	public String getLocation(){
 		return this.location;
 	}
+
+	public void setCineplex(String location) {
+        this.location=location;
+    }
 	
+	/**
+	 * @param CinemaHandler
+	 */
 	public void setHall(CinemaHandler CinemaHandler) {
-		this.cinemaH=CinemaHandler;
+		this.cinemaH = CinemaHandler;
 	}
 	
-	public ArrayList<Cinema> getHall() {
-		return cinemaH.getAllCinema();
-	}
-	
+	/**
+	 * @return
+	 */
 	public int getCineplexNo() {
 		return cineplexNo;
 	}
 	
+	/**
+	 * @param cineplexNo
+	 */
 	public void setCineplexNo(int cineplexNo) {
 		this.cineplexNo=cineplexNo;
 	}
-
-	public void printAllCinema() {
-		int count =0;
-		for (Cinema temp : cinemaH.getAllCinema()) {
-			System.out.println(temp);
-			count++;
-		}
-	}
 	
+	/**
+	 *
+	 */
 	@Override
     public String toString() {
-        return cineplexNo + ": " + location;
+        return location;
     }
 }
