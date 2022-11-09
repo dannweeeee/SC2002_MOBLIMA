@@ -28,13 +28,17 @@ public class CineplexHandler {
 		cinemaHandler.initializeCinema(newCineplex);
 		return newCineplex;
 	   }
+
+	public void removeCineplex(Cineplex c){
+		this.allCineplex.remove(c);
+		c = null;
+	   }
 	
 	public void printAllCineplex() {
 		int count = 1;
 		for (Cineplex temp : allCineplex){
-			System.out.print(count++ + ". " + temp);
+			System.out.println(count++ + ". " + temp);
 		}
-		System.out.println();
     }
 	
 	public ArrayList<Cineplex> getAllCineplex(){
@@ -44,10 +48,5 @@ public class CineplexHandler {
 	public int getSize() {
 		return cineplexCounter;
 	}
-
-	public void removeCineplex(Cineplex c){
-		this.allCineplex.remove(c);
-		c = null;
-	   }
 	
 }

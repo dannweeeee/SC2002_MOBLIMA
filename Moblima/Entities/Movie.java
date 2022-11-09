@@ -151,27 +151,6 @@ public class Movie  {
 	                ;
 	    }
 
-		
-	    public void updateName(String movieUpdateName) {
-	        name = movieUpdateName;
-	    }
-
-		public void updateStatus(String movieUpdateStatus) {
-	        status = movieUpdateStatus;
-	    }
-
-		public void updateDirector(String movieUpdateDirector) {
-	        director = movieUpdateDirector;
-	    }
-
-		public void updateSynopsis(String movieUpdateSynopsis) {
-	        synopsis = movieUpdateSynopsis;
-	    }
-
-		public void updateCasts(String movieUpdateCasts) {
-	        cast = movieUpdateCasts;
-	    }
-
 		public void removeMovie(int movieID){
 			movieH.getMovie().remove(this);
 		}

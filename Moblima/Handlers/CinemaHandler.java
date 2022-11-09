@@ -23,12 +23,6 @@ public class CinemaHandler {
 		allCinemas = new HashMap<>();
 	}
 	
-	public void addCinema(HallType classtype, int seat_capacity, Cineplex cineplex) {
-		Cinema newCinema = new Cinema(classtype,seat_capacity, cineplex);
-		ArrayList <Cinema> cinemaList = getCinemaFromCineplex(cineplex);
-		cinemaList.add(newCinema);
-	}
-	
 	public ArrayList<Cinema> initializeCinema(Cineplex cineplex){
 		ArrayList<Cinema> cinemaList = new ArrayList<>();
 		allCinemas.put(cineplex, cinemaList);
@@ -45,6 +39,13 @@ public class CinemaHandler {
         }
 		return null;
 	}
+
+	public void addCinema(HallType classtype, int seat_capacity, Cineplex cineplex) {
+		Cinema newCinema = new Cinema(classtype,seat_capacity, cineplex);
+		ArrayList <Cinema> cinemaList = getCinemaFromCineplex(cineplex);
+		cinemaList.add(newCinema);
+	}
+
 
 	public void removeCinema(Cineplex c, Cinema cinema){
 		ArrayList<Cinema> cinemaList = getCinemaFromCineplex(c);

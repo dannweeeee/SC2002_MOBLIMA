@@ -51,17 +51,50 @@ public interface AdminLogic {
      */
     public void deleteShow();
 
+    /**
+     * View all showtimes.
+     */
+    public void showAllShows();
+    
+    /**
+     * Create a new cineplex.
+     */
     public void addNewCineplex();
 
+    /**
+     * Update an existing cineplex.
+     */
     public void updateCineplex();
 
+    /**
+     * Remove an existing movie cineplex.
+     */
     public void removeCineplex();
 
+    /**
+     * View all cineplexes.
+     */
+    public void showAllCineplexes();
+
+    /**
+     * Create a new cinema.
+     */
     public void addNewCinema();
 
+    /**
+     * Update an existing cinema.
+     */
     public void updateCinema();
 
+    /**
+     * Remove an existing movie cinema.
+     */
     public void removeCinema();
+
+    /**
+     * View all cinemas.
+     */
+    public void showAllCinemas();
 
     /**
      * Launch configure system settings.

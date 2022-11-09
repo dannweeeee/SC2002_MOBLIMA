@@ -33,21 +33,28 @@ public final class AdminForm extends Form {
         do {
             System.out.println();
             System.out.println("-------------MOBLIMA ADMIN MAIN MENU--------------");
-            System.out.println("| 01: View all Movie Listings                    |");
+            System.out.println("| 01: VIEW ALL MOVIE LISTINGS                    |");
             System.out.println("| 02: Create Movie Listing                       |");
             System.out.println("| 03: Update Movie Listing                       |");
             System.out.println("| 04: Remove Movie Listing                       |");
-            System.out.println("| 05: Create Movie Showtime                      |");
-            System.out.println("| 06: Update Movie Showtime                      |");
-            System.out.println("| 07: Remove Movie Showtime                      |");
-            System.out.println("| 08: Create Cineplex                            |");
-            System.out.println("| 09: Update Cineplex                            |");
-            System.out.println("| 10: Remove Cineplex                            |");
-            System.out.println("| 11: Create Cinema                              |");
-            System.out.println("| 12: Update Cinema                              |");
-            System.out.println("| 13: Remove Cinema                              |");
-            System.out.println("| 14: Configure System Settings                  |");
-            System.out.println("| 15: ADMIN LOGOUT                               |");
+            System.out.println("--------------------------------------------------");
+            System.out.println("| 05: VIEW ALL SHOWS                             |");
+            System.out.println("| 06: Create Movie Showtime                      |");
+            System.out.println("| 07: Update Movie Showtime                      |");
+            System.out.println("| 08: Remove Movie Showtime                      |");
+            System.out.println("--------------------------------------------------");
+            System.out.println("| 09: VIEW ALL CINEPLEXES                        |");
+            System.out.println("| 10: Create Cineplex                            |");
+            System.out.println("| 11: Update Cineplex                            |");
+            System.out.println("| 12: Remove Cineplex                            |");
+            System.out.println("--------------------------------------------------");
+            System.out.println("| 13: VIEW ALL CINEMAS                           |");
+            System.out.println("| 14: Create Cinema                              |");
+            System.out.println("| 15: Update Cinema                              |");
+            System.out.println("| 16: Remove Cinema                              |");
+            System.out.println("--------------------------------------------------");
+            System.out.println("| 17: Configure System Settings                  |");
+            System.out.println("| 18: ADMIN LOGOUT                               |");
             System.out.println("--------------------------------------------------");
             System.out.println();
             System.out.print("Admin Main Menu - Enter option ('-1' to exit app): ");
@@ -76,36 +83,45 @@ public final class AdminForm extends Form {
                 admin.removeMovie();
                 break;
             case 5:
-                admin.createShow();
+                admin.showAllShows();
                 break;
             case 6:
-                admin.updateShow();
+                admin.createShow();
                 break;
             case 7:
-                admin.deleteShow();
+                admin.updateShow();
                 break;
             case 8:
-                admin.addNewCineplex();
+                admin.deleteShow();
                 break;
             case 9:
-                admin.updateCineplex();
+                admin.showAllCineplexes();
                 break;
             case 10:
-                admin.removeCineplex();
+                admin.addNewCineplex();
                 break;
             case 11:
-                admin.addNewCinema();
+                admin.updateCineplex();
                 break;
             case 12:
-                admin.updateCinema();
+                admin.removeCineplex();
                 break;
             case 13:
-                admin.removeCinema();
+                //viewallcinemas
                 break;
             case 14:
-                admin.manageSettings();
+                admin.addNewCinema();
                 break;
             case 15:
+                admin.updateCinema();
+                break;
+            case 16:
+                admin.removeCinema();
+                break;
+            case 17:
+                admin.manageSettings();
+                break;
+            case 18:
                 admin.exit();
                 this.exit();
                 break;

@@ -16,6 +16,10 @@ public class Cineplex {
 	public String getLocation(){
 		return this.location;
 	}
+
+	public void setCineplex(String location) {
+        this.location=location;
+    }
 	
 	public void setHall(CinemaHandler CinemaHandler) {
 		this.cinemaH=CinemaHandler;

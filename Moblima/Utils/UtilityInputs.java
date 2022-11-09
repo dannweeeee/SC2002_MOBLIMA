@@ -21,7 +21,6 @@ public class UtilityInputs {
 			intInput = Integer.parseInt(input);
 		}catch (NumberFormatException e) {
 			System.out.println("Invalid input: " + input + " is not a number");
-			System.out.println("");
 		}
 		return intInput;
 	}
@@ -80,9 +79,13 @@ public class UtilityInputs {
 
     public static Show getShow(ArrayList<Show> allShows){
         while (true){
-            System.out.print("Please enter the show number [0 to exit] => ");
+            System.out.print("Please enter the show number [Enter '0' to exit] => ");
             int choice = getIntUserInput();
             if (choice == 0) break;
+			if (choice == -1) {
+				System.out.println("Please re-enter.");
+				continue;
+			}
             for (Show s : allShows){
             	if (s.getID() == choice)
             		return ShowHandler.getShowByID(allShows, choice);
