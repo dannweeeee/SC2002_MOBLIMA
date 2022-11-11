@@ -8,6 +8,7 @@ import Moblima.Entities.Movie;
 import Moblima.Entities.Show;
 import Moblima.Utils.Settings;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ShowHandler {
@@ -47,6 +48,17 @@ public class ShowHandler {
         return this.allShows;
     }
 
+    public ArrayList<Show> getAllShowsShowing(){
+        ArrayList <Show> result_list = new ArrayList<>();
+        for (Show s : this.allShows){
+            if (s.getShowTime().compareTo(new Date()) > 0){
+                result_list.add(s);
+            }
+        }
+
+        return result_list;
+    }
+
     public static void printAllShows(ArrayList<Show> shows){
         Show temp;
         for (int i = 0; i < shows.size(); i++){
@@ -62,7 +74,7 @@ public class ShowHandler {
     public ArrayList<Show> getAllShowsByLocation(Cineplex c){
         ArrayList<Show> results = new ArrayList<>();
         for (Show s : this.allShows){
-            if (c.getLocation() == s.getCinema().getCineplex().getLocation()){
+            if (c.getLocation() == s.getCinema().getCineplex().getLocation() && s.getShowTime().compareTo(new Date()) > 0){
                 results.add(s);
             }
         }
@@ -72,7 +84,7 @@ public class ShowHandler {
     public ArrayList<Show> searchShows(String searchString){
         ArrayList<Show> results = new ArrayList<>();
         for (Show show : this.allShows){
-            if (show.getMovie().getName().toLowerCase().contains(searchString)){
+            if (show.getMovie().getName().toLowerCase().contains(searchString) && show.getShowTime().compareTo(new Date()) > 0){
                 results.add(show); 
             }
         }
