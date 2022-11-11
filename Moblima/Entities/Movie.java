@@ -203,7 +203,7 @@ public class Movie  {
 	    @Override
 	    public String toString() {
 	        return 	id + ". "+
-	        		"Title: " + name + "\n" +
+	        		name + "\n" +
 	                "Status: " + status + "\n" +
 	                "Director: " + director + "\n" +
 	                "Cast: " + cast + "\n" +

@@ -9,6 +9,8 @@ import Moblima.Handlers.CinemaHandler;
  *
  */
 public class Cineplex {
+	private int idCounter = 0;
+	private int id;
 	private String location;
 	private CinemaHandler cinemaH;
 	private int cineplexNo;
@@ -17,7 +19,9 @@ public class Cineplex {
      * @param location
      */
     public Cineplex(String location) {
-        this.location=location;
+        idCounter += 1;
+        this.id = idCounter;
+    	this.location=location;
     }
     
 	/**
@@ -26,9 +30,23 @@ public class Cineplex {
 	public String getLocation(){
 		return this.location;
 	}
+	
+	/**
+     * @return
+     */
+    public int getId(){
+        return this.id;
+    }
 
 	public void setCineplex(String location) {
         this.location=location;
+    }
+	
+	/**
+     * @return
+     */
+    public void setId(int id) {
+    	this.id = id;
     }
 	
 	/**
@@ -57,6 +75,6 @@ public class Cineplex {
 	 */
 	@Override
     public String toString() {
-        return location;
+        return id + ": " + location;
     }
 }
