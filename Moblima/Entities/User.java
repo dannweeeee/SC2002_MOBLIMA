@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * User class 
  * @author Ian
- *
+ * @version 1.0
  */
 public class User {
 	private static int idCounter=0;
@@ -15,9 +15,10 @@ public class User {
     private ArrayList<Ticket> bookingHistory;
 
     /**
-     * @param name of user
-     * @param email of user
-     * @param number of user
+     * Constructor for User
+     * @param name name of user
+     * @param email email of user
+     * @param number mobile number of user
      */
     public User(String name,String email, int number) {
         idCounter += 1;
@@ -28,6 +29,10 @@ public class User {
         this.bookingHistory= new ArrayList<>();
     }
 
+    /**
+     * add booking to user
+     * @param t ticket to be added
+     */
     public void addBooking(Ticket t){
         this.bookingHistory.add(t);
     }
