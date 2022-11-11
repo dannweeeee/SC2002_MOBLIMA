@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Show;
@@ -18,6 +17,7 @@ import Moblima.Handlers.CineplexHandler;
 import Moblima.Handlers.MovieHandler;
 import Moblima.Handlers.SeatHandler;
 import Moblima.Handlers.ShowHandler;
+import Moblima.Utils.UtilityOutput;
 
 public class ExampleAdder {
 	
@@ -59,17 +59,14 @@ public class ExampleAdder {
 		CineplexHandler cineplexHandler = CineplexHandler.getInstance();
 		ShowHandler showHandler = ShowHandler.getInstance();
 		
-		System.out.println("Show all cineplexes:");
+		UtilityOutput.printMessage("Show all cineplexes:");
 		cineplexHandler.printAllCineplex();
-		System.out.println("\n\nShow all cinemas:");
+		UtilityOutput.printMessage("\n\nShow all cinemas:");
 		for (Cineplex temp : cineplexHandler.getAllCineplex()) {
-			for (Cinema c : CinemaHandler.getInstance().getCinemaFromCineplex(temp)){
-			 System.out.println(c);
-			}
+			UtilityOutput.printObjectList(CinemaHandler.getInstance().getCinemaFromCineplex(temp));
 		   }
-		System.out.println("\nShow all shows:");
-		System.out.println(showHandler.getAllShows());
-		
+		UtilityOutput.printMessage("\nShow all shows:");
+		UtilityOutput.printMessage(showHandler.getAllShows().toString());
 	}
 	
 	public static void readMovieFromTextFile(String fileName) throws FileNotFoundException{

@@ -29,21 +29,29 @@ public class Booking {
         this.user = user;
     }
 
+    /**
+     * @return total price
+     */
     public double getTotalPrice(){
         return this.getAdultPrice() * this.getAdultTicketNum() + this.getStudentPrice() * this.getStudentTicketNum() + this.getSeniorPrice() * this.getSeniorTicket();
     }
 
     /**
-     * @return
+     * @return adult price
      */
     public double getAdultPrice(){
         return this.adultPrice;
     }
 
+    /**
+     * @return senior price
+     */
     public double getSeniorPrice(){
         return this.seniorPrice;
     }
-
+    /**
+     * @param seniorPrice
+     */
     public void setSeniorPrice(Double seniorPrice){
         this.seniorPrice = seniorPrice;
     }
@@ -56,7 +64,7 @@ public class Booking {
     }
 
     /**
-     * @return
+     * @return studentPrice
      */
     public double getStudentPrice(){
         return this.studentPrice;
@@ -70,14 +78,14 @@ public class Booking {
     }
 
     /**
-     * @return
+     * @return user
      */
     public User getUser(){
         return this.user;
     }
 
     /**
-     * @return
+     * @return studentTicket
      */
     public int getStudentTicketNum(){
         return this.studentTicket;
@@ -86,58 +94,50 @@ public class Booking {
     /**
      * @param num
      */
-    /**
-     * @param num
-     */
     public void setStudentTicket(int num){
         this.studentTicket = num;
     } 
-
     /**
-     * @return
-     */
-    /**
-     * @return
+     * @return adult ticket count
      */
     public int getAdultTicketNum(){
         return this.adultTicket;
     }
 
     /**
-     * @param num
-     */
-    /**
-     * @param num
+     * @param number of ticket
      */
     public void setAdultTicket(int num){
         this.adultTicket = num;
     } 
 
+    /**
+     * @param number of ticket
+     */
     public void setSeniorTicket(int num){
         this.seniorTicket = num;
     }
 
+    /**
+     * @return number senior of ticket
+     */
     public int getSeniorTicket(){
         return this.seniorTicket;
     }
 
+    /**
+     * @param total number of ticket
+     */
     public int getTotalTicketNum(){
         return this.seniorTicket + this.adultTicket + this.studentTicket;
     }
-
     /**
-     * @return
-     */
-    /**
-     * @return
+     * @return seatlist
      */
     public ArrayList<Seats> getSeats() {
         return seatList;
     }
 
-    /**
-     * @param seats
-     */
     /**
      * @param seats
      */
@@ -148,18 +148,12 @@ public class Booking {
     /**
      * @param show
      */
-    /**
-     * @param show
-     */
     public void setShow(Show show){
         this.selectedShow = show;
     }
 
     /**
-     * @return
-     */
-    /**
-     * @return
+     * @return selected show
      */
     public Show getShow(){
         return this.selectedShow;
