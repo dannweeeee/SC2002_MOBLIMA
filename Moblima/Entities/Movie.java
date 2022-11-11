@@ -10,6 +10,8 @@ import Moblima.Handlers.MovieHandler;
  *
  */
 public class Movie  {
+		private static int idCounter=0;
+		private int id;
 	 	private String name;
 	    private String status;
 	    private String synopsis;
@@ -23,7 +25,9 @@ public class Movie  {
 	    public ArrayList<Ticket> ticketlist;
 
 	    public Movie(String name,String status, String director, String synopsis, String cast) {
-	        this.name = name;
+	    	idCounter += 1;
+	        this.id = idCounter;
+	    	this.name = name;
 	        this.status = status;
 	        this.director = director;
 	        this.synopsis = synopsis;
@@ -32,6 +36,13 @@ public class Movie  {
 	        this.reviews = new ArrayList<>();
 	        this.ticketlist=new ArrayList<>();
 	    }
+	    
+	    /**
+		 * @return the movie ID
+		 */
+		public int getId() {
+			return id;
+		}
 	    
 	    /**
 		 * @return the status
@@ -67,7 +78,14 @@ public class Movie  {
 		public double getRatings() {
 			return Ratings;
 		}
-
+		
+		/**
+		 * @param id the id to set
+		 */
+		public void setId(int id) {
+			this.id = id;
+		}
+		
 		/**
 		 * @param name the name to set
 		 */
@@ -184,7 +202,8 @@ public class Movie  {
 	     */
 	    @Override
 	    public String toString() {
-	        return "Title: " + name + "\n" +
+	        return 	id + ". "+
+	        		"Title: " + name + "\n" +
 	                "Status: " + status + "\n" +
 	                "Director: " + director + "\n" +
 	                "Cast: " + cast + "\n" +

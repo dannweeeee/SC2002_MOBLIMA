@@ -55,11 +55,8 @@ public class MovieBooker implements MovieBookerInterface{
 	public void showAllMovies() {
 		MovieHandler movieHandler = MovieHandler.getInstance();
 		System.out.println("Showing all movies...");
-		int count =1;
 		for (Movie temp : movieHandler.getMovie()) {
-			System.out.print(count+": ");
 			System.out.println(temp);
-			count++;
 		}
 	}
 	
