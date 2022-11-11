@@ -1,16 +1,18 @@
 package Moblima.Entities;
 
 /**
+ * Review class for movie
  * @author Ian
- *
+ * @version 1.0
  */
 public class Review {
 	private String Review;
 	private User user;
 	
 	/**
-	 * @param review
-	 * @param user
+     * Constructor of Review
+	 * @param review review added by user
+	 * @param user user object who entered the review
 	 */
 	public Review(String review,User user) {
         this.Review = review;
@@ -19,7 +21,7 @@ public class Review {
 
     /**
      * Set method for review
-     * @param review
+     * @param review updated review value
      */
     public void SetReview(String review) {
         this.Review = review;

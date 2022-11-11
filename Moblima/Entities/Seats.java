@@ -1,7 +1,8 @@
 package Moblima.Entities;
 
 /**
- * @author 
+ * Seats class for all shows
+ * @author Marcus Kho
  *
  */
 public class Seats {
@@ -9,8 +10,9 @@ public class Seats {
     private String col;
 
     /**
-     * @param row
-     * @param col
+     * Default Constructor for Seats
+     * @param row row of seat
+     * @param col column of seat
      */
     public Seats(String row, String col){
         this.row = row;
@@ -18,23 +20,27 @@ public class Seats {
     }
 
     /**
-     * @param row
+     * Set method for Row
+     * @param row row of seat
      */
     public void setRow(String row){
         this.row = row;
     }
 
     /**
-     * @param col
+     * Set method for Column
+     * @param col column of seat
      */
     public void setCol(String col){
         this.col = col;
     }
 
     /**
-     * @return
+     * Get Seat function
+     * @return Row + column format (E.g. A1)
      */
-    public String getSeat(){
+    @Override
+    public String toString(){
         return this.row + this.col;
     }
 }

@@ -43,7 +43,7 @@ public class UtilityOutput {
         System.out.println();
         i = 0;
         for(Seats seat : seats){
-            System.out.print("|  " + seat.getSeat() + "  | ");
+            System.out.print("|  " + seat.toString() + "  | ");
             if((i+1) % 10 == 0 && i != 0){
                 System.out.println("");
                 i = 0;
