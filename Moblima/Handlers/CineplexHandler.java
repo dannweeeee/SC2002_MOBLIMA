@@ -3,7 +3,6 @@ package Moblima.Handlers;
 import java.util.ArrayList;
 
 import Moblima.Entities.Cineplex;
-import Moblima.Utils.Settings;
 
 public class CineplexHandler {
 	
@@ -35,9 +34,8 @@ public class CineplexHandler {
 	   }
 	
 	public void printAllCineplex() {
-		int count = 1;
 		for (Cineplex temp : allCineplex){
-			System.out.println(count++ + ". " + temp);
+			System.out.println(temp);
 		}
     }
 	

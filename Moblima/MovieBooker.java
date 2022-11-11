@@ -5,19 +5,9 @@
  */
 package Moblima;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 import Moblima.DataBase.ExampleAdder;
-import Moblima.Entities.Cinema;
-import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Rating;
 import Moblima.Entities.Review;
@@ -26,26 +16,18 @@ import Moblima.Entities.Show;
 import Moblima.Entities.Ticket;
 import Moblima.Entities.User;
 import Moblima.Exceptions.InvalidInputException;
-import Moblima.Handlers.SeatHandler;
 import Moblima.Handlers.ShowHandler;
 import Moblima.Handlers.UserHandler;
 import Moblima.Handlers.BookingController;
-import Moblima.Handlers.CinemaHandler;
-import Moblima.Handlers.CineplexHandler;
 import Moblima.Handlers.MovieHandler;
 import Moblima.Utils.UtilityInputs;
-import Moblima.Exceptions.InvalidInputException;
+import Moblima.Utils.UtilityOutput;
 
 public class MovieBooker implements MovieBookerInterface{
 
-
-	
-	
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
-	public MovieBooker() {
-		
-	}
+	public MovieBooker() {}
 	
 	public void showShowTimes(){
 		ShowHandler showHandler = ShowHandler.getInstance();
@@ -54,18 +36,13 @@ public class MovieBooker implements MovieBookerInterface{
 
 	public void showAllMovies() {
 		MovieHandler movieHandler = MovieHandler.getInstance();
-		System.out.println("Showing all movies...");
-		int count =1;
-		for (Movie temp : movieHandler.getMovie()) {
-			System.out.print(count+": ");
-			System.out.println(temp);
-			count++;
-		}
+		UtilityOutput.printMessage("Showing all movies...");
+		UtilityOutput.printObjectList(movieHandler.getMovie());
 	}
 	
 	public void bookingMenu() {
 		UserHandler userhandler=UserHandler.getInstance();
-		BookingController bookController = new BookingController(userhandler);
+		BookingController bookController = new BookingController();
 		User user1 = UtilityInputs.getUserInformation();
 		userhandler.getUsers().add(user1);
 		int choice = 0;
@@ -95,14 +72,17 @@ public class MovieBooker implements MovieBookerInterface{
 		MovieHandler movieHandler = MovieHandler.getInstance();
 		int count =1;
 		
-		System.out.println();
-        System.out.println("----------------SHOW MOVIES BY:------------------");
-     	System.out.println("| 01: Top 5 in Ticket sales                     |");
-     	System.out.println("| 02: Top 5 in Ratings                          |");
-     	System.out.println("| 03: Exit                                      |");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
-		System.out.print("Enter Option: ");
+		String[] menu = {"", 
+			"----------------SHOW MOVIES BY:------------------",
+			"| 01: Top 5 in Ticket sales                     |",
+			"| 02: Top 5 in Ratings                          |",
+			"| 03: Exit                                      |",
+			"-------------------------------------------------",
+			""
+		};
+		UtilityOutput.printMenu(menu);
+		UtilityOutput.printMessage("Enter Option: ");
+
         int sortOption = UtilityInputs.getIntUserInput();
         try {
 	        switch(sortOption) {
@@ -111,11 +91,10 @@ public class MovieBooker implements MovieBookerInterface{
 	        	movieHandler.sortByTicketSales();
 	        	for (Movie temp : movieHandler.getMovie()) {
 	        		if(count>6) break;
-	    			System.out.print(count+": ");
-	    			System.out.print(temp);
-	    			System.out.println("Ticket Sales: "+temp.getTicketsSize());
-	    			System.out.println();
-	    			count++;
+						UtilityOutput.printMessage(Integer.toString(count) + ": " + temp.toString());
+						UtilityOutput.printMessage("Ticket Sales: " + Integer.toString(temp.getTicketsSize()));
+						UtilityOutput.printMessage("");
+						count++;
 	    		}
 		        break;
 	        case 2:
@@ -123,10 +102,9 @@ public class MovieBooker implements MovieBookerInterface{
 		    	movieHandler.sortByRatings();
 		        for (Movie temp : movieHandler.getMovie()) {
 		        	if(count>6) break;
-		        	System.out.print(count+": ");
-					System.out.print(temp);
-					System.out.println("Ratings: "+temp.getAverageRatings());
-					System.out.println();
+		        	UtilityOutput.printMessage(count+": "+temp.toString());
+					UtilityOutput.printMessage("Ratings: "+temp.getAverageRatings());
+					UtilityOutput.printMessage("");
 					count++;
 				}
 		        break;
@@ -141,18 +119,17 @@ public class MovieBooker implements MovieBookerInterface{
 	}
 
 	public void searchMovie() {
-		
 		MovieHandler movieHandler = MovieHandler.getInstance();
 		String searchString = UtilityInputs.getSearchString();
 		ArrayList<Movie> searchResult = movieHandler.searchMovie(searchString);
 		
 		if (!searchResult.isEmpty()) {
-			System.out.println("Showing results for: "+searchString);
+			UtilityOutput.printMessage("Showing results for: "+searchString);
 			for (Movie temp : searchResult) {
 				System.out.println(temp);
 			}
 		}else {
-			System.out.println("No results found for \""+searchString+"\"");
+			UtilityOutput.printMessage("No results found for \""+searchString+"\"");
 		}
 
 	}
@@ -167,18 +144,18 @@ public class MovieBooker implements MovieBookerInterface{
 	public void showBookingHist() {
 		UserHandler userhandler= UserHandler.getInstance();
 		User user_test=null;
-		System.out.print("Enter your Email: ");
-		String email=UtilityInputs.getStringUserInput();
+		UtilityOutput.printInputMessage("Enter your Email: ");
+		String email = UtilityInputs.getStringUserInput();
 		for(User temp: userhandler.getUsers()) {
 			if(temp.getEmail().contentEquals(email)) {
 				user_test=temp;}
 		}
 		if(user_test==null){
-			System.out.print("User doesn't exist");
+			UtilityOutput.printInputMessage("User doesn't exist");
 			return;
 		}
 		for (Ticket temp : user_test.getTickets()) {
-			System.out.println(temp);
+			UtilityOutput.printMessage(temp.toString());
 		}
 	}
     /**
@@ -195,26 +172,25 @@ public class MovieBooker implements MovieBookerInterface{
 		User useri=null;
 		Movie choice=null;
 		Double score;
-		System.out.print("Enter your Email: ");
+		UtilityOutput.printInputMessage("Enter your Email: ");
 		String email=UtilityInputs.getStringUserInput();
 		for(User temp: userhandler.getUsers()) {
 			if(temp.getEmail().contentEquals(email)) {
 				 useri=temp;}
 		}
 		if(useri==null){
-			System.out.print("User doesn't exist");
+			UtilityOutput.printInputMessage("User doesn't exist");
 			return;
 		}
 		do {
-			
-            System.out.println();
-            System.out.println("----------------REVIEW/RATING MENU---------------");
-        	System.out.println("| 01: Rate a Movie                              |");
-        	System.out.println("| 02: Review a Movie                            |");
-        	System.out.println("| 03: Exit                                      |");
-            System.out.println("-------------------------------------------------");
-            System.out.print("Enter option ('3' to return): ");
-            
+			String[] menu = {"",
+			"----------------REVIEW/RATING MENU---------------",
+			"| 01: Rate a Movie                              |",
+			"| 02: Review a Movie                            |",
+			"| 03: Exit                                      |",
+			"-------------------------------------------------"};
+            UtilityOutput.printMenu(menu);
+            UtilityOutput.printInputMessage("Enter option ('3' to return): ");
             option = UtilityInputs.getIntUserInput();
 	        
 	        switch(option){
@@ -222,8 +198,8 @@ public class MovieBooker implements MovieBookerInterface{
 				choice=null;
 				
 				showAllMovies();
-				System.out.println("Which Movie would you like to rate?");
-				String name=UtilityInputs.getStringUserInput();
+				UtilityOutput.printInputMessage("Which Movie would you like to rate? ");
+				String name = UtilityInputs.getStringUserInput();
 				
 				for (Movie temp : movieHandler.getMovie()) {
 					if(temp.getName().toLowerCase().contentEquals(name.toLowerCase())) {
@@ -234,22 +210,22 @@ public class MovieBooker implements MovieBookerInterface{
 				if(choice!=null) {
 					
 					while(true) {
-						System.out.println("Enter your rating from 1 to 5:");
+						UtilityOutput.printInputMessage("Enter your rating from 1 to 5: ");
 						score = UtilityInputs.getDoubleUserInput();
 						if(score==null)continue;
 						else if(score>=1 && score<=5)break;
-						else if((score<1 || score>5))System.out.println("Rating out of range");
+						else if((score<1 || score>5)) UtilityOutput.printMessage("Rating out of range");
 					}
 					choice.addRatings(new Rating(score,useri));
-					System.out.println("Rating added");}
-				else System.out.println("Movie does not exist");
+					UtilityOutput.printMessage("Rating added");}
+				else UtilityOutput.printMessage("Movie does not exist");
 					break;
 				
 			case 2:
 				choice=null;
 				showAllMovies();
-				System.out.println("Which Movie would you like to review?");
-				String name1=UtilityInputs.getStringUserInput();
+				UtilityOutput.printInputMessage("Which Movie would you like to review? ");
+				String name1 = UtilityInputs.getStringUserInput();
 				for (Movie temp : movieHandler.getMovie()) {
 					if(temp.getName().toLowerCase().contentEquals(name1.toLowerCase())) {
 						choice=temp;
@@ -258,30 +234,30 @@ public class MovieBooker implements MovieBookerInterface{
 				}
 				if(choice!=null) {
 					while(true) {
-						System.out.println("Enter your review:");
+						UtilityOutput.printInputMessage("Enter your review: ");
 						String text = UtilityInputs.getStringUserInput();
 						if(!text.matches("[0-9]+")) {
 							choice.addReview(new Review(text,useri));
-							System.out.println("Review added");
+							UtilityOutput.printMessage("Review added");
 						break;}
-						else {System.out.println("Invalid Input");
+						else {UtilityOutput.printMessage("Invalid Input");
 						}
 					}
 				}	
-				else System.out.println("Movie does not exist");
+				else UtilityOutput.printMessage("Movie does not exist");
 					break;
 				
 			case 3:
 				break;
 			default:
-				System.out.println("Invalid Input");
+				UtilityOutput.printMessage("Invalid Input");
 	        }
 		}while(option!=3);
 	}
   
   	public void addExamples() {
   		ExampleAdder.initializeExample();
-  		System.out.println("Example data added.");
+  		UtilityOutput.printMessage("Example data added.");
   		ExampleAdder.showExample();
   	}
 	

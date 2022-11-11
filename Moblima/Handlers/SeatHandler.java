@@ -6,7 +6,6 @@ import java.util.Map;
 
 import Moblima.Entities.Seats;
 import Moblima.Entities.Show;
-import Moblima.Utils.Settings;
 
 public class SeatHandler {
     private Map<Show, ArrayList<Seats>> allSeats;
@@ -51,44 +50,6 @@ public class SeatHandler {
             }
         }
         return seats;
-    }
-
-    public void printAvailableSeats(Show s){
-        ArrayList<Seats> seats = getSeatList(s);
-        
-        System.out.println("Seats still available: ");
-        int i = 0;
-        int x = 10;
-
-        if (seats.size() < 10){
-            x = seats.size();
-        }
-        while (i < x){
-            System.out.print("  ----   ");
-            i++;
-        }
-
-        System.out.println();
-        i = 0;
-        for(Seats seat : seats){
-            System.out.print("|  " + seat.getSeat() + "  | ");
-            if((i+1) % 10 == 0 && i != 0){
-                System.out.println("");
-                i = 0;
-                while (i < 10){
-                    System.out.print("  ----   ");
-                    i++;
-                }
-                System.out.println();
-                
-                i = -1;
-            }
-            i++;
-        }
-        System.out.println();
-        for (int j = 0; j < i ; j++){
-            System.out.print("  ----   ");
-        }
     }
 
     public boolean checkSeatAvailability(Seats s1, Show s){

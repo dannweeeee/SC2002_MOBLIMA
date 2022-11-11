@@ -1,11 +1,10 @@
 package Moblima;
 
-import java.util.InputMismatchException;
-
 import Moblima.Admin.Admin;
 import Moblima.DataBase.ExampleAdder;
 import Moblima.Exceptions.InvalidInputException;
 import Moblima.Utils.UtilityInputs;
+import Moblima.Utils.UtilityOutput;
 
 public class MovieBookerApp {
 	
@@ -23,6 +22,19 @@ public class MovieBookerApp {
 
 	public static void showUserView(MovieBookerInterface movieBooker) {
 		int option = 0;
+		String[] menu = {"-----------------MOBLIMA MAIN MENU---------------", 
+				"| 01: Show All Movies                           |",
+				"| 02: Search Movie                              |",
+				"| 03: View Showtimes                            |",
+				"| 04: View Top 5 Movies                         |",
+				"| 05: Review/Rate Menu                          |",
+				"| 06: Booking  Menu                             |",
+				"| 07: Show Booking History                      |",
+				"| 08:                                           |",
+				"| 09: Initialize/Show Example                   |",
+				"| 10: ADMIN LOGIN                               |",
+				"-------------------------------------------------",
+				""};
 		do {
 			while(true) {
 	            System.out.println();
@@ -40,14 +52,14 @@ public class MovieBookerApp {
 	            System.out.println("-------------------------------------------------");
 	            System.out.println();
      
-        		System.out.print("Main Menu - Enter option [Enter '0' to exit app]: ");
+        		System.out.print("Main Menu - Enter option ('0' to exit app): ");
         		
         		option = UtilityInputs.getIntUserInput();
         		
 				try{
 					switch (option) {
 					case 0:
-						System.out.println("Goodbye!");
+						UtilityOutput.printMessage("Goodbye!");
 						System.exit(0);
 						return;
 					case 1:

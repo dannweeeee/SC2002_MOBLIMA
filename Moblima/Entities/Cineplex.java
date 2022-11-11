@@ -1,23 +1,21 @@
 package Moblima.Entities;
-
-import java.util.ArrayList;
-
-import Moblima.Handlers.CinemaHandler;
-
 /**
  * @author pc
  *
  */
 public class Cineplex {
+	private int idCounter = 0;
+	private int id;
 	private String location;
-	private CinemaHandler cinemaH;
 	private int cineplexNo;
     
     /**
      * @param location
      */
     public Cineplex(String location) {
-        this.location=location;
+        idCounter += 1;
+        this.id = idCounter;
+    	this.location=location;
     }
     
 	/**
@@ -26,17 +24,24 @@ public class Cineplex {
 	public String getLocation(){
 		return this.location;
 	}
+	
+	/**
+     * @return
+     */
+    public int getId(){
+        return this.id;
+    }
 
 	public void setCineplex(String location) {
         this.location=location;
     }
 	
 	/**
-	 * @param CinemaHandler
-	 */
-	public void setHall(CinemaHandler CinemaHandler) {
-		this.cinemaH=CinemaHandler;
-	}
+     * @return
+     */
+    public void setId(int id) {
+    	this.id = id;
+    }
 	
 	/**
 	 * @return
@@ -57,6 +62,6 @@ public class Cineplex {
 	 */
 	@Override
     public String toString() {
-        return location;
+        return id + ": " + location;
     }
 }

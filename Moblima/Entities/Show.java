@@ -1,7 +1,6 @@
 package Moblima.Entities;
 
 import java.util.Date;
-import java.util.ArrayList;
 
 /**
  * @author 
@@ -14,7 +13,6 @@ public class Show {
     private Movie movie;
     private Cinema theater;
     private int availableSeats;
-    private ArrayList<Seats> seats;
 
     /**
      * @param showTime
