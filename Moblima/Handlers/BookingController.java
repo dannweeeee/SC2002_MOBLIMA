@@ -41,11 +41,8 @@ public class BookingController {
 	private final String PUBLIC_HOLIDAYS = "public_holiday_dates";
 	private final String DISCOUNT_DAyS = "weekly_discount_days";
 	private final String DISCOUNT_DAYS_RATE = "weekly_discount_rates";
-	private UserHandler userHandler; 
 
-	public BookingController(UserHandler userHandler) {
-		this.userHandler = userHandler;
-	}
+	public BookingController() {}
 
 
 	public static void bookMenu(){
@@ -235,7 +232,6 @@ public class BookingController {
 		HallType cinemaClass = newBooking.getShow().getCinema().getCinemaClass();
 		Date showtime = newBooking.getShow().getShowTime();
 		calendar.setTime(showtime);
-		int count = 0;
 		AllPrices allprices = null;
 		try{
 			switch(cinemaClass){

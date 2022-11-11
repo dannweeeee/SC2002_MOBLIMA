@@ -3,7 +3,6 @@ package Moblima.Handlers;
 import java.util.ArrayList;
 
 import Moblima.Entities.Cineplex;
-import Moblima.Utils.Settings;
 
 public class CineplexHandler {
 	

@@ -46,7 +46,7 @@ public class MovieBooker implements MovieBookerInterface{
 	
 	public void bookingMenu() {
 		UserHandler userhandler=UserHandler.getInstance();
-		BookingController bookController = new BookingController(userhandler);
+		BookingController bookController = new BookingController();
 		User user1 = UtilityInputs.getUserInformation();
 		userhandler.getUsers().add(user1);
 		int choice = 0;
