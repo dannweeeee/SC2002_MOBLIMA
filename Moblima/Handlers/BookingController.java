@@ -19,20 +19,48 @@ import Moblima.Entities.Cinema.HallType;
 import Moblima.Exceptions.InvalidInputException;
 import Moblima.Exceptions.SeatsNotAvailableException;
 
+/**
+ * Booking Controller class to faciltate booking
+ */
 public class BookingController {
+	/**
+	 * Enum of AllPrices and their respective property names from Settings.ini
+	 */
 	public enum AllPrices{
+		/**
+		 * Standard Hall price for students, aduilts and senior citizens
+		 */
 		STANDARD_PRICES (HallType.STANDARD, "ticket_price_student_standard", "ticket_price_adult_standard", "ticket_price_senior_standard"), 
+		/**
+		 * Premium Hall price for students, aduilts and senior citizens
+		 */
 		PREMIUM_PRICES(HallType.PREMIUM, "ticket_price_student_premium", "ticket_price_adult_premium", "ticket_price_senior_premium"),
+		/**
+		 * VIP Hall price for students, aduilts and senior citizens
+		 */
 		VIP_PRICES(HallType.VIP, "ticket_price_student_vip", "ticket_price_adult_vip", "ticket_price_senior_vip");
 
 		private final Map<HallType, String[]> allPrices; 
 
+		/**
+		 * Constructor for AllPrices
+		 * 
+		 * @param h halltype
+		 * @param student student property
+		 * @param adult adult property
+		 * @param senior senior citizen property
+		 */
 		AllPrices(HallType h, String student, String adult, String senior){
 			String[] prices = {student, adult, senior};
 			allPrices = new HashMap<>();
 			allPrices.put(h, prices);
 		}
-
+		/**
+		 * Gets the respective HallType property for pricing
+		 * 
+		 * @param choice - can be 0-2, 0:STANDARD, 1:PREMIUM, 2:VIP
+		 * @return property String
+		 */
 		public String getProperty(int choice){
 			return this.allPrices.values().iterator().next()[choice];
 		}
@@ -42,9 +70,16 @@ public class BookingController {
 	private final String DISCOUNT_DAyS = "weekly_discount_days";
 	private final String DISCOUNT_DAYS_RATE = "weekly_discount_rates";
 
+	/**
+	 * 
+	 * Default constructor for Booking Controller
+	 */
 	public BookingController() {}
 
-
+	/**
+	 * Printing of booking menu
+	 * 
+	 */
 	public static void bookMenu(){
 		String[] menu = {"--------------MOBLIMA BOOKING MENU!--------------",
 		"| 01: List All Shows                            |",
@@ -56,10 +91,22 @@ public class BookingController {
 		UtilityOutput.printInputMessage("Enter option ('4' to return): ");
 	}
 
+	
+	/** 
+	 * Get choice for booking menu
+	 * @return int
+	 */
 	public int getMenuChoice(){
 		return UtilityInputs.getIntUserInput();
 	}
 
+	
+	/** 
+	 * Generates a list of shows based on user's input
+	 * 
+	 * @param choice Gets a input parameter from user menu
+	 * @return ArrayList of Show based on how user search for shows
+	 */
 	public ArrayList<Show> getShowList(int choice){
 		ShowHandler showHandler = ShowHandler.getInstance();
 		CineplexHandler cineplexHandler = CineplexHandler.getInstance();
@@ -105,6 +152,14 @@ public class BookingController {
 		return shows;
 	}
 
+	
+	/** 
+	 * Faciliate booking of shows
+	 * 
+	 * @param shows list of shows for user to select from
+	 * @param user1 user object to keep track of booking if sucessful
+	 * @return ArrayList of Ticket that are sucessfully booked by the user
+	 */
 	public ArrayList<Ticket> bookShow (ArrayList<Show> shows, User user1){
 		SeatHandler seatHandler = SeatHandler.getInstance();
 		Booking newBooking = new Booking(user1);
@@ -134,6 +189,13 @@ public class BookingController {
 		return null;
 	}
 
+	
+	/** 
+	 * Allow users to choose seats for their selected show
+	 * 
+	 * @param newBooking booking object to retrieve user's data easily
+	 * @return ArrayList of seats user had chose
+	 */
 	public ArrayList<Seats> selectSeats (Booking newBooking){
 		SeatHandler seatHandler = SeatHandler.getInstance();
         ArrayList<Seats> chosenSeats = new ArrayList<Seats>();
@@ -167,6 +229,13 @@ public class BookingController {
         return chosenSeats;
     }
 
+	
+	/** 
+	 * Seek booking confirmation before generating the tickets
+	 * 
+	 * @param newBooking booking object to retrieve user's data easily
+	 * @return ArrayList of Ticket booked by the user
+	 */
 	public ArrayList<Ticket> bookSeats(Booking newBooking){
         ArrayList<Seats> seatlist = newBooking.getSeats();
         int confirmation = 0;
@@ -191,6 +260,14 @@ public class BookingController {
         return ticketList;
     }
 
+	
+	/** 
+	 * Checks if show time date falls under any public holidays
+	 * 
+	 * @param settings settings instance to get public holidays dates
+	 * @param cal date of showtime to check if it falls under public holiday
+	 * @return boolean true if holiday, false if not
+	 */
 	public boolean isHoliday(Settings settings, Calendar cal){
 		try{
 			String ph_dates = settings.getProperty(PUBLIC_HOLIDAYS);
@@ -207,6 +284,14 @@ public class BookingController {
 		return false;
 	}
 
+	
+	/** 
+	 * Checks if the show time falls on any days of the week with discounted price
+	 * 
+	 * @param settings settings instance to get weekly discount days
+	 * @param cal show time date for checking
+	 * @return int returns discount (if any), else 0
+	 */
 	public int weeklyDiscounts(Settings settings, Calendar cal){
 		String discount_days = settings.getProperty(DISCOUNT_DAyS);
 		try{
@@ -223,6 +308,12 @@ public class BookingController {
 		return 0;		
 	}
 
+	
+	/** 
+	 * Calculate the price based on user's selection of hall, ticket type(Student, Adult, Senior Citizen)
+	 * 
+	 * @param newBooking booking object for easy retrival of data
+	 */
 	public void calcPrice(Booking newBooking){
 		Settings settings = Settings.getInstance();
 		Calendar calendar = Calendar.getInstance();
@@ -272,6 +363,13 @@ public class BookingController {
 		newBooking.setSeniorPrice(prices[2]);
 	}
 
+	
+	/** 
+	 * Function to generate Transactional ID with the format - (XXXXyyyyMMddHHmm) where XXXX is Cinema ID and yyyyMMddHHmm is the date of booking
+	 * 
+	 * @param newBooking for easy retrival of user's selection to generate Transaction ID
+	 * @return String - Transactional ID
+	 */
 	public String generateTransactionID(Booking newBooking){
 		String transactionID = Integer.toString(newBooking.getShow().getCinema().getCinemaID());;
 		final int CINEMACODELENGTH = 4;
@@ -286,7 +384,14 @@ public class BookingController {
 		return transactionID;
 	}
 
-    public int bookingConfirmation(Booking newBooking){
+    
+	/** 
+	 * Confirms booking with user
+	 * 
+	 * @param newBooking booking object for easy retrival of user's selection
+	 * @return int 1 for confirmation, 0 for cancel
+	 */
+	public int bookingConfirmation(Booking newBooking){
     	SeatHandler seatHandler = SeatHandler.getInstance();
 		calcPrice(newBooking);
 		if (newBooking.getStudentPrice() == 0.0 || newBooking.getAdultPrice() == 0) return 0;
