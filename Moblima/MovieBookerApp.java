@@ -6,8 +6,20 @@ import Moblima.Exceptions.InvalidInputException;
 import Moblima.Utils.UtilityInputs;
 import Moblima.Utils.UtilityOutput;
 
+/**
+ * Entry point for the application
+ * 
+ */
 public class MovieBookerApp {
-	
+
+	/**
+	 * Default Consutructor for MovieBookerApp
+	 */
+	public MovieBookerApp(){}
+	/**
+	 * Main Method for the entire MovieBooker Application
+	 * @param args arguments when running the program
+	 */
 	public static void main(String[] args) {
 		
 		MovieBookerInterface movieBooker = new MovieBooker();
@@ -20,6 +32,10 @@ public class MovieBookerApp {
 		showUserView(movieBooker);
 	}
 
+	/**
+	 * Application's main menu 
+	 * @param movieBooker movieBooker object
+	 */
 	public static void showUserView(MovieBookerInterface movieBooker) {
 		int option = 0;
 		String[] menu = {"-----------------MOBLIMA MAIN MENU---------------", 
