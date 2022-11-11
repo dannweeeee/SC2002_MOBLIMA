@@ -6,6 +6,7 @@ import Moblima.Admin.Admin;
 import Moblima.DataBase.ExampleAdder;
 import Moblima.Exceptions.InvalidInputException;
 import Moblima.Utils.UtilityInputs;
+import Moblima.Utils.UtilityOutput;
 
 public class MovieBookerApp {
 	
@@ -23,31 +24,30 @@ public class MovieBookerApp {
 
 	public static void showUserView(MovieBookerInterface movieBooker) {
 		int option = 0;
+		String[] menu = {"-----------------MOBLIMA MAIN MENU---------------", 
+				"| 01: Show All Movies                           |",
+				"| 02: Search Movie                              |",
+				"| 03: View Showtimes                            |",
+				"| 04: View Top 5 Movies                         |",
+				"| 05: Review/Rate Menu                          |",
+				"| 06: Booking  Menu                             |",
+				"| 07: Show Booking History                      |",
+				"| 08:                                           |",
+				"| 09: Initialize/Show Example                   |",
+				"| 10: ADMIN LOGIN                               |",
+				"-------------------------------------------------",
+				""};
 		do {
 			while(true) {
-	            System.out.println();
-	            System.out.println("-----------------MOBLIMA MAIN MENU---------------");
-	        	System.out.println("| 01: Show All Movies                           |");
-	        	System.out.println("| 02: Search Movie                              |");
-	        	System.out.println("| 03: View Showtimes                            |");
-	        	System.out.println("| 04: View Top 5 Movies                         |");
-	        	System.out.println("| 05: Review/Rate Menu                          |");
-	        	System.out.println("| 06: Booking  Menu                             |");
-	        	System.out.println("| 07: Show Booking History                      |");
-	        	System.out.println("| 08:                                           |");
-	        	System.out.println("| 09: Initialize/Show Example                   |");
-				System.out.println("| 10: ADMIN LOGIN                               |");
-	            System.out.println("-------------------------------------------------");
-	            System.out.println();
-     
-        		System.out.print("Main Menu - Enter option ('0' to exit app): ");
+				UtilityOutput.printMenu(menu);
+				UtilityOutput.printInputMessage("Main Menu - Enter option ('0' to exit app): ");
         		
         		option = UtilityInputs.getIntUserInput();
         		
 				try{
 					switch (option) {
 					case 0:
-						System.out.println("Goodbye!");
+						UtilityOutput.printMessage("Goodbye!");
 						System.exit(0);
 						return;
 					case 1:
