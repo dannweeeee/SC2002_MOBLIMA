@@ -23,23 +23,41 @@ import Moblima.Handlers.MovieHandler;
 import Moblima.Utils.UtilityInputs;
 import Moblima.Utils.UtilityOutput;
 
+/**
+ * Interface for MovieBookerApp
+ * 
+ */
 public class MovieBooker implements MovieBookerInterface{
-
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
+	/**
+	 * 
+	 * Default Constructor for Movie Booker
+	 * 
+	 */
 	public MovieBooker() {}
 	
+	/**
+	 * Prints all show times
+	 */
 	public void showShowTimes(){
 		ShowHandler showHandler = ShowHandler.getInstance();
 		ShowHandler.printAllShows(showHandler.getAllShows());
 	}
 
+	/**
+	 * Prints all movies 
+	 */
 	public void showAllMovies() {
 		MovieHandler movieHandler = MovieHandler.getInstance();
 		UtilityOutput.printMessage("Showing all movies...");
 		UtilityOutput.printObjectList(movieHandler.getMovie());
 	}
 	
+	/**
+	 * Booking Menu to book movie
+	 * 
+	 */
 	public void bookingMenu() {
 		UserHandler userhandler=UserHandler.getInstance();
 		BookingController bookController = new BookingController();
@@ -118,13 +136,17 @@ public class MovieBooker implements MovieBookerInterface{
 		}
 	}
 
+	/**
+	 * Search movies and displays them 
+	 */
 	public void searchMovie() {
 		MovieHandler movieHandler = MovieHandler.getInstance();
-		String searchString = UtilityInputs.getSearchString();
+		UtilityOutput.printInputMessage("Enter movie name to search [0 to exit] => ");
+		String searchString = UtilityInputs.getStringUserInput().toLowerCase();
 		ArrayList<Movie> searchResult = movieHandler.searchMovie(searchString);
 		
 		if (!searchResult.isEmpty()) {
-			UtilityOutput.printMessage("Showing results for: "+searchString);
+			UtilityOutput.printMessage("Showing results for: " + searchString);
 			for (Movie temp : searchResult) {
 				System.out.println(temp);
 			}
@@ -139,8 +161,6 @@ public class MovieBooker implements MovieBookerInterface{
 	 * if exists then shows his booking histories for the tickets the user purchased
 	 * ticket info includes: name of owner, booking time, seats booked and booked show
 	 */
-	
-	
 	public void showBookingHist() {
 		UserHandler userhandler= UserHandler.getInstance();
 		User user_test=null;
@@ -255,6 +275,10 @@ public class MovieBooker implements MovieBookerInterface{
 		}while(option!=3);
 	}
   
+	/**
+	 * Initialize examples
+	 * 
+	 */
   	public void addExamples() {
   		ExampleAdder.initializeExample();
   		UtilityOutput.printMessage("Example data added.");

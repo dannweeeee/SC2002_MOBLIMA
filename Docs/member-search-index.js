@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"Moblima","c":"MovieBookerApp","l":"main(String[])","u":"main(java.lang.String[])"},{"p":"Moblima","c":"MovieBookerApp","l":"MovieBookerApp()","u":"%3Cinit%3E()"},{"p":"Moblima","c":"MovieBookerApp","l":"showUserView(MovieBookerInterface)","u":"showUserView(Moblima.MovieBookerInterface)"}];updateSearchResults();
