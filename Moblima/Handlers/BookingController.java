@@ -14,6 +14,7 @@ import Moblima.Entities.Ticket;
 import Moblima.Entities.User;
 import Moblima.Utils.Settings;
 import Moblima.Utils.UtilityInputs;
+import Moblima.Utils.UtilityOutput;
 import Moblima.Entities.Cinema.HallType;
 import Moblima.Exceptions.InvalidInputException;
 import Moblima.Exceptions.SeatsNotAvailableException;
@@ -40,21 +41,19 @@ public class BookingController {
 	private final String PUBLIC_HOLIDAYS = "public_holiday_dates";
 	private final String DISCOUNT_DAyS = "weekly_discount_days";
 	private final String DISCOUNT_DAYS_RATE = "weekly_discount_rates";
-	private UserHandler userHandler; 
 
-	public BookingController(UserHandler userHandler) {
-		this.userHandler = userHandler;
-	}
+	public BookingController() {}
 
 
 	public static void bookMenu(){
-		System.out.println("--------------MOBLIMA BOOKING MENU!--------------");
-		System.out.println("| 01: List All Shows                            |");
-		System.out.println("| 02: Search Shows by Name                      |");
-		System.out.println("| 03: View Movie by Location                    |");
-		System.out.println("| 04: Go Back                                   |");
-		System.out.println("-------------------------------------------------");
-		System.out.print("Enter option ('4' to return): ");
+		String[] menu = {"--------------MOBLIMA BOOKING MENU!--------------",
+		"| 01: List All Shows                            |",
+		"| 02: Search Shows by Name                      |",
+		"| 03: View Movie by Location                    |",
+		"| 04: Go Back                                   |",
+		"-------------------------------------------------"};
+		UtilityOutput.printMenu(menu);
+		UtilityOutput.printInputMessage("Enter option ('4' to return): ");
 	}
 
 	public int getMenuChoice(){
@@ -77,8 +76,8 @@ public class BookingController {
 						if (searchString.equals("0")) return null;
 						shows = showHandler.searchShows(searchString);
 						if (shows.isEmpty()) {
-							System.out.println("No Results found for: "+searchString);
-							System.out.println("Please re-enter...");
+							UtilityOutput.printMessage("No Results found for: "+searchString);
+							UtilityOutput.printMessage("Please re-enter...");
 						}else break;
 					}
 					break;
@@ -98,10 +97,10 @@ public class BookingController {
 					throw new InvalidInputException("Invalid Input, please enter only 1 - 4");
 			}
 		}catch(InvalidInputException e){
-			System.out.println(e.getMessage());
+			UtilityOutput.printMessage(e.getMessage());
 		}
 		if (shows == null){
-			System.out.println("No shows found");
+			UtilityOutput.printMessage("No shows found");
 		}
 		return shows;
 	}
@@ -113,14 +112,15 @@ public class BookingController {
 		Show selectedShow = UtilityInputs.getShow(shows);
 		if (selectedShow == null) return null;
 		newBooking.setShow(selectedShow);
-		seatHandler.printAvailableSeats(selectedShow);
+		ArrayList<Seats> seatList = seatHandler.getSeatList(selectedShow);
+        UtilityOutput.printSeatingForBooking(seatList);
 
 		newBooking.setAdultTicket(UtilityInputs.getNumberOfTicket("Adult"));
 		newBooking.setStudentTicket(UtilityInputs.getNumberOfTicket("Student"));
 		newBooking.setSeniorTicket(UtilityInputs.getNumberOfTicket("Senior Citizen"));
 
 		if (newBooking.getStudentTicketNum() == 0 && newBooking.getAdultTicketNum() == 0 && newBooking.getSeniorTicket() == 0){
-			System.out.println("Cancelling booking");
+			UtilityOutput.printMessage("Cancelling booking");
 			return null;
 		}
 
@@ -140,7 +140,7 @@ public class BookingController {
 		int totalTickets = newBooking.getTotalTicketNum();
 
 		if (!seatHandler.checkCapacity(totalTickets, newBooking.getShow())){
-			System.out.println("Not enough tickets remaining");
+			UtilityOutput.printMessage("Not enough tickets remaining");
 			return null;
 		}
 
@@ -233,7 +233,6 @@ public class BookingController {
 		HallType cinemaClass = newBooking.getShow().getCinema().getCinemaClass();
 		Date showtime = newBooking.getShow().getShowTime();
 		calendar.setTime(showtime);
-		int count = 0;
 		AllPrices allprices = null;
 		try{
 			switch(cinemaClass){
@@ -251,7 +250,7 @@ public class BookingController {
 				prices[i] = Double.parseDouble(settings.getProperty(allprices.getProperty(i)));
 			}
 		} catch (NumberFormatException e){
-			System.out.println("Invalid pricing for student or adult, please check approach Admins or Call us");
+			UtilityOutput.printMessage("Invalid pricing for student or adult, please check approach Admins or Call us");
 			return;
 		}
 
@@ -299,11 +298,11 @@ public class BookingController {
 					for (Seats s: newBooking.getSeats()){
 						seatHandler.removeSeats(s, newBooking.getShow());
 					}
-					System.out.println("Your transaction ID is: " + generateTransactionID(newBooking));
+					UtilityOutput.printMessage("Your transaction ID is: " + generateTransactionID(newBooking));
 					return 1;
 				} else if (Character.toUpperCase(confirmation) == 'N'){
-					System.out.println("Booking unsuccessful");
-					System.out.println("Returning back to main menu");
+					UtilityOutput.printMessage("Booking unsuccessful");
+					UtilityOutput.printMessage("Returning back to main menu");
 					return 0;
 				} else {
 					throw new InvalidInputException("Enter only Y or N");
