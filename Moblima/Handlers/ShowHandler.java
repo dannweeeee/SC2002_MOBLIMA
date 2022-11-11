@@ -6,6 +6,8 @@ import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Show;
+import Moblima.Utils.UtilityOutput;
+
 import java.util.ArrayList;
 
 public class ShowHandler {
@@ -60,11 +62,11 @@ public class ShowHandler {
         Show temp;
         for (int i = 0; i < shows.size(); i++){
             temp = shows.get(i);
-            System.out.println(temp.getID() + ". " + temp.getMovie().getName());
-            System.out.println("Show time: " + temp.getShowTime());
-            System.out.println("Hall Type: " + temp.getCinema().getCinemaClass());
-            System.out.println("Location: " + temp.getCinema().getCineplex().getLocation());
-            System.out.println();
+            UtilityOutput.printMessage(temp.getID() + ". " + temp.getMovie().getName());
+            UtilityOutput.printMessage("Show time: " + temp.getShowTime());
+            UtilityOutput.printMessage("Hall Type: " + temp.getCinema().getCinemaClass());
+            UtilityOutput.printMessage("Location: " + temp.getCinema().getCineplex().getLocation());
+            UtilityOutput.printMessage("");
         }
     }
 

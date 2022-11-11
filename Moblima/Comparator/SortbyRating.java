@@ -1,4 +1,4 @@
-package Moblima.Utils;
+package Moblima.Comparator;
 import java.util.Comparator;
 
 import Moblima.Entities.Movie;
