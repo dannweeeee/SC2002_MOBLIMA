@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import Moblima.Entities.Booking;
 import Moblima.Entities.Seats;
@@ -17,20 +19,29 @@ import Moblima.Exceptions.InvalidInputException;
 import Moblima.Exceptions.SeatsNotAvailableException;
 
 public class BookingController {
-	private UserHandler userHandler; 
-	private final String STUDENT_PRICE_STANDARD = "ticket_price_student_standard";
-	private final String ADULT_PRICE_STANDARD = "ticket_price_adult_standard";
+	public enum AllPrices{
+		STANDARD_PRICES (HallType.STANDARD, "ticket_price_student_standard", "ticket_price_adult_standard", "ticket_price_senior_standard"), 
+		PREMIUM_PRICES(HallType.PREMIUM, "ticket_price_student_premium", "ticket_price_adult_premium", "ticket_price_senior_premium"),
+		VIP_PRICES(HallType.VIP, "ticket_price_student_vip", "ticket_price_adult_vip", "ticket_price_senior_vip");
 
-	private final String STUDENT_PRICE_PREMIUM = "ticket_price_student_premium";
-	private final String ADULT_PRICE_PREMIUM = "ticket_price_adult_premium";
+		private final Map<HallType, String[]> allPrices; 
 
-	private final String STUDENT_PRICE_VIP = "ticket_price_student_vip";
-	private final String ADULT_PRICE_VIP = "ticket_price_adult_vip";
+		AllPrices(HallType h, String student, String adult, String senior){
+			String[] prices = {student, adult, senior};
+			allPrices = new HashMap<>();
+			allPrices.put(h, prices);
+		}
+
+		public String getProperty(int choice){
+			return this.allPrices.values().iterator().next()[choice];
+		}
+	}
 
 	private final String PUBLIC_HOLIDAYS = "public_holiday_dates";
 	private final String DISCOUNT_DAyS = "weekly_discount_days";
 	private final String DISCOUNT_DAYS_RATE = "weekly_discount_rates";
-	
+	private UserHandler userHandler; 
+
 	public BookingController(UserHandler userHandler) {
 		this.userHandler = userHandler;
 	}
@@ -58,7 +69,7 @@ public class BookingController {
 		try{
 			switch(choice){
 				case 1:
-					shows = showHandler.getAllShows();
+					shows = showHandler.getAllShowsShowing();
 					break;
 				case 2:
 					while (true) {
@@ -70,7 +81,6 @@ public class BookingController {
 							System.out.println("Please re-enter...");
 						}else break;
 					}
-					
 					break;
 				case 3:
 					cineplexHandler.printAllCineplex();
@@ -104,10 +114,12 @@ public class BookingController {
 		if (selectedShow == null) return null;
 		newBooking.setShow(selectedShow);
 		seatHandler.printAvailableSeats(selectedShow);
+
 		newBooking.setAdultTicket(UtilityInputs.getNumberOfTicket("Adult"));
 		newBooking.setStudentTicket(UtilityInputs.getNumberOfTicket("Student"));
+		newBooking.setSeniorTicket(UtilityInputs.getNumberOfTicket("Senior Citizen"));
 
-		if (newBooking.getStudentTicketNum() == 0 && newBooking.getAdultTicketNum() == 0){
+		if (newBooking.getStudentTicketNum() == 0 && newBooking.getAdultTicketNum() == 0 && newBooking.getSeniorTicket() == 0){
 			System.out.println("Cancelling booking");
 			return null;
 		}
@@ -118,13 +130,15 @@ public class BookingController {
 			ArrayList<Ticket> tickets = bookSeats(newBooking);
 			return tickets;
 		}
+
 		return null;
 	}
 
 	public ArrayList<Seats> selectSeats (Booking newBooking){
 		SeatHandler seatHandler = SeatHandler.getInstance();
         ArrayList<Seats> chosenSeats = new ArrayList<Seats>();
-		int totalTickets = newBooking.getAdultTicketNum() + newBooking.getStudentTicketNum();
+		int totalTickets = newBooking.getTotalTicketNum();
+
 		if (!seatHandler.checkCapacity(totalTickets, newBooking.getShow())){
 			System.out.println("Not enough tickets remaining");
 			return null;
@@ -165,9 +179,12 @@ public class BookingController {
 				if (newBooking.getAdultTicketNum() > 0){
 					ticketList.add(newBooking.getShow().bookTicket(newBooking.getUser(), s, newBooking.getAdultPrice()));
 					newBooking.setAdultTicket(newBooking.getAdultTicketNum()-1);
-				} else {
+				} else if (newBooking.getStudentTicketNum() > 0) {
 					ticketList.add(newBooking.getShow().bookTicket(newBooking.getUser(), s, newBooking.getStudentPrice()));
 					newBooking.setStudentTicket(newBooking.getStudentTicketNum()-1);
+				} else {
+					ticketList.add(newBooking.getShow().bookTicket(newBooking.getUser(), s, newBooking.getSeniorPrice()));
+					newBooking.setSeniorTicket(newBooking.getSeniorTicket() - 1);
 				}
 			}
         }
@@ -210,38 +227,50 @@ public class BookingController {
 		Settings settings = Settings.getInstance();
 		Calendar calendar = Calendar.getInstance();
 		int discounts = 0;
-		Double studentPrice = 0.0;
-		Double adultPrice = 0.0;
+
+		// student , adult , senior
+		Double[] prices = {0.0, 0.0, 0.0};
 		HallType cinemaClass = newBooking.getShow().getCinema().getCinemaClass();
 		Date showtime = newBooking.getShow().getShowTime();
 		calendar.setTime(showtime);
+		int count = 0;
+		AllPrices allprices = null;
 		try{
-			if (cinemaClass == HallType.STANDARD){
-				studentPrice = Double.parseDouble(settings.getProperty(STUDENT_PRICE_STANDARD));
-				adultPrice = Double.parseDouble(settings.getProperty(ADULT_PRICE_STANDARD));
-			} else if (cinemaClass == HallType.PREMIUM){
-				studentPrice = Double.parseDouble(settings.getProperty(STUDENT_PRICE_PREMIUM));
-				adultPrice = Double.parseDouble(settings.getProperty(ADULT_PRICE_PREMIUM));
-			} else if (cinemaClass == HallType.VIP) {
-				studentPrice = Double.parseDouble(settings.getProperty(STUDENT_PRICE_VIP));
-				adultPrice = Double.parseDouble(settings.getProperty(ADULT_PRICE_VIP));
+			switch(cinemaClass){
+				case STANDARD:
+					allprices = AllPrices.STANDARD_PRICES;
+					break;
+				case PREMIUM:
+					allprices = AllPrices.PREMIUM_PRICES;
+					break;
+				case VIP:
+					allprices = AllPrices.VIP_PRICES;
+					break;
+			}
+			for (int i = 0; i < prices.length; i++){
+				prices[i] = Double.parseDouble(settings.getProperty(allprices.getProperty(i)));
 			}
 		} catch (NumberFormatException e){
 			System.out.println("Invalid pricing for student or adult, please check approach Admins or Call us");
 			return;
 		}
 
+		discounts = weeklyDiscounts(settings, calendar);
+		for (int i = 0; i < prices.length; i++){
+			prices[i] -= discounts;
+		}
+		
 		try{
-			discounts = weeklyDiscounts(settings, calendar);
-			studentPrice -= discounts;
-			adultPrice -= discounts;
 			if (isHoliday(settings, calendar)){
-				studentPrice += Double.parseDouble(settings.getProperty("public_holiday_price_increase"));
-				adultPrice += Double.parseDouble(settings.getProperty("public_holiday_price_increase"));
+				for(int i = 0; i < prices.length; i++){
+					prices[i] += Double.parseDouble(settings.getProperty("public_holiday_price_increase"));
+				}
 			}
 		}catch (NumberFormatException e) {}
-		newBooking.setAdultPrice(adultPrice);
-		newBooking.setStudentPrice(studentPrice);
+
+		newBooking.setAdultPrice(prices[1]);
+		newBooking.setStudentPrice(prices[0]);
+		newBooking.setSeniorPrice(prices[2]);
 	}
 
 	public String generateTransactionID(Booking newBooking){
@@ -262,7 +291,7 @@ public class BookingController {
     	SeatHandler seatHandler = SeatHandler.getInstance();
 		calcPrice(newBooking);
 		if (newBooking.getStudentPrice() == 0.0 || newBooking.getAdultPrice() == 0) return 0;
-		double totalPrice = newBooking.getStudentTicketNum() * newBooking.getStudentPrice() + newBooking.getAdultTicketNum() * newBooking.getAdultPrice();
+		double totalPrice = newBooking.getTotalPrice();
         while(true){
 			try{
 				char confirmation = UtilityInputs.getConfirmation(totalPrice);
