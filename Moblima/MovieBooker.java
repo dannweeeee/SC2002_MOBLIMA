@@ -120,7 +120,8 @@ public class MovieBooker implements MovieBookerInterface{
 
 	public void searchMovie() {
 		MovieHandler movieHandler = MovieHandler.getInstance();
-		String searchString = UtilityInputs.getSearchString();
+		UtilityOutput.printInputMessage("Enter movie name to search [0 to exit] => ");
+		String searchString = UtilityInputs.getStringUserInput().toLowerCase();
 		ArrayList<Movie> searchResult = movieHandler.searchMovie(searchString);
 		
 		if (!searchResult.isEmpty()) {

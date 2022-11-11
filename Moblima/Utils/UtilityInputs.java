@@ -8,10 +8,19 @@ import Moblima.Entities.Show;
 import Moblima.Entities.User;
 import Moblima.Handlers.ShowHandler;
 
+/**
+ * Class for getting all inputs from user
+ */
 public class UtilityInputs {
+	/**
+	 * Default Contructor
+	 */
     public UtilityInputs(){}
 
-    // returns -1 if invalid input
+    /**
+	 * Get user's input and check for valid integer input
+	 * @return int - (-1) for invalid input, else returns user's input
+	 */
 	public static int getIntUserInput(){
 		int intInput = -1;
 		String input = "";
@@ -20,11 +29,15 @@ public class UtilityInputs {
 		try {
 			intInput = Integer.parseInt(input);
 		}catch (NumberFormatException e) {
-			System.out.println("Invalid input: " + input + " is not a number");
+			UtilityOutput.printMessage("Invalid input: " + input + " is not a number");
 		}
 		return intInput;
 	}
 	
+	/**
+	 * Get user's input and check for valid Double
+	 * @return double - return "" for invalid input, else returns user's input
+	 */
 	public static Double getDoubleUserInput() {
 		Double intInput = null;
 		String input = "";
@@ -33,33 +46,28 @@ public class UtilityInputs {
 		try {
 			intInput = Double.parseDouble(input);
 		}catch (NumberFormatException e) {
-			System.out.println("Invalid input: " + input + " is not a number");
-			System.out.println("");
+			UtilityOutput.printMessage("Invalid input: " + input + " is not a number");
+			UtilityOutput.printMessage("");
 		}
 		
 		return intInput;
 	}
-
-    public static int getCineplex(){
-		System.out.print("Enter Cineplex to book [0 to exit] => ");
-		int userInput = getIntUserInput();
-		return userInput;
-	}
-
-    public static String getSearchString(){
-		System.out.print("Enter movie name to search [0 to exit] => ");
-		Scanner in = new Scanner(System.in);
-		String searchString = in.nextLine();
-		searchString = searchString.toLowerCase();
-		return searchString;
-	}
     
+	/**
+	 * Get user's String input
+	 * @return user's input
+	 */
     public static String getStringUserInput() {
     	Scanner in = new Scanner(System.in);
     	String inputString = in.nextLine();
     	return inputString;
     }
 
+	/**
+	 * Prompt user for seat selection for each ticket
+	 * @param number - ticket number for prompt E.g. Ticket 2
+	 * @return valid seat object user has chosen
+	 */
     public static Seats getSeatSelection(int number){
 		while(true){
 			System.out.print("Seat number for Ticket " + Integer.toString(number+1) + ": ");
@@ -77,66 +85,77 @@ public class UtilityInputs {
 			return s1;
 		}
 	}
-
+	/**
+	 * Ask user to select show from the list of shows
+	 * @param allShows - list of shows to be seleceted from
+	 * @return valid show object user has chosen
+	 */
     public static Show getShow(ArrayList<Show> allShows){
         while (true){
-            System.out.print("Please enter the show number [Enter '0' to exit] => ");
+            UtilityOutput.printInputMessage("Please enter the show number [Enter '0' to exit] => ");
             int choice = getIntUserInput();
             if (choice == 0) break;
-			if (choice == -1) {
-				System.out.println("Please re-enter.");
-				continue;
-			}
+
             for (Show s : allShows){
             	if (s.getID() == choice)
             		return ShowHandler.getShowByID(allShows, choice);
             }
-            System.out.println("Invalid input, please try again");
+            UtilityOutput.printMessage("Invalid input, please try again");
         }
         return null;
     }
-
+	/**
+	 * Get number of tickets 
+	 * @param category - category for ticket
+	 * @return number of ticket
+	 */
     public static int getNumberOfTicket(String category){
         int numTickets = -1;
         while (true){
-            System.out.println();
-            System.out.print("How many " + category + " tickets would you like to book? => ");
+            UtilityOutput.printMessage("");
+            UtilityOutput.printInputMessage("How many " + category + " tickets would you like to book? => ");
             numTickets = getIntUserInput();
             if (numTickets >= 0) break;
         }
         return numTickets;
 	}
-
+	/**
+	 * Get user's information for booking
+	 * @return user object
+	 */
 	public static User getUserInformation(){
-		Scanner in = new Scanner(System.in);
 		int number = -1;
 		String email = "";
-        System.out.print("Please enter your name: ");
-        String name = in.nextLine();
+        UtilityOutput.printInputMessage("Please enter your name: ");
+        String name = UtilityInputs.getStringUserInput();
 
 		while (true){
-			System.out.print("Please enter your email: ");
-        	email = in.nextLine();
+			UtilityOutput.printInputMessage("Please enter your email: ");
+        	email = UtilityInputs.getStringUserInput();
 			if (email.contains("@")){
 				break;
 			}else{
-				System.out.println("Invalid email, make sure it contains '@'");
+				UtilityOutput.printMessage("Invalid email, make sure it contains '@'");
 			}
 		}
 
 		while(number == -1){
-			System.out.print("Please enter your number: ");
+			UtilityOutput.printInputMessage("Please enter your number: ");
         	number = getIntUserInput();
 		}
 
         return new User(name, email, number);
     }
 
+	/**
+	 * Prints out total price and ask for user's confirmation
+	 * @param totalPrice - total price of ticket
+	 * @return user's input
+	 */
 	public static char getConfirmation(double totalPrice){
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Total price: " + Double.toString(totalPrice));
-		System.out.print("Confirm ticket booking (Y/N): ");
-        char confirmation = scanner.next().charAt(0);
+		UtilityOutput.printMessage("Total price: " + Double.toString(totalPrice));
+		UtilityOutput.printInputMessage("Confirm ticket booking (Y/N): ");
+        char confirmation = UtilityInputs.getStringUserInput().charAt(0);
 		return confirmation;
 	}
 }

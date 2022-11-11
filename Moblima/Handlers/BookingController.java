@@ -119,7 +119,8 @@ public class BookingController {
 					break;
 				case 2:
 					while (true) {
-						String searchString = UtilityInputs.getSearchString();
+						UtilityOutput.printInputMessage("Enter movie name to search [0 to exit] => ");
+						String searchString = UtilityInputs.getStringUserInput().toLowerCase();
 						if (searchString.equals("0")) return null;
 						shows = showHandler.searchShows(searchString);
 						if (shows.isEmpty()) {
@@ -131,7 +132,8 @@ public class BookingController {
 				case 3:
 					cineplexHandler.printAllCineplex();
 					try{
-						int userInput = UtilityInputs.getCineplex();
+						UtilityOutput.printInputMessage("Enter Cineplex to book [0 to exit] => ");
+						int userInput = UtilityInputs.getIntUserInput();
 						if (userInput > cineplexHandler.getSize()) throw new InvalidInputException("Cineplex does not exist");
 						shows = showHandler.getAllShowsByLocation(cineplexHandler.getAllCineplex().get(userInput-1));
 					} catch(InvalidInputException e ){
