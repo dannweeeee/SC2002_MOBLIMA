@@ -39,9 +39,9 @@ public final class AdminForm extends Form {
             System.out.println("| 04: Remove Movie Listing                       |");
             System.out.println("--------------------------------------------------");
             System.out.println("| 05: VIEW ALL SHOWS                             |");
-            System.out.println("| 06: Create Movie Showtime                      |");
-            System.out.println("| 07: Update Movie Showtime                      |");
-            System.out.println("| 08: Remove Movie Showtime                      |");
+            System.out.println("| 06: Create Show                                |");
+            System.out.println("| 07: Update Show                                |");
+            System.out.println("| 08: Remove Show                                |");
             System.out.println("--------------------------------------------------");
             System.out.println("| 09: VIEW ALL CINEPLEXES                        |");
             System.out.println("| 10: Create Cineplex                            |");
@@ -57,7 +57,7 @@ public final class AdminForm extends Form {
             System.out.println("| 18: ADMIN LOGOUT                               |");
             System.out.println("--------------------------------------------------");
             System.out.println();
-            System.out.print("Admin Main Menu - Enter option ('-1' to exit app): ");
+            System.out.print("Admin Main Menu - Enter option ['0' to exit app]: ");
             try {
                 option = sc.nextInt();
             }catch(InputMismatchException e) {
@@ -66,7 +66,7 @@ public final class AdminForm extends Form {
                 continue;
             }
             switch (option) {
-            case -1:
+            case 0:
                 System.out.println("Goodbye!");
                 System.exit(0);
                 return null;

@@ -12,6 +12,7 @@ import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Show;
 import Moblima.Entities.Cinema.HallType;
+import Moblima.Exceptions.InvalidInputException;
 import Moblima.Utils.SettingsController;
 import Moblima.Utils.SettingsForm;
 import Moblima.Utils.UtilityInputs;
@@ -84,10 +85,10 @@ public class Admin implements AdminLogic, LoginObserver {
 
     public void createMovie() {
         String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;
-        System.out.print("Enter full name of Movie: ");
+        System.out.print("Enter Title of Movie => ");
         movieAddName = UtilityInputs.getStringUserInput();
-        System.out.print("Enter status of Movie (Coming Soon, Now Showing, Preview, End of Showing) => ");
         while (true){
+            System.out.print("Enter status of Movie (Coming Soon, Now Showing, Preview, End of Showing) => ");
             movieAddStatus = UtilityInputs.getStringUserInput();
             if (movieAddStatus.equals("Coming Soon")){
                 break;
@@ -105,14 +106,14 @@ public class Admin implements AdminLogic, LoginObserver {
                 System.out.println("Invalid Input. Please re-enter.");
             }
         }
-        System.out.print("Enter director of Movie => ");
+        System.out.print("Enter Director of Movie => ");
         movieAddDirector = UtilityInputs.getStringUserInput();
-        System.out.print("Enter casts of Movie (e.g. Steve Rogers, Borat, Mr Bean) => ");
+        System.out.print("Enter Casts of movie (e.g. Steve Rogers, Borat, Mr Bean) => ");
         movieAddCasts = UtilityInputs.getStringUserInput();
-        System.out.print("Enter synopsis of Movie => ");
+        System.out.print("Enter Synopsis of Movie => ");
         movieAddSynopsis = UtilityInputs.getStringUserInput();
         Movie addNewMovie = movieHandler.createMovie(movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts);
-        System.out.println("SUCCESS! The following Movie has been added!");
+        System.out.println("SUCCESS! " + movieAddName + " has been added!");
         System.out.println(addNewMovie);
     }
 
@@ -121,7 +122,7 @@ public class Admin implements AdminLogic, LoginObserver {
         String movieUpdateValue;
         movieBooker.showAllMovies();
         while (true){
-            System.out.print("Which Movie would you like to update? (e.g. 1) [Enter '0' to exit] => ");
+            System.out.print("Enter MovieID (e.g. 1) [Enter '0' to exit] => ");
             movieOption = UtilityInputs.getIntUserInput();
             if (movieOption == 0) return;
             else if (movieOption == -1){
@@ -144,7 +145,7 @@ public class Admin implements AdminLogic, LoginObserver {
         System.out.println("5.Synopsis: " + selectedMovie.getSynopsis());
 
         while(true){
-            System.out.print("Select which to update [Enter '0' to confirm & exit] => ");
+            System.out.print("Enter Choice (e.g. 1) [Enter '0' to confirm & exit] => ");
             moviePartOption = UtilityInputs.getIntUserInput();
             if (moviePartOption == 0){
                 break;
@@ -158,7 +159,7 @@ public class Admin implements AdminLogic, LoginObserver {
                 continue;
             }
             else {
-                System.out.print("Enter updated value => ");
+                System.out.print("Enter New Value => ");
                 movieUpdateValue = UtilityInputs.getStringUserInput();
                 switch(moviePartOption){
                 case 1:
@@ -182,7 +183,7 @@ public class Admin implements AdminLogic, LoginObserver {
                         break;
                     }
                     else{
-                        System.out.println("Invalid Input. Please re-enter.");
+                        System.out.println("Invalid input. Enter only 'Coming Soon, 'Now Showing', 'Preview', 'End of Showing'.");
                         break;
                     }
                 case 3:
@@ -197,7 +198,7 @@ public class Admin implements AdminLogic, LoginObserver {
                 }
             }
         } 
-        System.out.println("UPDATED! The following movie has been updated!");
+        System.out.println("UPDATED! " + selectedMovie.getName() + " has been updated!");
         System.out.println(selectedMovie);
     }
 
@@ -205,7 +206,7 @@ public class Admin implements AdminLogic, LoginObserver {
         int movieRemoveOption = 0;
 		movieBooker.showAllMovies();
         while (true){
-            System.out.print("Which Movie would you like to delete? (e.g. 1) [Enter '0' to exit] => ");
+            System.out.print("Enter MovieID (e.g. 1) [Enter '0' to exit] => ");
             movieRemoveOption = UtilityInputs.getIntUserInput();
             if (movieRemoveOption == 0){
                 break;
@@ -215,12 +216,12 @@ public class Admin implements AdminLogic, LoginObserver {
                 continue;
             }
             else if (movieRemoveOption < -1 || movieRemoveOption > movieHandler.sizeMovie()){
-                System.out.println("Invalid Input. Please re-enter.");
+                System.out.println("Invalid input. Please re-enter.");
                 continue;
             }
             else{
                 Movie selectedMovie = movieHandler.getMovie().get(movieRemoveOption-1);
-                System.out.println("DELETED! The following movie has been deleted!");
+                System.out.println("DELETED! " + selectedMovie.getName() + " has been deleted!");
                 System.out.println(selectedMovie);
                 movieHandler.removeMovie(movieRemoveOption-1);
                 break;
@@ -234,7 +235,7 @@ public class Admin implements AdminLogic, LoginObserver {
 			    ShowHandler.printAllShows(showHandler.getAllShows());
                 break;
             }else{
-                System.out.println("No Shows shown.");
+                System.out.println("NO SHOWS SHOWN.");
                 break;
             }
         }
@@ -251,7 +252,7 @@ public class Admin implements AdminLogic, LoginObserver {
 		
 		movieBooker.showAllMovies();
         while (true){
-		    System.out.print("Select Movie to create show [Enter '0' to exit] => ");
+		    System.out.print("Enter MovieID [Enter '0' to exit] => ");
 		    movieOption = UtilityInputs.getIntUserInput();
             if (movieOption == 0) return;
             else if (movieOption == -1){
@@ -268,20 +269,20 @@ public class Admin implements AdminLogic, LoginObserver {
         }
         Movie selectedMovie = movieHandler.getMovie().get(movieOption-1);
 		while(true){
-            System.out.print("Enter date and showtime (Format: 31/07/2022 21:00:00) => ");
+            System.out.print("Enter Date & Showtime (Format: 31/07/2022 21:00:00) => ");
 		    dateInString = UtilityInputs.getStringUserInput();
 		    try {
 		    	showtime = formatter.parse(dateInString);
 		    	System.out.println(showtime);
                 break;
 		    } catch (ParseException e) {
-		    	System.out.println("Wrong date format. Please re-enter.");
+		    	System.out.println("Wrong format. Please re-enter.");
 		    }
         }
         if (cineplexHandler.getAllCineplex().size() != 0 ){
             cineplexHandler.printAllCineplex();
             while (true){
-                System.out.print("Select Cineplex [Enter '0' to exit] => ");
+                System.out.print("Enter CineplexID [Enter '0' to exit] => ");
                 cineplexOption = UtilityInputs.getIntUserInput();
                 if (cineplexOption == 0) return;
                 else if (cineplexOption == -1){
@@ -302,7 +303,7 @@ public class Admin implements AdminLogic, LoginObserver {
                     System.out.println(c);
                 }
                 while (true){
-                    System.out.print("Select Cinema => ");
+                    System.out.print("Enter CinemaID [Enter '0' to exit] => ");
                     cinemaOption = UtilityInputs.getIntUserInput();
                     if (cinemaOption == 0) return;
                     else if (cinemaOption == -1){
@@ -318,15 +319,15 @@ public class Admin implements AdminLogic, LoginObserver {
                     }
                 }
 		        Show show1 = showHandler.addShows(showtime,selectedMovie,CinemaHandler.getInstance().getCinemaFromCineplex(cineplex).get(cinemaOption-1), seatHandler);
-                System.out.println("SUCCESS! The following show has been created!");
+                System.out.println("SUCCESS! The following Show has been created!");
 		        System.out.println(show1);
             }
             else{
-                System.out.println("No Cinema shown. Please head back to the Main Menu to Initalise Example.");
+                System.out.println("NO CINEMA SHOWN.");
             }
         }
         else{
-            System.out.println("No Cineplex shown. Please head back to the Main Menu to Initalise Example.");
+            System.out.println("NO CINEPLEX SHOWN.");
         }
     }
 
@@ -337,7 +338,7 @@ public class Admin implements AdminLogic, LoginObserver {
 			    ShowHandler.printAllShows(showHandler.getAllShows());
                 int choice = -1;
 			    while (true){
-                    System.out.print("Enter which show time you want to edit [Enter '0' to exit] => ");
+                    System.out.print("Enter ShowID [Enter '0' to exit] => ");
                     choice = UtilityInputs.getIntUserInput();
                     if (choice == 0) return;
                     else if (choice == -1){
@@ -353,22 +354,22 @@ public class Admin implements AdminLogic, LoginObserver {
                     }
                 }
 			    Show selectedShow = ShowHandler.getShowByID(showHandler.getAllShows(), choice);
-			    System.out.println("You have selected:\n" + selectedShow.toString());
+			    System.out.println("You have selected the following:\n " + selectedShow.toString());
                 while(true){
-                    System.out.print("Enter new show time for this movie [Format: 31/07/2022 21:00:00] => ");
+                    System.out.print("Enter new Date & Time [Format: 31/07/2022 21:00:00] => ");
 			        String dateInString = UtilityInputs.getStringUserInput();
 			        try{
 				        Date date = formatter.parse(dateInString);
 				        selectedShow.setShowTime(date);
                         break;
 			        }catch(ParseException e){
-				        System.out.println("Wrong date format. Please re-enter.");
+				        System.out.println("Wrong format. Please re-enter.");
 			        }
                 }
-                System.out.println("UPDATED! The following show has been updated!");
+                System.out.println("UPDATED! The following Show has been updated!");
                 System.out.println(selectedShow);
             }else{
-                System.out.println("No Shows shown. Please head back to the Main Menu to Initalise Example.");
+                System.out.println("NO SHOWS SHOWN.");
                 break;
             }
 		}	
@@ -380,10 +381,10 @@ public class Admin implements AdminLogic, LoginObserver {
             ShowHandler.printAllShows(allShows);
             Show selectedShow = UtilityInputs.getShow(allShows);
             ShowHandler.getInstance().removeShow(selectedShow);
-            System.out.println("DELETED! The Show has been deleted!");
+            System.out.println("DELETED! The following Show has been deleted!");
             System.out.println(selectedShow);
         }else{
-            System.out.println("No Shows shown. Please head back to the Main Menu to Initalise Example");
+            System.out.println("NO SHOWS SHOWN.");
         }
     }
 
@@ -393,19 +394,19 @@ public class Admin implements AdminLogic, LoginObserver {
             cineplexHandler.printAllCineplex();
         }
         else{
-            System.out.println("No Cineplex shown.");
+            System.out.println("NO CINEPLEX SHOWN.");
         }
     }
 
     public void addNewCineplex(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
-        System.out.print("Enter Cineplex location [Enter '0' to exit] => ");
+        System.out.print("Enter Cineplex Name [Enter '0' to exit] => ");
         String location = UtilityInputs.getStringUserInput();
         if (location.equals("0")) {
             return;
         }
         cineplexHandler.addCineplex(location, CinemaHandler.getInstance());
-        System.out.println("SUCCESS! The Cineplex has been added!");
+        System.out.println("SUCCESS! " + location + " Cineplex has been added!");
         cineplexHandler.printAllCineplex();
     }
 
@@ -414,7 +415,7 @@ public class Admin implements AdminLogic, LoginObserver {
         int cineplexOption = -1;
         cineplexHandler.printAllCineplex();
         while(true){
-            System.out.print("Select which cineplex to update [Enter '0' to confirm & exit] => ");
+            System.out.print("Enter CineplexID [Enter '0' to exit] => ");
             cineplexOption = UtilityInputs.getIntUserInput();
             if (cineplexOption == 0) return;
             else if (cineplexOption == -1){
@@ -427,10 +428,10 @@ public class Admin implements AdminLogic, LoginObserver {
             }
             else{
                 Cineplex c = CineplexHandler.getInstance().getAllCineplex().get(cineplexOption-1);
-                System.out.print("Enter updated value => ");
+                System.out.print("Enter New Value => ");
                 String cineplexUpdateString = UtilityInputs.getStringUserInput();
+                System.out.println("UPDATED! " + c.getLocation() + " has been updated to " + cineplexUpdateString + " !");
                 c.setCineplex(cineplexUpdateString);
-                System.out.println("UPDATED! The following cineplex has been updated!");
                 System.out.println(c);
                 break;
             }
@@ -441,7 +442,7 @@ public class Admin implements AdminLogic, LoginObserver {
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
         cineplexHandler.printAllCineplex();
         while (true){
-            System.out.print("Select which cineplex to remove [Enter '0' to confirm & exit] => ");
+            System.out.print("Enter CineplexID [Enter '0' to exit] => ");
             int choice = UtilityInputs.getIntUserInput();
             if (choice == 0) return;
             else if (choice == -1){
@@ -464,10 +465,11 @@ public class Admin implements AdminLogic, LoginObserver {
     public void showAllCinemas(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
         int cineplexOption = -1;
+        int count = 1;
         if (cineplexHandler.getAllCineplex().size() != 0 ){
             cineplexHandler.printAllCineplex();
             while (true){
-                System.out.print("Select Cineplex [Enter '0' to exit] => ");
+                System.out.print("Enter CineplexID [Enter '0' to exit] => ");
                 cineplexOption = UtilityInputs.getIntUserInput();
                 if (cineplexOption == 0) return;
                 else if (cineplexOption == -1){
@@ -485,15 +487,16 @@ public class Admin implements AdminLogic, LoginObserver {
             Cineplex cineplex = cineplexHandler.getAllCineplex().get(cineplexOption-1);
             if (CinemaHandler.getInstance().getCinemaFromCineplex(cineplex).size() != 0){
                 for (Cinema c : CinemaHandler.getInstance().getCinemaFromCineplex(cineplex)){
-                    System.out.println(c);
+                    System.out.println(count + ". " + c.getCinemaClass() + " => " + c.getCapacity() + " seats");
+                    count++;
                 }
             }
             else{
-                System.out.println("No Cinema shown. Please head back to the Main Menu to Initalise Example.");
+                System.out.println("NO CINEMAS SHOWN.");
             }
         }
         else{
-            System.out.println("No Cineplex shown. Please head back to the Main Menu to Initalise Example.");
+            System.out.println("NO CINEPLEX SHOWN");
         }
     }
 
@@ -502,7 +505,7 @@ public class Admin implements AdminLogic, LoginObserver {
         cineplexHandler.printAllCineplex();
         int userChoice = -1;
         while (true){
-            System.out.print("Which cineplex would you like to add Cinema [0 to exit]=> ");
+            System.out.print("Enter CineplexID [Enter '0' to exit] => ");
             userChoice = UtilityInputs.getIntUserInput();
             if (userChoice == 0) return;
             else if (userChoice == -1){
@@ -525,28 +528,36 @@ public class Admin implements AdminLogic, LoginObserver {
         }
         HallType type = null;
         while (type == null){
-            System.out.print("Enter hall type [0 to exit] => ");
+            System.out.print("Enter Hall Type [Enter '0' to exit] => ");
             int choice = UtilityInputs.getIntUserInput();
-            switch(choice){
-                case 0:
-                    return;
-                case 1:
-                    type = HallType.STANDARD;
-                    break;
-                case 2:
-                    type = HallType.PREMIUM;
-                    break;
-                case 3: 
-                    type = HallType.VIP;
-                default:
-                    System.out.println("Please re-enter.");
+            try{
+                switch(choice){
+                    case 0:
+                        return;
+                    case 1:
+                        type = HallType.STANDARD;
+                        break;
+                    case 2:
+                        type = HallType.PREMIUM;
+                        break;
+                    case 3: 
+                        type = HallType.VIP;
+                        break;
+                    default:
+                        throw new InvalidInputException("Please enter only numbers listed on the menu only");
+                    }
+                } catch(InvalidInputException e){
+                    System.out.println(e.getMessage());
                 }
             }
             int cap = 0;
             while (true){
-                System.out.print("Enter seat capacity: ");
+                System.out.print("Enter Seat Capacity => ");
                 cap = UtilityInputs.getIntUserInput();
                 if (cap > 0) break;
+                else {
+                    System.out.println("Please re-enter.");
+                }
             }
             CinemaHandler.getInstance().addCinema(type, cap, c);
             System.out.println("SUCCESS! The Cinema has been created!");
@@ -557,7 +568,7 @@ public class Admin implements AdminLogic, LoginObserver {
         cineplexHandler.printAllCineplex();
         int userChoice = -1;
         while (true){
-            System.out.print("Which cineplex would you like to add Cinema [0 to exit]=> ");
+            System.out.print("Enter CineplexID [Enter '0' to exit] => ");
             userChoice = UtilityInputs.getIntUserInput();
             if (userChoice == 0) return;
             else if (userChoice == -1){
@@ -573,38 +584,39 @@ public class Admin implements AdminLogic, LoginObserver {
             }
         }
         Cineplex c = CineplexHandler.getInstance().getAllCineplex().get(userChoice - 1);
-        int x = 1;
-        for (HallType hall : HallType.values()){
-            System.out.println(Integer.toString(x) + ". " + hall);
-            x++;
+        int count = 1;
+        for (Cinema cinema : CinemaHandler.getInstance().getCinemaFromCineplex(c)){
+            System.out.println(count + ". " + cinema.getCinemaClass() + " => " + cinema.getCapacity() + " seats");
+            count++;
         }
-        HallType type = null;
-        while (type == null){
-            System.out.print("Enter hall type [0 to exit] => ");
-            int choice = UtilityInputs.getIntUserInput();
-            switch(choice){
-                case 0:
-                    return;
-                case 1:
-                    type = HallType.STANDARD;
-                    break;
-                case 2:
-                    type = HallType.PREMIUM;
-                    break;
-                case 3: 
-                    type = HallType.VIP;
-                default:
-                    System.out.println("Please re-enter.");
-                }
+        int choice = -1;
+        while (true){
+            System.out.print("Enter CinemaID [Enter '0' to exit] => ");
+            choice = UtilityInputs.getIntUserInput();
+            if (choice == 0) return;
+            else if (choice == -1){
+                System.out.println("Please re-enter.");
+                continue;
             }
-            int cap = 0;
-            while (true){
-                System.out.print("Enter seat capacity: ");
-                cap = UtilityInputs.getIntUserInput();
-                if (cap > 0) break;
+            else if (choice < -1 || choice > CinemaHandler.getInstance().getSize()){
+                System.out.println("Invalid input. Please re-enter.");
+                continue;
             }
-            CinemaHandler.getInstance().updateCinema(type, cap, c);
-            System.out.println("UPDATED! The Cinema has been updated!");
+            else{
+                break;
+            }
+        }
+        int cap = 0;
+        while (true){
+            System.out.print("Enter Seat Capacity => ");
+            cap = UtilityInputs.getIntUserInput();
+            if (cap > 0) break;
+            else {
+                System.out.println("Please re-enter.");
+            }
+        }
+        CinemaHandler.getInstance().updateCinema(choice, cap, c);
+        System.out.println("UPDATED! The Cinema has been updated!");
     }
 
     public void removeCinema(){
@@ -612,7 +624,7 @@ public class Admin implements AdminLogic, LoginObserver {
         cineplexHandler.printAllCineplex();
         int userChoice = -1;
         while (true){
-            System.out.print("Which cineplex would you like to add Cinema [0 to exit]=> ");
+            System.out.print("Enter CinplexID [Enter '0' to exit] => ");
             userChoice = UtilityInputs.getIntUserInput();
             if (userChoice == 0) return;
             else if (userChoice == -1){
@@ -627,39 +639,31 @@ public class Admin implements AdminLogic, LoginObserver {
                 break;
             }
         }
-        Cineplex c = CineplexHandler.getInstance().getAllCineplex().get(userChoice - 1);
-        int x = 1;
-        for (HallType hall : HallType.values()){
-            System.out.println(Integer.toString(x) + ". " + hall);
-            x++;
+        Cineplex cineplex = CineplexHandler.getInstance().getAllCineplex().get(userChoice - 1);
+        int count = 1;
+        for (Cinema cinema : CinemaHandler.getInstance().getCinemaFromCineplex(cineplex)){
+            System.out.println(count + ". " + cinema.getCinemaClass() + " => " + cinema.getCapacity() + " seats");
+            count++;
         }
-        HallType type = null;
-        while (type == null){
-            System.out.print("Enter hall type [0 to exit] => ");
-            int choice = UtilityInputs.getIntUserInput();
-            switch(choice){
-                case 0:
-                    return;
-                case 1:
-                    type = HallType.STANDARD;
-                    break;
-                case 2:
-                    type = HallType.PREMIUM;
-                    break;
-                case 3: 
-                    type = HallType.VIP;
-                default:
-                    System.out.println("Please re-enter.");
-                }
+        int cinemaOption = -1;
+        while (true){
+            System.out.print("Enter CinemaID [Enter '0' to exit] => ");
+            cinemaOption = UtilityInputs.getIntUserInput();
+            if (cinemaOption == 0) return;
+            else if (cinemaOption == -1){
+                System.out.println("Please re-enter.");
+                continue;
             }
-            int cap = 0;
-            while (true){
-                System.out.print("Enter seat capacity: ");
-                cap = UtilityInputs.getIntUserInput();
-                if (cap > 0) break;
+            else if (cinemaOption < -1 || cinemaOption > CinemaHandler.getInstance().getSize()){
+                System.out.println("Invalid input. Please re-enter.");
+                continue;
             }
-            //CinemaHandler.getInstance().removeCinema(c, type);
-            System.out.println("DELETED! The shows tagged to the cinema has been removed!");
+            else{
+                break;
+            }
+        }
+        CinemaHandler.getInstance().deleteCinema(cineplex, cinemaOption-1);
+        System.out.println("DELETED! The Cinema type has been removed!");
     }
 
     public void manageSettings() {

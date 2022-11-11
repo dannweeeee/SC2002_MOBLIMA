@@ -40,7 +40,7 @@ public class MovieBookerApp {
 	            System.out.println("-------------------------------------------------");
 	            System.out.println();
      
-        		System.out.print("Main Menu - Enter option ('0' to exit app): ");
+        		System.out.print("Main Menu - Enter option [Enter '0' to exit app]: ");
         		
         		option = UtilityInputs.getIntUserInput();
         		

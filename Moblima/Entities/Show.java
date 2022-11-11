@@ -84,12 +84,6 @@ public class Show {
     }
 
     /**
-     * 
-     */
-    public void updateShow(){
-    }
-
-    /**
      * @param user
      * @param seats
      * @param price

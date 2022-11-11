@@ -80,7 +80,7 @@ public class UtilityInputs {
 
     public static Show getShow(ArrayList<Show> allShows){
         while (true){
-            System.out.print("Please enter the show number [Enter '0' to exit] => ");
+            System.out.print("Enter ShowID [Enter '0' to exit] => ");
             int choice = getIntUserInput();
             if (choice == 0) break;
 			if (choice == -1) {
@@ -91,7 +91,7 @@ public class UtilityInputs {
             	if (s.getID() == choice)
             		return ShowHandler.getShowByID(allShows, choice);
             }
-            System.out.println("Invalid input, please try again");
+            System.out.println("Invalid input, please re-enter.");
         }
         return null;
     }

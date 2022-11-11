@@ -2,15 +2,18 @@ package Moblima.Handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
+import Moblima.Entities.Show;
 import Moblima.Entities.Cinema.HallType;
 
 public class CinemaHandler {
 	private Map<Cineplex, ArrayList<Cinema>> allCinemas;
 	private static CinemaHandler instance = null;
+	private static int cinemaCounter = 0;
 
 	public static CinemaHandler getInstance() {
         if (instance == null) {
@@ -37,6 +40,7 @@ public class CinemaHandler {
 				return cinemaList;
             }
         }
+		cinemaCounter = cinemaList.size();
 		return null;
 	}
 
@@ -44,19 +48,32 @@ public class CinemaHandler {
 		Cinema newCinema = new Cinema(classtype,seat_capacity, cineplex);
 		ArrayList <Cinema> cinemaList = getCinemaFromCineplex(cineplex);
 		cinemaList.add(newCinema);
+		cinemaCounter++;
 	}
 
-	public void updateCinema(HallType classtype, int seat_capacity, Cineplex cineplex) {
+	public void updateCinema(int cinemaID, int seat_capacity, Cineplex cineplex) {
 		ArrayList <Cinema> cinemaList = getCinemaFromCineplex(cineplex);
 		for(Cinema temp: cinemaList){
-			if(temp.getCinemaClass()==classtype) temp.setCapacity(seat_capacity);
+			if(temp.getCinemaID() == cinemaID) temp.setCapacity(seat_capacity);
 		}
 	}
 
+	public void deleteCinema(Cineplex cineplex, int cinemaID){
+		ArrayList <Cinema> cinemaList = getCinemaFromCineplex(cineplex);
+		ArrayList <Show> showsList = ShowHandler.getInstance().getAllShows();
+		HallType classType = cinemaList.get(cinemaID).getCinemaClass();
+		cinemaList.remove(cinemaID);
 
-	public void removeCinema(Cineplex c, Cinema cinema){
-		ArrayList<Cinema> cinemaList = getCinemaFromCineplex(c);
-		cinemaList.remove(cinema);
-		cinema = null;
+		Iterator<Show> itr = showsList.iterator(); 
+		while (itr.hasNext()) { 
+			Show show = itr.next(); 
+			if(show.getCinema().getCinemaClass() == classType){
+				itr.remove(); 
+			} 
+		} 
+	}
+	
+	public int getSize() {
+		return cinemaCounter;
 	}
 }
