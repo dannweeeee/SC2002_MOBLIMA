@@ -663,7 +663,7 @@ public class Admin implements AdminLogic, LoginObserver {
             }
         }
         CinemaHandler.getInstance().deleteCinema(cineplex, cinemaOption-1);
-        System.out.println("DELETED! The Cinema type has been removed!");
+        System.out.println("DELETED! The Cinema has been removed!");
     }
 
     public void manageSettings() {
