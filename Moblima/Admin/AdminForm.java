@@ -3,6 +3,9 @@ package Moblima.Admin;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Moblima.Utils.UtilityInputs;
+import Moblima.Utils.UtilityOutput;
+
 /**
  * This class is the UI for the admin module.
  * @author Our team
@@ -28,46 +31,44 @@ public final class AdminForm extends Form {
     public Object show() {
         exitFlag = false;
         //BookMyShowInterface BookMyShow = new BookMyShow();
-        Scanner sc = new Scanner(System.in);
+        String[] menu = {"",
+        "-------------MOBLIMA ADMIN MAIN MENU--------------", 
+        "| 01: VIEW ALL MOVIE LISTINGS                    |",
+        "| 02: Create Movie Listing                       |",
+        "| 03: Update Movie Listing                       |",
+        "| 04: Remove Movie Listing                       |",
+        "--------------------------------------------------",
+        "| 05: VIEW ALL SHOWS                             |",
+        "| 06: Create Show                                |",
+        "| 07: Update Show                                |",
+        "| 08: Remove Show                                |",
+        "--------------------------------------------------",
+        "| 09: VIEW ALL CINEPLEXES                        |",
+        "| 10: Create Cineplex                            |",
+        "| 11: Update Cineplex                            |",
+        "| 12: Remove Cineplex                            |",
+        "--------------------------------------------------",
+        "| 13: VIEW ALL CINEMAS                           |",
+        "| 14: Create Cinema                              |",
+        "| 15: Update Cinema                              |",
+        "| 16: Remove Cinema                              |",
+        "--------------------------------------------------",
+        "| 17: Configure System Settings                  |",
+        "| 18: ADMIN LOGOUT                               |",
+        "--------------------------------------------------"};
         int option;
         do {
-            System.out.println();
-            System.out.println("-------------MOBLIMA ADMIN MAIN MENU--------------");
-            System.out.println("| 01: VIEW ALL MOVIE LISTINGS                    |");
-            System.out.println("| 02: Create Movie Listing                       |");
-            System.out.println("| 03: Update Movie Listing                       |");
-            System.out.println("| 04: Remove Movie Listing                       |");
-            System.out.println("--------------------------------------------------");
-            System.out.println("| 05: VIEW ALL SHOWS                             |");
-            System.out.println("| 06: Create Show                                |");
-            System.out.println("| 07: Update Show                                |");
-            System.out.println("| 08: Remove Show                                |");
-            System.out.println("--------------------------------------------------");
-            System.out.println("| 09: VIEW ALL CINEPLEXES                        |");
-            System.out.println("| 10: Create Cineplex                            |");
-            System.out.println("| 11: Update Cineplex                            |");
-            System.out.println("| 12: Remove Cineplex                            |");
-            System.out.println("--------------------------------------------------");
-            System.out.println("| 13: VIEW ALL CINEMAS                           |");
-            System.out.println("| 14: Create Cinema                              |");
-            System.out.println("| 15: Update Cinema                              |");
-            System.out.println("| 16: Remove Cinema                              |");
-            System.out.println("--------------------------------------------------");
-            System.out.println("| 17: Configure System Settings                  |");
-            System.out.println("| 18: ADMIN LOGOUT                               |");
-            System.out.println("--------------------------------------------------");
-            System.out.println();
-            System.out.print("Admin Main Menu - Enter option ('0' to exit app): ");
+            UtilityOutput.printMenu(menu);
+            UtilityOutput.printInputMessage("Admin Main Menu - Enter option ('0' to exit app): ");
             try {
-                option = sc.nextInt();
+                option = UtilityInputs.getIntUserInput();
             }catch(InputMismatchException e) {
-                System.out.println("Invalid Input. Please re-enter.");
-                sc.next();
+                UtilityOutput.printMessage("Invalid Input. Please re-enter.");
                 continue;
             }
             switch (option) {
             case 0:
-                System.out.println("Goodbye!");
+                UtilityOutput.printMessage("Goodbye!");
                 System.exit(0);
                 return null;
             case 1:
@@ -126,7 +127,7 @@ public final class AdminForm extends Form {
                 this.exit();
                 break;
             default:
-                System.out.println("Invalid Input. Please re-enter: ");
+                UtilityOutput.printMessage("Invalid Input. Please re-enter: ");
                 continue;
             }
         } while(!exitFlag);
