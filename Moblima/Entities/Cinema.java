@@ -15,14 +15,29 @@ public class Cinema {
 	    private HallType classtype;
 	    private Cineplex cineplex;
 
+		/**
+		 * Enum Hall Type 
+		 */
 		public enum HallType{
-			STANDARD, PREMIUM, VIP
+			/**
+			 * Standard Hall Type
+			 */
+			STANDARD, 
+			/**
+			 * Premium Hall Type
+			 */
+			PREMIUM, 
+			/**
+			 * VIP Hall Type
+			 */
+			VIP
 		}
 
 	    /**
-	     * @param classtype
-	     * @param seat_capacity
-	     * @param cineplex
+		 * Contructor
+	     * @param classtype HallType for Cinema
+	     * @param seat_capacity total number of seats
+	     * @param cineplex cineplex object
 	     */
 	    public Cinema(HallType classtype,int seat_capacity, Cineplex cineplex) {
 	        idCounter += 1;
@@ -66,7 +81,7 @@ public class Cinema {
 	    
 	    /**
 	     * Set method for CinemaID
-	     * @param id 
+	     * @param id value to update CinemaID
 	     */
 	    public void setCinemaID(int id) {
 	    	this.id = id;
@@ -74,7 +89,7 @@ public class Cinema {
 	    
 	    /**
 	     * Set method for seat_capacity of Cinema
-	     * @param capacity
+	     * @param capacity value to update seat capacity
 	     */
 	    public void setCapacity(int capacity) {
 	    	this.seat_capacity = capacity;
@@ -82,7 +97,7 @@ public class Cinema {
 	    
 	    /**
 	     * Set method for classType of Cinema
-	     * @param classType 
+	     * @param classType HallType value to update classType for Cinema
 	     */
 	    public void setClass(HallType classType) {
 	    	this.classtype = classType;
