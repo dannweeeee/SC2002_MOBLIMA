@@ -1,7 +1,5 @@
 package Moblima.Utils;
 
-import java.util.Scanner;
-
 import Moblima.Admin.Form;
 
 /**
@@ -34,28 +32,29 @@ public final class SettingsForm extends Form {
      */
     public Object show() {
         exitFlag = false;
+        String[] menu = {"",
+    "-----------------MOBLIMA SETTINGS---------------",
+    "To edit a setting or add new setting, enter the name of the setting, follow by its value",
+    "E.g. property_name property_value",
+    "To exit, enter exit",
+    "------------------------------------------------"};
         while (!exitFlag) {
-            System.out.println();
-            System.out.println("Settings");
-            System.out.println("========");
+            UtilityOutput.printMenu(menu);
             controller.print();
-            System.out.println("To edit a setting or add new setting, enter the name of the setting, follow by its value");
-            System.out.println("E.g. property_name property_value");
             //System.out.println("To delete an entry, enter the name of the setting, followed by a dash (-)");
             //System.out.println("E.g. property_name -");
-            System.out.println("To exit, enter exit");
-            Scanner sc = new Scanner(System.in);
-            String input = sc.nextLine();
             System.out.println();
-            if (input.equals("exit")) {
+            String input = UtilityInputs.getStringUserInput();
+            UtilityOutput.printMessage("");
+            if (input.toLowerCase().equals("exit")) {
                 exit();
             } else {
                 if (controller.manageSettings(input))
-                    System.out.println("Settings updated successfully");
+                    UtilityOutput.printMessage("Settings updated successfully");
                 else
-                    System.out.println("Invalid input. Please try again.");
+                    UtilityOutput.printMessage("Invalid input. Please try again.");
             }
-            System.out.println();
+            UtilityOutput.printMessage("");
         }
         return null;
     }
