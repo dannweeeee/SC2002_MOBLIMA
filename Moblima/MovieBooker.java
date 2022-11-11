@@ -34,7 +34,6 @@ import Moblima.Handlers.CinemaHandler;
 import Moblima.Handlers.CineplexHandler;
 import Moblima.Handlers.MovieHandler;
 import Moblima.Utils.UtilityInputs;
-import Moblima.Exceptions.InvalidInputException;
 
 public class MovieBooker implements MovieBookerInterface{
 
