@@ -57,7 +57,7 @@ public final class AdminForm extends Form {
             System.out.println("| 18: ADMIN LOGOUT                               |");
             System.out.println("--------------------------------------------------");
             System.out.println();
-            System.out.print("Admin Main Menu - Enter option ['0' to exit app]: ");
+            System.out.print("Admin Main Menu - Enter option ('0' to exit app): ");
             try {
                 option = sc.nextInt();
             }catch(InputMismatchException e) {
