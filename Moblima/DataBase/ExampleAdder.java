@@ -9,8 +9,6 @@ import java.util.Scanner;
 
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
-import Moblima.Entities.Show;
-import Moblima.Entities.User;
 import Moblima.Entities.Cinema.HallType;
 import Moblima.Handlers.CinemaHandler;
 import Moblima.Handlers.CineplexHandler;
@@ -36,20 +34,20 @@ public class ExampleAdder {
 		cinemaHandler.addCinema(HallType.PREMIUM, 10, jurong);
 		cinemaHandler.addCinema(HallType.VIP, 1, jurong);
 		
-		User ayush = new User("Ayush","ayus@gmail.com",3293131);
+		//User ayush = new User("Ayush","ayus@gmail.com",3293131);
 	  
 		//Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
 		// Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
 		String dateInString_passed = "23/12/2020 09:00:00 AM";
 		String dateInString_coming = "23/12/2022 09:00:00 AM";
 		try {
-		 Date date_passed = formatter.parse(dateInString_passed);
-		 Date date = formatter.parse(dateInString_coming);
-		 Show show1 = showHandler.addShows(date, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
-		 Show show2 = showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
-		 Show show3 = showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
-		 Show show4 = showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
-		 Show show5 = showHandler.addShows(date_passed, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
+			Date date_passed = formatter.parse(dateInString_passed);
+			Date date = formatter.parse(dateInString_coming);
+			showHandler.addShows(date, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
+			showHandler.addShows(date_passed, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
 		} catch (ParseException e) {
 		 e.printStackTrace();
 		}

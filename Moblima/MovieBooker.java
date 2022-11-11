@@ -5,10 +5,6 @@
  */
 package Moblima;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import Moblima.DataBase.ExampleAdder;

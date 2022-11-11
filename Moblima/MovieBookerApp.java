@@ -1,7 +1,5 @@
 package Moblima;
 
-import java.util.InputMismatchException;
-
 import Moblima.Admin.Admin;
 import Moblima.DataBase.ExampleAdder;
 import Moblima.Exceptions.InvalidInputException;

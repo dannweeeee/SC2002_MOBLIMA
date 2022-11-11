@@ -1,7 +1,5 @@
 package Moblima;
 
-import java.io.FileNotFoundException;
-
 public interface MovieBookerInterface {
 
 	void showAllMovies();
