@@ -88,7 +88,7 @@ public class BookingController {
 						if (userInput > cineplexHandler.getSize()) throw new InvalidInputException("Cineplex does not exist");
 						shows = showHandler.getAllShowsByLocation(cineplexHandler.getAllCineplex().get(userInput-1));
 					} catch(InvalidInputException e ){
-						System.out.println(e.getMessage());
+						UtilityOutput.printMessage(e.getMessage());
 					} 
 					break;
 				case 4:
@@ -157,7 +157,7 @@ public class BookingController {
 							throw new SeatsNotAvailableException("Seat not available.\nEnter 0 to exit");
 						}
 					} catch (SeatsNotAvailableException e){
-						System.out.println(e.getMessage());
+						UtilityOutput.printMessage(e.getMessage());
 						continue;
 					}
 				}
@@ -308,7 +308,7 @@ public class BookingController {
 					throw new InvalidInputException("Enter only Y or N");
 				}
 			}catch (InvalidInputException e){
-				System.out.println(e.getMessage());
+				UtilityOutput.printMessage(e.getMessage());
 			}
         }
     }
