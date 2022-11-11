@@ -53,8 +53,22 @@ public class MovieBookerApp {
 				""};
 		do {
 			while(true) {
-				UtilityOutput.printMenu(menu);
-				UtilityOutput.printInputMessage("Main Menu - Enter option ('0' to exit app): ");
+	            System.out.println();
+	            System.out.println("-----------------MOBLIMA MAIN MENU---------------");
+	        	System.out.println("| 01: Show All Movies                           |");
+	        	System.out.println("| 02: Search Movie                              |");
+	        	System.out.println("| 03: View Showtimes                            |");
+	        	System.out.println("| 04: View Top 5 Movies                         |");
+	        	System.out.println("| 05: Review/Rate Menu                          |");
+	        	System.out.println("| 06: Booking  Menu                             |");
+	        	System.out.println("| 07: Show Booking History                      |");
+	        	System.out.println("| 08:                                           |");
+	        	System.out.println("| 09: Initialize/Show Example                   |");
+				System.out.println("| 10: ADMIN LOGIN                               |");
+	            System.out.println("-------------------------------------------------");
+	            System.out.println();
+     
+        		System.out.print("Main Menu - Enter option ('0' to exit app): ");
         		
         		option = UtilityInputs.getIntUserInput();
         		

@@ -12,7 +12,7 @@ public class User {
     private String name;
     private String email;
     private int number;
-    public ArrayList<Ticket> bookingHistory;
+    private ArrayList<Ticket> bookingHistory;
 
     /**
      * @param name of user
@@ -26,6 +26,10 @@ public class User {
         this.email=email;
         this.number=number;
         this.bookingHistory= new ArrayList<>();
+    }
+
+    public void addBooking(Ticket t){
+        this.bookingHistory.add(t);
     }
 
     /**

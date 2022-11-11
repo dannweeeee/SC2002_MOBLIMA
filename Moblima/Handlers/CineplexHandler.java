@@ -17,10 +17,14 @@ public class CineplexHandler {
         }
         return instance;
     }
+	
 	public CineplexHandler() {
 		allCineplex = new ArrayList<Cineplex>();
 	}
 	
+	/**
+     * Add a Cineplex.
+     */	 	
 	public Cineplex addCineplex(String location, CinemaHandler cinemaHandler) {
 		Cineplex newCineplex = new Cineplex(location);
 		allCineplex.add(newCineplex);
@@ -29,19 +33,31 @@ public class CineplexHandler {
 		return newCineplex;
 	   }
 
+	/**
+     * Remove a Cineplex.
+     */	 	   
 	public void removeCineplex(Cineplex c){
 		this.allCineplex.remove(c);
 		c = null;
 	   }
 	
+	/**
+     * Print all Cineplexes.
+     */	   
 	public void printAllCineplex() {
 		UtilityOutput.printObjectList(allCineplex);
     }
 	
+	/**
+     * Get array list of all Cineplexes.
+     */
 	public ArrayList<Cineplex> getAllCineplex(){
 		return allCineplex;
 	}
 	
+	/**
+     * Get number of Cineplexes.
+     */
 	public int getSize() {
 		return cineplexCounter;
 	}
