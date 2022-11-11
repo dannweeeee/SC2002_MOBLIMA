@@ -37,22 +37,22 @@ public interface AdminLogic {
     public void showAllMovies();
 
     /**
-     * Create a new movie showtime.
+     * Create a new show.
      */
     public void createShow();
 
     /**
-     * Update an existing movie showtime.
+     * Update an existing show date & time.
      */
     public void updateShow();
 
     /**
-     * Remove an existing movie showtime.
+     * Remove an existing show.
      */
     public void deleteShow();
 
     /**
-     * View all showtimes.
+     * View all shows.
      */
     public void showAllShows();
     

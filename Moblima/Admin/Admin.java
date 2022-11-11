@@ -72,6 +72,9 @@ public class Admin implements AdminLogic, LoginObserver {
         adminUI.show();
     }
 
+    /**
+     * Exit the admin UI when going back to user view.
+     */
     public void exit() {
         loginUI = null;
         adminUI = null;
@@ -79,10 +82,16 @@ public class Admin implements AdminLogic, LoginObserver {
         MovieBookerApp.showUserView(movieBooker);
     }
 
+    /**
+     * View all movie listings.
+     */
     public void showAllMovies(){
         movieBooker.showAllMovies();
     }
 
+    /**
+     * Create a new movie listing.
+     */
     public void createMovie() {
         String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;
         System.out.print("Enter Title of Movie => ");
@@ -117,6 +126,9 @@ public class Admin implements AdminLogic, LoginObserver {
         System.out.println(addNewMovie);
     }
 
+    /**
+     * Update an existing movie listing.
+     */
     public void updateMovie() {
         int movieOption = 0, moviePartOption = 0;
         String movieUpdateValue;
@@ -202,6 +214,9 @@ public class Admin implements AdminLogic, LoginObserver {
         System.out.println(selectedMovie);
     }
 
+    /**
+     * Remove an existing movie listing.
+     */
     public void removeMovie() {
         int movieRemoveOption = 0;
 		movieBooker.showAllMovies();
@@ -229,6 +244,9 @@ public class Admin implements AdminLogic, LoginObserver {
         }
     }
 
+    /**
+     * View all shows.
+     */
     public void showAllShows(){
         while(true){
             if (showHandler.getAllShows().size() != 0 ){
@@ -241,6 +259,9 @@ public class Admin implements AdminLogic, LoginObserver {
         }
     }
 
+    /**
+     * Create a new show.
+     */
     public void createShow() {
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
 		MovieHandler movieHandler = MovieHandler.getInstance();
@@ -331,6 +352,9 @@ public class Admin implements AdminLogic, LoginObserver {
         }
     }
 
+    /**
+     * Update an existing show date & time.
+     */
     public void updateShow() {
         ShowHandler showHandler = ShowHandler.getInstance();
 		while(true){
@@ -375,6 +399,9 @@ public class Admin implements AdminLogic, LoginObserver {
 		}	
     }
 
+    /**
+     * Remove an existing show.
+     */
     public void deleteShow(){
         if (showHandler.getAllShows().size() != 0 ){
             ArrayList<Show> allShows = ShowHandler.getInstance().getAllShows();
@@ -388,6 +415,9 @@ public class Admin implements AdminLogic, LoginObserver {
         }
     }
 
+    /**
+     * View all cineplexes.
+     */
     public void showAllCineplexes(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
         if (cineplexHandler.getAllCineplex().size() != 0 ){
@@ -398,6 +428,9 @@ public class Admin implements AdminLogic, LoginObserver {
         }
     }
 
+    /**
+     * Create a new cineplex.
+     */
     public void addNewCineplex(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
         System.out.print("Enter Cineplex Name [Enter '0' to exit] => ");
@@ -410,6 +443,9 @@ public class Admin implements AdminLogic, LoginObserver {
         cineplexHandler.printAllCineplex();
     }
 
+    /**
+     * Update an existing cineplex.
+     */
     public void updateCineplex(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
         int cineplexOption = -1;
@@ -438,6 +474,9 @@ public class Admin implements AdminLogic, LoginObserver {
         }
     }
 
+    /**
+     * Remove an existing movie cineplex.
+     */
     public void removeCineplex(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
         cineplexHandler.printAllCineplex();
@@ -462,6 +501,9 @@ public class Admin implements AdminLogic, LoginObserver {
         }
     }
 
+    /**
+     * View all cinemas.
+     */    
     public void showAllCinemas(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
         int cineplexOption = -1;
@@ -500,6 +542,9 @@ public class Admin implements AdminLogic, LoginObserver {
         }
     }
 
+    /**
+     * Create a new cinema.
+     */
     public void addNewCinema(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
         cineplexHandler.printAllCineplex();
@@ -563,6 +608,9 @@ public class Admin implements AdminLogic, LoginObserver {
             System.out.println("SUCCESS! The Cinema has been created!");
     }
 
+    /**
+     * Update an existing cinema.
+     */
     public void updateCinema(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
         cineplexHandler.printAllCineplex();
@@ -619,6 +667,9 @@ public class Admin implements AdminLogic, LoginObserver {
         System.out.println("UPDATED! The Cinema has been updated!");
     }
 
+    /**
+     * Remove an existing movie cinema.
+     */
     public void removeCinema(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
         cineplexHandler.printAllCineplex();
@@ -666,6 +717,9 @@ public class Admin implements AdminLogic, LoginObserver {
         System.out.println("DELETED! The Cinema has been removed!");
     }
 
+    /**
+     * Launch configure system settings.
+     */    
     public void manageSettings() {
         settingsController.launch();
     }
