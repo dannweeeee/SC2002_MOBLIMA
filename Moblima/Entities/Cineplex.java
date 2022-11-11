@@ -1,9 +1,4 @@
 package Moblima.Entities;
-
-import java.util.ArrayList;
-
-import Moblima.Handlers.CinemaHandler;
-
 /**
  * @author pc
  *
@@ -12,7 +7,6 @@ public class Cineplex {
 	private int idCounter = 0;
 	private int id;
 	private String location;
-	private CinemaHandler cinemaH;
 	private int cineplexNo;
     
     /**
@@ -48,13 +42,6 @@ public class Cineplex {
     public void setId(int id) {
     	this.id = id;
     }
-	
-	/**
-	 * @param CinemaHandler
-	 */
-	public void setHall(CinemaHandler CinemaHandler) {
-		this.cinemaH=CinemaHandler;
-	}
 	
 	/**
 	 * @return
