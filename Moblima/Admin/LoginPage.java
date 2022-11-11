@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -17,8 +16,12 @@ import javax.swing.JTextField;
 import Moblima.MovieBooker;
 import Moblima.MovieBookerApp;
 
+/**
+ * The login page of the admin module.
+ * @author Our team
+ * @version 1.0
+ */
 public class LoginPage implements ActionListener{
-    private AdminLogic admin;
     JFrame frame = new JFrame();
     JButton loginButton = new JButton("Login");
     JButton resetButton = new JButton("Reset");
@@ -33,6 +36,10 @@ public class LoginPage implements ActionListener{
     HashMap<String,String> logininfo = new HashMap<String,String>();
     MovieBooker movieBooker = new MovieBooker();
 
+    /**
+     * Constructor of the class.
+     * <p>This constructor will create the login page.</p>
+     */
     LoginPage(HashMap<String,String> loginInfoOriginal){
 
         logininfo = loginInfoOriginal;
@@ -71,6 +78,15 @@ public class LoginPage implements ActionListener{
         frame.setVisible(true);
     }
 
+    /**
+     * Process the login, reset the form, or exit when a button is clicked.
+     * <p>Depending on which button is clicked, the corresponding action will be performed.</p>
+     * <p>Reset: clear the username and password fields.</p>
+     * <p>Exit: close the login page.</p>
+     * <p>Login: check if the username and password are correct. If yes, close the login page and open the admin module.</p>
+     * @param e the <code>ActionEvent</code> object capturing the event just occurred.
+     * @see java.awt.event.ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -111,6 +127,11 @@ public class LoginPage implements ActionListener{
         }
     }
 
+    /**
+     * Add an observer of the login status to the list of subscribers.
+     * @param loginObserver the <code>LoginObserver</code> to be added.
+     * @see Moblima.Admin.LoginObserver
+     */
     public void addLoginObserver(LoginObserver loginObserver){
         for(int i=0;i<loginObservers.length;i++){
             if(loginObservers[i]==null){
@@ -120,6 +141,11 @@ public class LoginPage implements ActionListener{
         }
     }
 
+    /**
+     * Remove an observer of the login status from the list of subscribers.
+     * @param loginObserver the <code>LoginObserver</code> to be removed.
+     * @see Moblima.Admin.LoginObserver
+     */
     public void removeLoginObserver(LoginObserver loginObserver){
         for(int i=0;i<loginObservers.length;i++){
             if(loginObservers[i]==loginObserver){
@@ -129,6 +155,10 @@ public class LoginPage implements ActionListener{
         }
     }
 
+    /**
+     * Notify all the observers that the login is successful.
+     * @see Moblima.Admin.LoginObserver
+     */
     public void notifyLoginObservers(){
         for(int i=0;i<loginObservers.length;i++){
             if(loginObservers[i]!=null){
