@@ -5,7 +5,7 @@ import Moblima.Entities.Movie;
 /**
  * Class to sort movies by rating
  * @author Ian
- *
+ * @version 1.0
  */
 public class SortbyRating implements Comparator<Movie> {
 	/**

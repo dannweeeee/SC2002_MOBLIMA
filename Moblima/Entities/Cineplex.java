@@ -1,7 +1,8 @@
 package Moblima.Entities;
 /**
+ * Class for Cineplex entity
  * @author pc
- *
+ * @version 1.0
  */
 public class Cineplex {
 	private int idCounter = 0;
@@ -10,7 +11,8 @@ public class Cineplex {
 	private int cineplexNo;
     
     /**
-     * @param location
+	 * Default Constructor
+     * @param location location of cineplex
      */
     public Cineplex(String location) {
         idCounter += 1;
@@ -19,46 +21,56 @@ public class Cineplex {
     }
     
 	/**
-	 * @return
+	 * Get method for Location
+	 * @return location
 	 */
 	public String getLocation(){
 		return this.location;
 	}
 	
 	/**
-     * @return
+	 * Get Method for ID
+     * @return current ID
      */
     public int getId(){
         return this.id;
     }
 
+	/**
+	 * Set method for Cineplex
+	 * @param location location of cineplex
+	 */
 	public void setCineplex(String location) {
         this.location=location;
     }
 	
 	/**
-     * @return
+	 * Set method for CinemaID
+     * @param id new value for CinemaID
      */
     public void setId(int id) {
     	this.id = id;
     }
 	
 	/**
-	 * @return
+	 * Get method for Cineplex Number
+	 * @return cineplex number
 	 */
 	public int getCineplexNo() {
 		return cineplexNo;
 	}
 	
 	/**
-	 * @param cineplexNo
+	 * Set method for cineplex number
+	 * @param cineplexNo cineplex number
 	 */
 	public void setCineplexNo(int cineplexNo) {
 		this.cineplexNo=cineplexNo;
 	}
 	
 	/**
-	 *
+	 * toString() method
+	 * @return string of id: location
 	 */
 	@Override
     public String toString() {

@@ -5,7 +5,7 @@ import Moblima.Entities.Movie;
 /**\
  * Class to sort movies by ticket sales
  * @author Ian
- *
+ * @version 1.0
  */
 public class SortbyTicket implements Comparator<Movie> {
 	/**

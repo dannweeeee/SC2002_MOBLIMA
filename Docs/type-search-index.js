@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"Moblima.Admin","l":"LoginPage"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"Moblima.Handlers","l":"BookingController.AllPrices"},{"p":"Moblima.Handlers","l":"BookingController"}];updateSearchResults();

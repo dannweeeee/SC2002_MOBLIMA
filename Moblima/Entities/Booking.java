@@ -2,7 +2,8 @@ package Moblima.Entities;
 import java.util.ArrayList;
 
 /**
- * @author 
+ * Class to facilitate and store information for booking
+ * @author Marcus Kho
  *
  */
 public class Booking {
@@ -17,7 +18,8 @@ public class Booking {
     private double seniorPrice;
 
     /**
-     * @param user
+     * Constructor
+     * @param user user object to keep track of which user book what shows
      */
     public Booking(User user){
         seatList = new ArrayList<>();
@@ -30,6 +32,7 @@ public class Booking {
     }
 
     /**
+     * Retrieve Total Price
      * @return total price
      */
     public double getTotalPrice(){
@@ -37,6 +40,7 @@ public class Booking {
     }
 
     /**
+     * Retrieve Adult Price
      * @return adult price
      */
     public double getAdultPrice(){
@@ -44,26 +48,30 @@ public class Booking {
     }
 
     /**
+     * Retrieve Senior Citizen Price 
      * @return senior price
      */
     public double getSeniorPrice(){
         return this.seniorPrice;
     }
     /**
-     * @param seniorPrice
+     * Set Senior Citizen Price 
+     * @param seniorPrice update seniorPrice
      */
     public void setSeniorPrice(Double seniorPrice){
         this.seniorPrice = seniorPrice;
     }
 
     /**
-     * @param price
+     * Set adult price
+     * @param price update adultPrice
      */
     public void setAdultPrice(Double price){
         this.adultPrice = price;
     }
 
     /**
+     * Retrieve Student price
      * @return studentPrice
      */
     public double getStudentPrice(){
@@ -71,13 +79,15 @@ public class Booking {
     }
 
     /**
-     * @param price
+     * Set Student Price
+     * @param price update student Price
      */
     public void setStudentPrice(Double price){
         this.studentPrice = price;
     }
 
     /**
+     * Get User object
      * @return user
      */
     public User getUser(){
@@ -85,6 +95,7 @@ public class Booking {
     }
 
     /**
+     * Retrieve number of Student Tickets
      * @return studentTicket
      */
     public int getStudentTicketNum(){
@@ -92,12 +103,14 @@ public class Booking {
     }
 
     /**
-     * @param num
+     * Sets number of Student Tickets
+     * @param num update number of student tickets
      */
     public void setStudentTicket(int num){
         this.studentTicket = num;
     } 
     /**
+     * Retrieve number of adult ticket
      * @return adult ticket count
      */
     public int getAdultTicketNum(){
@@ -105,20 +118,23 @@ public class Booking {
     }
 
     /**
-     * @param number of ticket
+     * Set number of Adult Ticket
+     * @param num number of adult tickets
      */
     public void setAdultTicket(int num){
         this.adultTicket = num;
     } 
 
     /**
-     * @param number of ticket
+     * Set number of Senior Ticket
+     * @param num number of senior citizen tickets
      */
     public void setSeniorTicket(int num){
         this.seniorTicket = num;
     }
 
     /**
+     * Get number of Senior Citizen Ticket
      * @return number senior of ticket
      */
     public int getSeniorTicket(){
@@ -126,12 +142,14 @@ public class Booking {
     }
 
     /**
-     * @param total number of ticket
+     * Get total Number of tickets (Sum of Adult + Student + Senior)
+     * @return total number of ticket
      */
     public int getTotalTicketNum(){
         return this.seniorTicket + this.adultTicket + this.studentTicket;
     }
     /**
+     * Get the seats chosen for booking
      * @return seatlist
      */
     public ArrayList<Seats> getSeats() {
@@ -139,20 +157,23 @@ public class Booking {
     }
 
     /**
-     * @param seats
+     * Set the seats chosen for booking
+     * @param seats update seats
      */
     public void setSeats(ArrayList<Seats> seats){
         this.seatList = seats;
     }
 
     /**
-     * @param show
+     * Set show selected for booking
+     * @param show update shows
      */
     public void setShow(Show show){
         this.selectedShow = show;
     }
 
     /**
+     * Get selected show
      * @return selected show
      */
     public Show getShow(){

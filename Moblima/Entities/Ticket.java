@@ -4,8 +4,8 @@ import java.util.Date;
 
 /**
  * Ticket class
- * @author 
- *
+ * @author Ian
+ * @version 1.0
  */
 public class Ticket {
 	 private static int idCounter=0;
@@ -18,7 +18,7 @@ public class Ticket {
 		private Double price;
 
 	    /**
-	     * 
+	     * Default Constructor of ticket
 	     */
 	    public Ticket() {
 	        idCounter += 1;
@@ -27,7 +27,7 @@ public class Ticket {
 
 		/**
 		 * Set method for price of ticket
-		 * @param price 
+		 * @param price updated value of price
 		 * */
 		public void setPrice(Double price){
 			this.price = price;
@@ -35,7 +35,7 @@ public class Ticket {
 
 		/**
 		 * Get method for price of ticket
-		 * @return price 
+		 * @return price of ticket 
 		 */
 		public Double getPrice(){
 			return this.price;
@@ -44,7 +44,7 @@ public class Ticket {
 
 		/**
 		 * Set method for cinemaSelected for ticket
-		 * @param cinemaSelected
+		 * @param cinemaSelected updated object for cinema
 		 */
 		public void setCinema(Cinema cinemaSelected){
 			this.cinemaSelected = cinemaSelected;
@@ -69,7 +69,7 @@ public class Ticket {
 
 	    /**
 	     * Set method for name of owner of ticket
-	     * @param owner 
+	     * @param owner update ownder of ticket
 	     */
 	    public void setOwner(String owner) {
 	        this.owner = owner;
@@ -85,7 +85,7 @@ public class Ticket {
 
 	    /**
 	     * Set method for ticket id
-	     * @param id
+	     * @param id updated id of ticket
 	     */
 	    public void setId(int id) {
 	        this.id = id;
@@ -101,7 +101,7 @@ public class Ticket {
 
 	    /**
 	     * Set method for bookingTime of ticket
-	     * @param set bookingTime
+	     * @param bookingTime updated booking time of the ticket
 	     */
 	    public void setBookingTime(Date bookingTime) {
 	        this.bookingTime = bookingTime;
@@ -117,7 +117,7 @@ public class Ticket {
 
 	    /**
 	     * Set method for seat number of ticket
-	     * @param set seat_no
+	     * @param seat updated object of seat
 	     */
 	    public void setSeat(Seats seat) {
 	        this.seat_no = seat;
@@ -146,7 +146,7 @@ public class Ticket {
 
 	    /**
 	     * Set method for bookedShow 
-	     * @param set bookedShow
+	     * @param bookedShow updated object of show
 	     */
 	    public void setBookedShow(Show bookedShow) {
 	        this.bookedShow = bookedShow;

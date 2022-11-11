@@ -3,7 +3,7 @@ package Moblima.Entities;
 /**
  * Rating class
  * @author Ian
- *
+ * @version 1.0
  *
  */
 public class Rating {
@@ -12,8 +12,9 @@ public class Rating {
     private User user;
 
     /**
-     * @param rating
-     * @param user
+     * Default Constructor for Rating
+     * @param rating rating value
+     * @param user user who provided the rating
      */
     public Rating(double rating,User user) {
         this.rating = rating;
@@ -22,7 +23,7 @@ public class Rating {
 
     /**
      * Set method for rating 
-     * @param rating
+     * @param rating updated value of rating
      */
     public void SetRating(double rating) {
         this.rating = rating;

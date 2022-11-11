@@ -7,7 +7,7 @@ import Moblima.Handlers.MovieHandler;
 /**
  * Movie class
  * @author pc
- *
+ * @version 1.0
  */
 public class Movie  {
 		private static int idCounter=0;
@@ -24,6 +24,14 @@ public class Movie  {
 	    private double Ratings;
 	    public ArrayList<Ticket> ticketlist;
 
+		/**
+		 * Constructor for Movie class
+		 * @param name name of movie
+		 * @param status status of movie (showing, preview)
+		 * @param director director's name
+		 * @param synopsis synopsis of movie
+		 * @param cast movie cast
+		 */
 	    public Movie(String name,String status, String director, String synopsis, String cast) {
 	    	idCounter += 1;
 	        this.id = idCounter;
@@ -38,6 +46,7 @@ public class Movie  {
 	    }
 	    
 	    /**
+		 * Get method for Movie ID
 		 * @return the movie ID
 		 */
 		public int getId() {
@@ -45,6 +54,7 @@ public class Movie  {
 		}
 	    
 	    /**
+		 * Get method for Status
 		 * @return the status
 		 */
 		public String getStatus() {
@@ -52,6 +62,7 @@ public class Movie  {
 		}
 
 		/**
+		 * Get method for Synopsis
 		 * @return the synopsis
 		 */
 		public String getSynopsis() {
@@ -59,6 +70,7 @@ public class Movie  {
 		}
 
 		/**
+		 * Get method for Director
 		 * @return the director
 		 */
 		public String getDirector() {
@@ -66,6 +78,7 @@ public class Movie  {
 		}
 
 		/**
+		 * Get Method for Cast
 		 * @return the cast
 		 */
 		public String getCast() {
@@ -73,6 +86,7 @@ public class Movie  {
 		}
 
 		/**
+		 * Get method for Ratings
 		 * @return the ratings
 		 */
 		public double getRatings() {
@@ -80,6 +94,7 @@ public class Movie  {
 		}
 		
 		/**
+		 * Set method for ID
 		 * @param id the id to set
 		 */
 		public void setId(int id) {
@@ -87,6 +102,7 @@ public class Movie  {
 		}
 		
 		/**
+		 * Set method for movie name
 		 * @param name the name to set
 		 */
 		public void setName(String name) {
@@ -94,6 +110,7 @@ public class Movie  {
 		}
 
 		/**
+		 * Set method for Status
 		 * @param status the status to set
 		 */
 		public void setStatus(String status) {
@@ -101,6 +118,7 @@ public class Movie  {
 		}
 
 		/**
+		 * Set method for director
 		 * @param director the director to set
 		 */
 		public void setDirector(String director) {
@@ -108,6 +126,7 @@ public class Movie  {
 		}
 
 		/**
+		 * Set method for review
 		 * @param review the review to set
 		 */
 		public void setReview(String review) {
@@ -115,6 +134,7 @@ public class Movie  {
 		}
 
 		/**
+		 * Set method for ratings
 		 * @param ratings the ratings to set
 		 */
 		public void setRatings(double ratings) {
@@ -122,7 +142,8 @@ public class Movie  {
 		}
 
 		/**
-		 * @param set synopsis
+		 * Set method for synopsis
+		 * @param synopsis updated value of synopsis 
 		 */
 		public void setSynopsis(String synopsis) {
 	    	this.synopsis=synopsis;
@@ -130,13 +151,14 @@ public class Movie  {
 	    
 	    /**
 	     * Set casts of movie
-	     * @param  cast
+	     * @param cast updated value of cast
 	     */
 	    public void setCast(String cast) {
 	    	this.cast=cast;
 	    }
 
 	    /**
+		 * Get method for movie name
 	     * @return name of movie
 	     */
 	    public String getName() {
@@ -146,21 +168,22 @@ public class Movie  {
 	   
 	    /**
 	     * add Rating to movie list of ratings
-	     * @param Rating 
+	     * @param rating updated rating
 	     */
-	    public void addRatings(Rating Rating) {
-	        this.ratings.add(Rating);
+	    public void addRatings(Rating rating) {
+	        this.ratings.add(rating);
 	    }
 	    
 	    /**
 	     * adds Review to Movie
-	     * @param Review 
+	     * @param review review to be added 
 	     */
-	    public void addReview(Review Review) {
-	        this.reviews.add(Review);
+	    public void addReview(Review review) {
+	        this.reviews.add(review);
 	    }
 	    
 	    /**
+		 * Get reviews for movie
 	     * @return list of reviews
 	     */
 	    public ArrayList<Review> getReview(){
@@ -169,13 +192,14 @@ public class Movie  {
 	    
 	    /**
 	     * add ticket to movie
-	     * @param  ticket 
+	     * @param ticket ticket to be added to movie
 	     */
 	    public void addticket(Ticket ticket) {
 	    	ticketlist.add(ticket);
 	    }
 	    
 	    /**
+		 * get total number of ticket
 	     * @return size of ticket list
 	     */
 	    public int getTicketsSize() {
@@ -183,6 +207,7 @@ public class Movie  {
 	    }
 	    
 	    /**
+		 * get avg rating of movie
 	     * @return AverageRatings of movie
 	     */
 	    public String getAverageRatings() {
@@ -210,7 +235,10 @@ public class Movie  {
 	                "Synopsis: " + synopsis + "\n"
 	                ;
 	    }
-
+		/**
+		 * remove this movie
+		 * @param movieID movie ID to remove
+		 */
 		public void removeMovie(int movieID){
 			movieH.getMovie().remove(this);
 		}

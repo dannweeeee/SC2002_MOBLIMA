@@ -21,6 +21,8 @@ import Moblima.Exceptions.SeatsNotAvailableException;
 
 /**
  * Booking Controller class to faciltate booking
+ * @author Marcus Kho
+ * @version 1.0
  */
 public class BookingController {
 	/**

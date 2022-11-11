@@ -57,7 +57,7 @@ public class SeatHandler {
         boolean available = false;
                         
         for (Seats o : seats){
-            if (o.getSeat().equals(s1.getSeat())){
+            if (o.toString().equals(s1.toString())){
                 available = true;
                 break;
             }
@@ -76,7 +76,7 @@ public class SeatHandler {
     public void removeSeats(Seats seat, Show s){
         ArrayList<Seats> allSeats = getSeatList(s);
         for (Seats seats : allSeats){
-            if (seats.getSeat().equals(seat.getSeat())){
+            if (seats.toString().equals(seat.toString())){
                 seats.setRow("X");
                 seats.setCol("X");
                 break;
@@ -89,7 +89,7 @@ public class SeatHandler {
     public static boolean duplicateSeatInput(Seats s1, ArrayList<Seats> chosenSeats){
         boolean duplicate = false;
         for (Seats o : chosenSeats){
-            if (o.getSeat().equals(s1.getSeat())){
+            if (o.toString().equals(s1.toString())){
                 duplicate = true;
                 break;
             }
