@@ -6,9 +6,6 @@ import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Show;
-import Moblima.Utils.Settings;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ShowHandler {

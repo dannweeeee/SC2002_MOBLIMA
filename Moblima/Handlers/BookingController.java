@@ -112,7 +112,8 @@ public class BookingController {
 		Show selectedShow = UtilityInputs.getShow(shows);
 		if (selectedShow == null) return null;
 		newBooking.setShow(selectedShow);
-		seatHandler.printAvailableSeats(selectedShow);
+		ArrayList<Seats> seatList = seatHandler.getSeatList(selectedShow);
+        UtilityOutput.printSeatingForBooking(seatList);
 
 		newBooking.setAdultTicket(UtilityInputs.getNumberOfTicket("Adult"));
 		newBooking.setStudentTicket(UtilityInputs.getNumberOfTicket("Student"));
