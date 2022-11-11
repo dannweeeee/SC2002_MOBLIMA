@@ -42,7 +42,7 @@ public class Settings extends Properties {
             ClassLoader classLoader = getClass().getClassLoader();
             super.load(classLoader.getResourceAsStream(SETTINGS_FILE_PATH));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            UtilityOutput.printMessage(e.getMessage());
         }
     }
 
@@ -53,7 +53,7 @@ public class Settings extends Properties {
         try {
             super.store(new java.io.FileOutputStream(SETTINGS_FILE_PATH), null);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            UtilityOutput.printMessage(e.getMessage());
         }
     }
 
@@ -61,7 +61,7 @@ public class Settings extends Properties {
      * Print to the screen all settings.
      */
     public void print() {
-        System.out.println("Index   Property names          Property values");
+        UtilityOutput.printMessage("Index   Property names          Property values");
         for (String key : stringPropertyNames()) {
             System.out.printf("%-32s%-32s\n", key, getProperty(key));
         }
