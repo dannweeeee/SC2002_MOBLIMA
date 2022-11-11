@@ -35,9 +35,8 @@ public class CineplexHandler {
 	   }
 	
 	public void printAllCineplex() {
-		int count = 1;
 		for (Cineplex temp : allCineplex){
-			System.out.println(count++ + ". " + temp);
+			System.out.println(temp);
 		}
     }
 	
