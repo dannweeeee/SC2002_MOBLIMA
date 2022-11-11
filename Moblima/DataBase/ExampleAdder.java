@@ -17,8 +17,20 @@ import Moblima.Handlers.SeatHandler;
 import Moblima.Handlers.ShowHandler;
 import Moblima.Utils.UtilityOutput;
 
+/**
+ * Class to initialize example 
+ * @author Whole team
+ * @version 1.0
+ */
 public class ExampleAdder {
-	
+	/**
+	 * Default Constructor
+	 */
+	public ExampleAdder(){}
+
+	/**
+	 * Initialize our examples for testing
+	 */
 	public static void initializeExample() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss a");
 		
@@ -53,6 +65,9 @@ public class ExampleAdder {
 		}
 	   }
 	
+	/**
+	 * Prints example after initialized
+	 */
 	public static void showExample() {
 		CineplexHandler cineplexHandler = CineplexHandler.getInstance();
 		ShowHandler showHandler = ShowHandler.getInstance();
@@ -67,6 +82,11 @@ public class ExampleAdder {
 		UtilityOutput.printMessage(showHandler.getAllShows().toString());
 	}
 	
+	/**
+	 * Read movie and adds them to instance for examples
+	 * @param fileName file name to read from
+	 * @throws FileNotFoundException file cannot be found
+	 */
 	public static void readMovieFromTextFile(String fileName) throws FileNotFoundException{
 		MovieHandler movieHandler = MovieHandler.getInstance();
     	FileReader movieDatabase = new FileReader(fileName);
