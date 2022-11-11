@@ -1,8 +1,3 @@
-/**
- * 
- * @author Our team
- * @version 1.0
- */
 package Moblima;
 
 import java.text.SimpleDateFormat;
@@ -25,15 +20,14 @@ import Moblima.Utils.UtilityOutput;
 
 /**
  * Interface for MovieBookerApp
- * 
+ * @author Our team
+ * @version 1.0
  */
 public class MovieBooker implements MovieBookerInterface{
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
 	/**
-	 * 
 	 * Default Constructor for Movie Booker
-	 * 
 	 */
 	public MovieBooker() {}
 	
@@ -56,7 +50,6 @@ public class MovieBooker implements MovieBookerInterface{
 	
 	/**
 	 * Booking Menu to book movie
-	 * 
 	 */
 	public void bookingMenu() {
 		UserHandler userhandler=UserHandler.getInstance();
