@@ -94,7 +94,7 @@ public class Show {
         ticket.setBookingTime(new Date());
         ticket.setSeat(seats);
         ticket.setPrice(price);
-        user.bookingHistory.add(ticket);
+        user.addBooking(ticket);
         this.movie.addticket(ticket);
         return ticket;
     }
