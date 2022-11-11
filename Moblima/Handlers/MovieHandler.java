@@ -2,9 +2,9 @@ package Moblima.Handlers;
 
 import java.util.ArrayList;
 
+import Moblima.Comparator.SortbyRating;
+import Moblima.Comparator.SortbyTicket;
 import Moblima.Entities.Movie;
-import Moblima.Utils.SortbyRating;
-import Moblima.Utils.SortbyTicket;
 
 import java.util.*;
 public class MovieHandler {
