@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Moblima.Comparator.SortbyRating;
 import Moblima.Comparator.SortbyTicket;
 import Moblima.Entities.Movie;
+import Moblima.Utils.UtilityOutput;
 
 import java.util.*;
 public class MovieHandler {
@@ -25,6 +26,7 @@ public class MovieHandler {
 	public ArrayList<Movie> getMovie(){
 		return movie;
 	}
+
 
 	public int sizeMovie(){
 		return movie.size();
@@ -67,8 +69,16 @@ public class MovieHandler {
 	}
 
 	public void removeMovie(int movieID){
-		ArrayList<Movie> allMovie = getMovie();
-		allMovie.remove(movieID);
+		ArrayList <Movie> movieList = MovieHandler.getInstance().getMovie();
+		Iterator<Movie> itr = movieList.iterator(); 
+		while (itr.hasNext()) { 
+			Movie movie = itr.next();
+			if(movie.getId() == movieID){
+				itr.remove();
+				UtilityOutput.printMessage("DELETED! The Movie has been deleted!");
+				return;
+			}
+		}
+		UtilityOutput.printMessage("Invalid input. Please try again from Main Menu.");
 	}
-	
 }
