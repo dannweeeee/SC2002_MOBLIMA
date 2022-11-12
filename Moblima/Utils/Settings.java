@@ -9,6 +9,9 @@ import java.util.Properties;
  * @version 1.0
  */
 public class Settings extends Properties {
+	/**
+	 * File path to Setting config file
+	 */
     private String SETTINGS_FILE_PATH = "Moblima/settings.ini";
 
     private static Settings instance = null;

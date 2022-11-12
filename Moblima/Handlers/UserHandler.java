@@ -8,7 +8,7 @@ import Moblima.Entities.User;
  * Handler for user objects
  * stores user array
  * @author Ian
- *@see User
+ * @see User
  */
 public class UserHandler {
 	private ArrayList<User> users;
@@ -27,7 +27,7 @@ public class UserHandler {
     }
 	
 	/**
-	 * 
+	 * Default constructor for UserHandler Class
 	 */
 	public UserHandler() {
 		this.users = new ArrayList<>();
