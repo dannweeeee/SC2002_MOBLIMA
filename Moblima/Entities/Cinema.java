@@ -30,7 +30,11 @@ public class Cinema {
 			/**
 			 * VIP Hall Type
 			 */
-			VIP
+			VIP,
+			/**
+			 * 3D Movies Hall Type
+			 */
+			IMAX_3D
 		}
 
 	    /**
