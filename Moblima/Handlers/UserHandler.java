@@ -16,7 +16,7 @@ public class UserHandler {
 	private static UserHandler instance = null;
 	
     /**
-     * Get method for instance of UserHandler
+     * Get and create method for instance of UserHandler
      * @return instance
      */
     public static UserHandler getInstance() {
@@ -27,7 +27,7 @@ public class UserHandler {
     }
 	
 	/**
-	 * Default constructor for UserHandler Class
+	 * Default constructor for the User Handler class
 	 */
 	public UserHandler() {
 		this.users = new ArrayList<>();
@@ -35,7 +35,7 @@ public class UserHandler {
 	}
 	/**
 	 * Get method for array of users
-	 * @return users
+	 * @return users A list of users
 	 */
 	public ArrayList<User> getUsers(){
 		return users;

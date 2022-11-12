@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
+import Moblima.Entities.Movie.MovieStatus;
 import Moblima.Entities.Cinema.HallType;
 import Moblima.Handlers.CinemaHandler;
 import Moblima.Handlers.CineplexHandler;
@@ -93,12 +94,13 @@ public class ExampleAdder {
     	Scanner read = new Scanner(movieDatabase);
     	read.useDelimiter("\\||\\r\\n");
     	read.nextLine();
-    	String movieName, movieStatus, movieDirector, movieSynopsis, movieCast;
+    	String movieName, movieStatusTemp, movieDirector, movieSynopsis, movieCast;
+    	MovieStatus movieStatus;
     	Movie newMovie;
     	while(read.hasNext()) {
     		//read.next();
     		movieName = read.next();
-    		movieStatus = read.next();
+    		movieStatus  = MovieStatus.valueOf(read.next());
     		movieDirector = read.next();
     		movieSynopsis = read.next();
     		movieCast = read.next();
