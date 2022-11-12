@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 /**
  * This class contains the staff accounts.
- * @author Our team
+ * @author Dann Wee
  * @version 1.0
  */
 public class IDandPasswords {

@@ -25,7 +25,7 @@ import Moblima.Handlers.ShowHandler;
 
 /**
  * Controller of the admin module. Creates and delegates tasks to other classes.
- * @author Our team
+ * @author Dann Wee
  * @version 1.0
  */
 public class Admin implements AdminLogic, LoginObserver {
@@ -84,14 +84,14 @@ public class Admin implements AdminLogic, LoginObserver {
     }
 
     /**
-     * View all movie listings.
-     */
+    * View all movie listings
+    */
     public void showAllMovies(){
         movieBooker.showAllMovies();
     }
 
     /**
-     * Create a new movie listing.
+     * Create a new movie listing 
      */
     public void createMovie() {
         String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;

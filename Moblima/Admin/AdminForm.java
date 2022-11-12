@@ -8,7 +8,7 @@ import Moblima.Utils.UtilityOutput;
 
 /**
  * This class is the UI for the admin module.
- * @author Our team
+ * @author Dann Wee
  * @version 1.0
  */
 public final class AdminForm extends Form {

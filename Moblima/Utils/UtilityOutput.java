@@ -4,29 +4,55 @@ import java.util.ArrayList;
 
 import Moblima.Entities.Seats;
 
+/**
+ * Class for displaying all outputs for user
+ */
 public class UtilityOutput {
+    /**
+     * Default Constructor
+     */
     public UtilityOutput(){}
 
+    /**
+     * Print message on console for user to read
+     * @param message - String - e.g. "SUCCESS! Movie has been booked."
+     */
     public static void printMessage(String message){
         System.out.println(message);
     }
 
+    /**
+     * Print question on console for user to read
+     * @param question - String - e.g. 'Enter Number of Adult Tickets:'
+     */
     public static void printInputMessage(String question){
         System.out.print(question);
     }
 
+    /**
+     * Print menu on console for user to view
+     * @param menu - e.g. 
+     */
     public static void printMenu(String[] menu){
         for (String s : menu){
             UtilityOutput.printMessage(s);
         }
     }
 
+    /**
+     * Print array list of objects on console for user to view
+     * @param objList - ArrayList<?> - e.g. ArrayList<Movie> which shows all Movie Listings
+     */
     public static void printObjectList(ArrayList<?> objList){
         for (Object o : objList){
             UtilityOutput.printMessage(o.toString());
         }
     }
 
+    /**
+     * Print array list of seating arrangement for user booking
+     * @param seats - ArrayList<Seats> - e.g. ArrayList<Seats> which shows the available seating arrangement of the Cinema
+     */
     public static void printSeatingForBooking(ArrayList<Seats> seats){
         System.out.println("Seats still available: ");
         int i = 0;

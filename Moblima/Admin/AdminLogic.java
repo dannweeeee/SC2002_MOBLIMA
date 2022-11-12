@@ -2,7 +2,7 @@ package Moblima.Admin;
 
 /**
  * This is the interface containing admin side business logics that are used by the admin UI.
- * @author Our team
+ * @author Dann Wee
  * @version 1.0
  */
 public interface AdminLogic {
