@@ -202,10 +202,11 @@ public class Admin implements AdminLogic, LoginObserver {
         }
         Movie selectedMovie = movieHandler.getMovie().get(movieOption-1);
         UtilityOutput.printMessage("1.Title: " + selectedMovie.getName());
-        UtilityOutput.printMessage("2.Status: " + selectedMovie.getStatus());
-        UtilityOutput.printMessage("3.Director: " + selectedMovie.getDirector());
-        UtilityOutput.printMessage("4.Cast: " + selectedMovie.getCast());
-        UtilityOutput.printMessage("5.Synopsis: " + selectedMovie.getSynopsis());
+        UtilityOutput.printMessage("2.Type: " + selectedMovie.getType());
+        UtilityOutput.printMessage("3.Status: " + selectedMovie.getStatus());
+        UtilityOutput.printMessage("4.Director: " + selectedMovie.getDirector());
+        UtilityOutput.printMessage("5.Cast: " + selectedMovie.getCast());
+        UtilityOutput.printMessage("6.Synopsis: " + selectedMovie.getSynopsis());
 
         while(true){
             UtilityOutput.printInputMessage("Enter Choice (e.g. 1) [Enter '0' to confirm & exit] => ");
@@ -217,11 +218,72 @@ public class Admin implements AdminLogic, LoginObserver {
                 UtilityOutput.printMessage("Please re-enter.");
                 continue;
             }
-            else if (moviePartOption < -1 || moviePartOption > 5){
+            else if (moviePartOption < -1 || moviePartOption > 6){
                 UtilityOutput.printMessage("Invalid input. Please re-enter.");
                 continue;
             }
-            else {
+            else if (moviePartOption == 2) {
+            	int x = 1 ;
+                for (MovieType type : MovieType.values()){
+                    UtilityOutput.printMessage(Integer.toString(x) + ". " + type);
+                    x++;
+                }
+               
+                UtilityOutput.printInputMessage("Enter Movie Type to update [Enter '0' to exit] => ");
+                int choice = UtilityInputs.getIntUserInput();
+                
+                try{
+                    switch(choice){
+                        case 0:
+                            return;
+                        case 1:
+                        	selectedMovie.setType(MovieType.STANDARD_DIGITAL);
+                            break;
+                        case 2:
+                        	selectedMovie.setType(MovieType.BLOCKBUSTER);
+                            break;
+                        case 3: 
+                        	selectedMovie.setType(MovieType.DIGITAL_3D);
+                            break;
+                        default:
+                            throw new InvalidInputException("Please enter only numbers listed on the menu only");
+                        }
+                    } catch(InvalidInputException e){
+                        UtilityOutput.printMessage(e.getMessage());
+                    }
+            }else if (moviePartOption == 3) {
+            	int x = 1 ;
+                for (MovieStatus status : MovieStatus.values()){
+                    UtilityOutput.printMessage(Integer.toString(x) + ". " + status);
+                    x++;
+                }
+               
+                UtilityOutput.printInputMessage("Enter Movie Status to update [Enter '0' to exit] => ");
+                int choice = UtilityInputs.getIntUserInput();
+                
+                try{
+                    switch(choice){
+                        case 0:
+                            return;
+                        case 1:
+                        	selectedMovie.setStatus(MovieStatus.COMING_SOON);
+                            break;
+                        case 2:
+                        	selectedMovie.setStatus(MovieStatus.NOW_SHOWING);
+                            break;
+                        case 3: 
+                        	selectedMovie.setStatus(MovieStatus.PREVIEW);
+                            break;
+                        case 4:
+                        	selectedMovie.setStatus(MovieStatus.END_OF_SHOWING);
+                        	break;
+                        default:
+                            throw new InvalidInputException("Please enter only numbers listed on the menu only");
+                        }
+                    } catch(InvalidInputException e){
+                        UtilityOutput.printMessage(e.getMessage());
+                    }
+            }else {
                 UtilityOutput.printInputMessage("Enter New Value => ");
                 movieUpdateValue = UtilityInputs.getStringUserInput();
                 switch(moviePartOption){
@@ -229,33 +291,16 @@ public class Admin implements AdminLogic, LoginObserver {
                     selectedMovie.setName(movieUpdateValue);
                     break;
                 case 2:
-                    if (movieUpdateValue.equalsIgnoreCase("Coming Soon")){
-                        selectedMovie.setStatus(MovieStatus.COMING_SOON);
-                       break;
-                    }
-                    else if (movieUpdateValue.equalsIgnoreCase("Now Showing")){
-                        selectedMovie.setStatus(MovieStatus.NOW_SHOWING);
-                        break;
-                    }
-                    else if (movieUpdateValue.equalsIgnoreCase("Preview")){
-                        selectedMovie.setStatus(MovieStatus.PREVIEW);
-                        break;
-                    }
-                    else if (movieUpdateValue.equalsIgnoreCase("End of Showing")){
-                        selectedMovie.setStatus(MovieStatus.END_OF_SHOWING);
-                        break;
-                    }
-                    else{
-                        UtilityOutput.printMessage("Invalid input. Enter only 'Coming Soon, 'Now Showing', 'Preview', 'End of Showing'.");
-                        break;
-                    }
+                	break;
                 case 3:
+                	break;
+                case 4:
                     selectedMovie.setDirector(movieUpdateValue);
                     break;
-                case 4:
+                case 5:
                     selectedMovie.setCast(movieUpdateValue);
                     break;
-                case 5:
+                case 6:
                     selectedMovie.setSynopsis(movieUpdateValue);
                     break;
                 }

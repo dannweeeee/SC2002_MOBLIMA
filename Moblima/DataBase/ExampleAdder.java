@@ -114,6 +114,7 @@ public class ExampleAdder {
     	Scanner read = new Scanner(movieDatabase);
     	read.useDelimiter("\\|");
     	read.nextLine();
+    	
     	String movieName, movieStatusTemp, movieDirector, movieSynopsis, movieCast;
     	MovieStatus movieStatus;
     	MovieType movieType;
