@@ -39,7 +39,7 @@ public class MovieHandler {
 	
 	/**
 	 * Get a list of movies.
-	 * @return movie a ArrayList<movie>
+	 * @return movie A list of Movies
 	 */
 	public ArrayList<Movie> getMovie(){
 		return movie;

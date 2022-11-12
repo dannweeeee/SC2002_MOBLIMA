@@ -366,7 +366,7 @@ public class Admin implements AdminLogic, LoginObserver {
     }
 
     /**
-     * Update an existing show date & time.
+     * Update an existing show date and time.
      */
     public void updateShow() {
         ShowHandler showHandler = ShowHandler.getInstance();

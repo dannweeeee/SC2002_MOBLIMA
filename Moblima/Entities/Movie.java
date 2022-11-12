@@ -22,7 +22,7 @@ public class Movie  {
 	    private ArrayList<Review> reviews;
 	    private MovieHandler movieH;
 	    private double Ratings;
-	    public ArrayList<Ticket> ticketlist;
+	    private ArrayList<Ticket> ticketlist;
 	    
 	    /**
 		 * Enum Movie Status

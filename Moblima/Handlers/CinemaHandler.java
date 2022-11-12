@@ -53,7 +53,7 @@ public class CinemaHandler {
 	/**
 	 * Get a list of Cinemas from Cineplex.
 	 * @param c Gets Cineplex object
-	 * @return
+	 * @return cinemaList or null if there is no Cinema assigned to Cineplex
 	 */
 	public ArrayList<Cinema> getCinemaFromCineplex(Cineplex c){
 		ArrayList<Cinema> cinemaList = new ArrayList<>();
