@@ -461,8 +461,13 @@ public class Admin implements AdminLogic, LoginObserver {
      */
     public void updateCineplex(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
+        if (cineplexHandler.getAllCineplex().size() != 0 ){
+            cineplexHandler.printAllCineplex();
+        }else{
+            UtilityOutput.printMessage("NO CINEPLEX SHOWN");
+            return;
+        }
         int cineplexOption = -1;
-        cineplexHandler.printAllCineplex();
         while(true){
             UtilityOutput.printInputMessage("Enter CineplexID [Enter '0' to exit] => ");
             cineplexOption = UtilityInputs.getIntUserInput();
@@ -492,7 +497,12 @@ public class Admin implements AdminLogic, LoginObserver {
      */
     public void removeCineplex(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
-        cineplexHandler.printAllCineplex();
+        if (cineplexHandler.getAllCineplex().size() != 0 ){
+            cineplexHandler.printAllCineplex();
+        }else{
+            UtilityOutput.printMessage("NO CINEPLEX SHOWN");
+            return;
+        }
         while (true){
             UtilityOutput.printInputMessage("Enter CineplexID [Enter '0' to exit] => ");
             int choice = UtilityInputs.getIntUserInput();
@@ -556,7 +566,12 @@ public class Admin implements AdminLogic, LoginObserver {
      */
     public void addNewCinema(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
-        cineplexHandler.printAllCineplex();
+        if (cineplexHandler.getAllCineplex().size() != 0 ){
+            cineplexHandler.printAllCineplex();
+        }else{
+            UtilityOutput.printMessage("NO CINEPLEX SHOWN");
+            return;
+        }
         int userChoice = -1;
         while (true){
             UtilityOutput.printInputMessage("Enter CineplexID [Enter '0' to exit] => ");
@@ -622,7 +637,12 @@ public class Admin implements AdminLogic, LoginObserver {
      */
     public void updateCinema(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
-        cineplexHandler.printAllCineplex();
+        if (cineplexHandler.getAllCineplex().size() != 0 ){
+            cineplexHandler.printAllCineplex();
+        }else{
+            UtilityOutput.printMessage("NO CINEPLEX SHOWN");
+            return;
+        }
         int userChoice = -1;
         while (true){
             UtilityOutput.printInputMessage("Enter CineplexID [Enter '0' to exit] => ");
@@ -641,8 +661,13 @@ public class Admin implements AdminLogic, LoginObserver {
             }
         }
         Cineplex c = CineplexHandler.getInstance().getAllCineplex().get(userChoice - 1);
-        for (Cinema cinema : CinemaHandler.getInstance().getCinemaFromCineplex(c)){
-            UtilityOutput.printMessage(cinema.getCinemaID() + ". " + cinema.getCinemaClass() + " => " + cinema.getCapacity() + " seats");
+        if (CinemaHandler.getInstance().getCinemaFromCineplex(c).size() != 0){
+            for (Cinema cinema : CinemaHandler.getInstance().getCinemaFromCineplex(c)){
+                UtilityOutput.printMessage(cinema.getCinemaID() + ". " + cinema.getCinemaClass() + " => " + cinema.getCapacity() + " seats");
+            }
+        }else{
+            UtilityOutput.printMessage("NO CINEMA SHOWN");
+            return;
         }
         int choice = -1;
         while (true){
@@ -679,7 +704,12 @@ public class Admin implements AdminLogic, LoginObserver {
      */
     public void removeCinema(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
-        cineplexHandler.printAllCineplex();
+        if (cineplexHandler.getAllCineplex().size() != 0 ){
+            cineplexHandler.printAllCineplex();
+        }else{
+            UtilityOutput.printMessage("NO CINEPLEX SHOWN");
+            return;
+        }
         int userChoice = -1;
         while (true){
             UtilityOutput.printInputMessage("Enter CinplexID [Enter '0' to exit] => ");
@@ -698,8 +728,13 @@ public class Admin implements AdminLogic, LoginObserver {
             }
         }
         Cineplex cineplex = CineplexHandler.getInstance().getAllCineplex().get(userChoice - 1);
-        for (Cinema cinema : CinemaHandler.getInstance().getCinemaFromCineplex(cineplex)){
-            UtilityOutput.printMessage(cinema.getCinemaID() + ". " + cinema.getCinemaClass() + " => " + cinema.getCapacity() + " seats");
+        if (CinemaHandler.getInstance().getCinemaFromCineplex(cineplex).size() != 0){
+            for (Cinema cinema : CinemaHandler.getInstance().getCinemaFromCineplex(cineplex)){
+                UtilityOutput.printMessage(cinema.getCinemaID() + ". " + cinema.getCinemaClass() + " => " + cinema.getCapacity() + " seats");
+            }
+        }else{
+            UtilityOutput.printMessage("NO CINEMA SHOWN");
+            return;
         }
         int cinemaOption = -1;
         while (true){
