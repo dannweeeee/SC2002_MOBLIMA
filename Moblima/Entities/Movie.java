@@ -13,7 +13,7 @@ public class Movie  {
 		private static int idCounter=0;
 		private int id;
 	 	private String name;
-	    private String status;
+	    private MovieStatus status;
 	    private String synopsis;
 	    private String director;
 	    private String cast;
@@ -23,7 +23,29 @@ public class Movie  {
 	    private MovieHandler movieH;
 	    private double Ratings;
 	    public ArrayList<Ticket> ticketlist;
-
+	    
+	    /**
+		 * Enum Movie Status
+		 */
+		public enum MovieStatus{
+			/**
+			 * Movie coming soon.
+			 */
+			COMING_SOON, 
+			/**
+			 * Movie currently showing.
+			 */
+			NOW_SHOWING, 
+			/**
+			 * Movie sneak preview.
+			 */
+			PREVIEW,
+			/**
+			 * Movie no longer screened.
+			 */
+			END_OF_SHOWING
+		}
+	    
 		/**
 		 * Constructor for Movie class
 		 * @param name name of movie
@@ -32,11 +54,11 @@ public class Movie  {
 		 * @param synopsis synopsis of movie
 		 * @param cast movie cast
 		 */
-	    public Movie(String name,String status, String director, String synopsis, String cast) {
+	    public Movie(String name,MovieStatus status, String director, String synopsis, String cast) {
 	    	idCounter += 1;
 	        this.id = idCounter;
 	    	this.name = name;
-	        this.status = status;
+	    	this.status = status;
 	        this.director = director;
 	        this.synopsis = synopsis;
 	        this.cast = cast;
@@ -50,15 +72,15 @@ public class Movie  {
 		 * @return the movie ID
 		 */
 		public int getId() {
-			return id;
+			return this.id;
 		}
 	    
 	    /**
 		 * Get method for Status
 		 * @return the status
 		 */
-		public String getStatus() {
-			return status;
+		public MovieStatus getStatus() {
+			return this.status;
 		}
 
 		/**
@@ -66,7 +88,7 @@ public class Movie  {
 		 * @return the synopsis
 		 */
 		public String getSynopsis() {
-			return synopsis;
+			return this.synopsis;
 		}
 
 		/**
@@ -74,7 +96,7 @@ public class Movie  {
 		 * @return the director
 		 */
 		public String getDirector() {
-			return director;
+			return this.director;
 		}
 
 		/**
@@ -82,7 +104,7 @@ public class Movie  {
 		 * @return the cast
 		 */
 		public String getCast() {
-			return cast;
+			return this.cast;
 		}
 
 		/**
@@ -113,7 +135,7 @@ public class Movie  {
 		 * Set method for Status
 		 * @param status the status to set
 		 */
-		public void setStatus(String status) {
+		public void setStatus(MovieStatus status) {
 			this.status = status;
 		}
 

@@ -10,6 +10,7 @@ import Moblima.MovieBookerInterface;
 import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
+import Moblima.Entities.Movie.MovieStatus;
 import Moblima.Entities.Show;
 import Moblima.Entities.Cinema.HallType;
 import Moblima.Exceptions.InvalidInputException;
@@ -94,28 +95,44 @@ public class Admin implements AdminLogic, LoginObserver {
      * Create a new movie listing.
      */
     public void createMovie() {
-        String movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts;
+        String movieAddName, movieAddDirector, movieAddSynopsis, movieAddCasts;
+        MovieStatus movieAddStatus = null;
         UtilityOutput.printInputMessage("Enter Title of Movie => ");
         movieAddName = UtilityInputs.getStringUserInput();
-        while (true){
-            UtilityOutput.printInputMessage("Enter status of Movie (Coming Soon, Now Showing, Preview, End of Showing) => ");
-            movieAddStatus = UtilityInputs.getStringUserInput();
-            if (movieAddStatus.equals("Coming Soon")){
-                break;
-            }
-            else if (movieAddStatus.equals("Now Showing")){
-                break;
-            }
-            else if (movieAddStatus.equals("Preview")){
-                break;
-            }
-            else if (movieAddStatus.equals("End of Showing")){
-                break;
-            }
-            else{
-                UtilityOutput.printMessage("Invalid Input. Please re-enter.");
-            }
+        
+        int x = 1 ;
+        for (MovieStatus status : MovieStatus.values()){
+            UtilityOutput.printMessage(Integer.toString(x) + ". " + status);
+            x++;
         }
+        while (movieAddStatus == null){
+            UtilityOutput.printInputMessage("Enter Movie Status [Enter '0' to exit] => ");
+            int choice = UtilityInputs.getIntUserInput();
+            
+            try{
+                switch(choice){
+                    case 0:
+                        return;
+                    case 1:
+                    	movieAddStatus = MovieStatus.COMING_SOON;
+                        break;
+                    case 2:
+                    	movieAddStatus = MovieStatus.NOW_SHOWING;
+                        break;
+                    case 3: 
+                    	movieAddStatus = MovieStatus.PREVIEW;
+                        break;
+                    case 4: 
+                    	movieAddStatus = MovieStatus.END_OF_SHOWING;
+                        break;
+                    default:
+                        throw new InvalidInputException("Please enter only numbers listed on the menu only");
+                    }
+                } catch(InvalidInputException e){
+                    UtilityOutput.printMessage(e.getMessage());
+                }
+        }
+        
         UtilityOutput.printInputMessage("Enter Director of Movie => ");
         movieAddDirector = UtilityInputs.getStringUserInput();
         UtilityOutput.printInputMessage("Enter Casts of movie (e.g. Steve Rogers, Borat, Mr Bean) => ");
@@ -179,20 +196,20 @@ public class Admin implements AdminLogic, LoginObserver {
                     selectedMovie.setName(movieUpdateValue);
                     break;
                 case 2:
-                    if (movieUpdateValue.equals("Coming Soon")){
-                        selectedMovie.setStatus(movieUpdateValue);
+                    if (movieUpdateValue.equalsIgnoreCase("Coming Soon")){
+                        selectedMovie.setStatus(MovieStatus.COMING_SOON);
                        break;
                     }
-                    else if (movieUpdateValue.equals("Now Showing")){
-                        selectedMovie.setStatus(movieUpdateValue);
+                    else if (movieUpdateValue.equalsIgnoreCase("Now Showing")){
+                        selectedMovie.setStatus(MovieStatus.NOW_SHOWING);
                         break;
                     }
-                    else if (movieUpdateValue.equals("Preview")){
-                        selectedMovie.setStatus(movieUpdateValue);
+                    else if (movieUpdateValue.equalsIgnoreCase("Preview")){
+                        selectedMovie.setStatus(MovieStatus.PREVIEW);
                         break;
                     }
-                    else if (movieUpdateValue.equals("End of Showing")){
-                        selectedMovie.setStatus(movieUpdateValue);
+                    else if (movieUpdateValue.equalsIgnoreCase("End of Showing")){
+                        selectedMovie.setStatus(MovieStatus.END_OF_SHOWING);
                         break;
                     }
                     else{

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Moblima.Comparator.SortbyRating;
 import Moblima.Comparator.SortbyTicket;
 import Moblima.Entities.Movie;
+import Moblima.Entities.Movie.MovieStatus;
 
 import java.util.*;
 public class MovieHandler {
@@ -59,7 +60,7 @@ public class MovieHandler {
 		return results;
 	}
 
-	public Movie createMovie(String movieName, String movieStatus, String movieDirector, String movieSynopsis, String movieCaString){
+	public Movie createMovie(String movieName, MovieStatus movieStatus, String movieDirector, String movieSynopsis, String movieCaString){
 
 		Movie createMovie = new Movie(movieName, movieStatus, movieDirector, movieSynopsis, movieCaString);
 		movie.add(createMovie);
