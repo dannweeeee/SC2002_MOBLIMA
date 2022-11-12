@@ -2,6 +2,8 @@ package Moblima.Entities;
 
 import java.util.Date;
 
+import Moblima.Utils.UtilityOutput;
+
 /**
  * Show class
  * @author Team
@@ -116,11 +118,11 @@ public class Show {
      */
     @Override
     public String toString() {
-        return 	"Show id = " + id +
-        		"\nMovie = " + movie.getName() +
-                "\nShow Time = " + showTime +
-                "\nCinema = " + theater.getCinemaID() +
-                "\nAvailable Seats = " + availableSeats + "\n\n"
-                ;
-    }
+        return 	id + ". " + movie.getName() +
+        		"\nShow time: " + showTime +
+        		"\nHall Type: " + theater.getCinemaClass() +
+        		"\nAvailable Seats: " + availableSeats +
+        		"\nLocation: " + theater.getCineplex().getLocation() + "\n"
+        		;
+          }
 }

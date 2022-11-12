@@ -7,10 +7,19 @@ import java.util.Map;
 import Moblima.Entities.Seats;
 import Moblima.Entities.Show;
 
+/**
+ * Seat Handler class to Handle  all Seats
+ * @author team
+ *	@version 1.0
+ */
 public class SeatHandler {
     private Map<Show, ArrayList<Seats>> allSeats;
 	private static SeatHandler instance = null;
 	
+	/**
+	 * Get and create instance for the SeatHandler class
+	 * @return SeatHandler
+	 */
     public static SeatHandler getInstance() {
         if (instance == null) {
             instance = new SeatHandler();
@@ -18,10 +27,18 @@ public class SeatHandler {
         return instance;
     }
 
+    /**
+     * Default constructor for the SeatHandler class
+     */
     public SeatHandler(){
         allSeats = new HashMap<>();
     }
 
+    /**
+     * Create a matrix of seats for the specified show
+     * @param show Object of show to create the seats
+     * @return newSeats A List of seats for the show
+     */
     public ArrayList<Seats> initializeSeats(Show show){
         ArrayList<Seats> newSeats = new ArrayList<Seats>();
         int cols = 10;
@@ -42,6 +59,11 @@ public class SeatHandler {
         return newSeats;
     }
 
+    /**
+     * Get the list of Seats for the specified Show
+     * @param s A object of show
+     * @return seats A list of seats
+     */
     public ArrayList<Seats> getSeatList(Show s){
         ArrayList<Seats> seats = null;
         for (Map.Entry<Show, ArrayList<Seats>> entry : this.allSeats.entrySet()) {
@@ -52,6 +74,12 @@ public class SeatHandler {
         return seats;
     }
 
+    /**
+     * Boolean function to check if the specified seats for a show are available
+     * @param s1 Object of Seat to query
+     * @param s A object of show for the seats 
+     * @return boolean
+     */
     public boolean checkSeatAvailability(Seats s1, Show s){
         ArrayList<Seats> seats = getSeatList(s);
         boolean available = false;
@@ -65,6 +93,12 @@ public class SeatHandler {
         return available;
     }
 
+    /**
+     * Boolean function to check if the amount of seats remaining is enough for the number of seats requested for purchase
+     * @param numOfTickets int of number of tickets to check
+     * @param s A object of Show to query
+     * @return boolean
+     */
     public boolean checkCapacity(int numOfTickets, Show s){
         if (numOfTickets > s.getAvailableSeats()){
             return false;
@@ -73,6 +107,11 @@ public class SeatHandler {
         }
     }
 
+    /**
+     * Remove specified seats from the specified show
+     * @param seat Seat to remove
+     * @param s Show object to remove the seats from
+     */
     public void removeSeats(Seats seat, Show s){
         ArrayList<Seats> allSeats = getSeatList(s);
         for (Seats seats : allSeats){
@@ -86,6 +125,12 @@ public class SeatHandler {
         this.allSeats.put(s, allSeats);
     }
 
+    /**
+     * Boolean function to check if the user input the same seat for both ticket user trying to book in the same order
+     * @param s1 Object of a seat
+     * @param chosenSeats List of the chosen seats
+     * @return boolean
+     */
     public static boolean duplicateSeatInput(Seats s1, ArrayList<Seats> chosenSeats){
         boolean duplicate = false;
         for (Seats o : chosenSeats){
