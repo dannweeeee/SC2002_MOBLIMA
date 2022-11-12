@@ -9,6 +9,7 @@ import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Show;
 import Moblima.Entities.Cinema.HallType;
+import Moblima.Utils.UtilityOutput;
 
 /**
  * Cinema Handler class to handle Cinema Entities
@@ -100,16 +101,24 @@ public class CinemaHandler {
 	public void deleteCinema(Cineplex cineplex, int cinemaID){
 		ArrayList <Cinema> cinemaList = getCinemaFromCineplex(cineplex);
 		ArrayList <Show> showsList = ShowHandler.getInstance().getAllShows();
-		HallType classType = cinemaList.get(cinemaID).getCinemaClass();
-		cinemaList.remove(cinemaID);
 
-		Iterator<Show> itr = showsList.iterator(); 
-		while (itr.hasNext()) { 
-			Show show = itr.next(); 
-			if(show.getCinema().getCinemaClass() == classType){
-				itr.remove(); 
+		Iterator<Cinema> cinemaitr = cinemaList.iterator(); 
+		while (cinemaitr.hasNext()) { 
+			Cinema cinema = cinemaitr.next(); 
+			if(cinema.getCinemaID() == cinemaID){
+				cinemaitr.remove(); 
+				Iterator<Show> showitr = showsList.iterator(); 
+				while (showitr.hasNext()) { 
+					Show show = showitr.next(); 
+					if(show.getCinema().getCinemaID() == cinemaID){
+					showitr.remove(); 
+					} 
+				}
+				UtilityOutput.printMessage("DELETED! The Cinema has been deleted!");
+				return;
 			} 
-		} 
+		}
+		UtilityOutput.printMessage("Invalid input. Please try again from Main Menu.");
 	}
 	
 	/**

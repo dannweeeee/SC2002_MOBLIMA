@@ -26,7 +26,7 @@ import Moblima.Handlers.ShowHandler;
 
 /**
  * Controller of the admin module. Creates and delegates tasks to other classes.
- * @author Our team
+ * @author Dann Wee
  * @version 1.0
  */
 public class Admin implements AdminLogic, LoginObserver {
@@ -85,14 +85,14 @@ public class Admin implements AdminLogic, LoginObserver {
     }
 
     /**
-     * View all movie listings.
-     */
+    * View all movie listings
+    */
     public void showAllMovies(){
         movieBooker.showAllMovies();
     }
 
     /**
-     * Create a new movie listing.
+     * Create a new movie listing 
      */
     public void createMovie() {
         String movieAddName, movieAddDirector, movieAddSynopsis, movieAddCasts;
@@ -248,15 +248,12 @@ public class Admin implements AdminLogic, LoginObserver {
                 UtilityOutput.printMessage("Please re-enter.");
                 continue;
             }
-            else if (movieRemoveOption < -1 || movieRemoveOption > movieHandler.sizeMovie()){
+            else if (movieRemoveOption < -1){
                 UtilityOutput.printMessage("Invalid input. Please re-enter.");
                 continue;
             }
             else{
-                Movie selectedMovie = movieHandler.getMovie().get(movieRemoveOption-1);
-                UtilityOutput.printMessage("DELETED! " + selectedMovie.getName() + " has been deleted!");
-                UtilityOutput.printMessage(selectedMovie.toString());
-                movieHandler.removeMovie(movieRemoveOption-1);
+                MovieHandler.getInstance().removeMovie(movieRemoveOption);
                 break;
             }
         }
@@ -504,14 +501,12 @@ public class Admin implements AdminLogic, LoginObserver {
                 UtilityOutput.printMessage("Please re-enter.");
                 continue;
             }
-            else if (choice < -1 || choice > cineplexHandler.getSize()){
+            else if (choice < -1){
                 UtilityOutput.printMessage("Invalid input. Please re-enter.");
                 continue;
             }
             else{
-                Cineplex c = CineplexHandler.getInstance().getAllCineplex().get(choice - 1);
-                CineplexHandler.getInstance().removeCineplex(c);
-                UtilityOutput.printMessage("Removed Successfully");
+                CineplexHandler.getInstance().removeCineplex(choice);
                 break;
             }
         }
@@ -523,7 +518,6 @@ public class Admin implements AdminLogic, LoginObserver {
     public void showAllCinemas(){
         CineplexHandler cineplexHandler = CineplexHandler.getInstance();
         int cineplexOption = -1;
-        int count = 1;
         if (cineplexHandler.getAllCineplex().size() != 0 ){
             cineplexHandler.printAllCineplex();
             while (true){
@@ -545,8 +539,7 @@ public class Admin implements AdminLogic, LoginObserver {
             Cineplex cineplex = cineplexHandler.getAllCineplex().get(cineplexOption-1);
             if (CinemaHandler.getInstance().getCinemaFromCineplex(cineplex).size() != 0){
                 for (Cinema c : CinemaHandler.getInstance().getCinemaFromCineplex(cineplex)){
-                    UtilityOutput.printMessage(count + ". " + c.getCinemaClass() + " => " + c.getCapacity() + " seats");
-                    count++;
+                    UtilityOutput.printMessage(c.getCinemaID() + ". " + c.getCinemaClass() + " => " + c.getCapacity() + " seats");
                 }
             }
             else{
@@ -648,10 +641,8 @@ public class Admin implements AdminLogic, LoginObserver {
             }
         }
         Cineplex c = CineplexHandler.getInstance().getAllCineplex().get(userChoice - 1);
-        int count = 1;
         for (Cinema cinema : CinemaHandler.getInstance().getCinemaFromCineplex(c)){
-            UtilityOutput.printMessage(count + ". " + cinema.getCinemaClass() + " => " + cinema.getCapacity() + " seats");
-            count++;
+            UtilityOutput.printMessage(cinema.getCinemaID() + ". " + cinema.getCinemaClass() + " => " + cinema.getCapacity() + " seats");
         }
         int choice = -1;
         while (true){
@@ -707,10 +698,8 @@ public class Admin implements AdminLogic, LoginObserver {
             }
         }
         Cineplex cineplex = CineplexHandler.getInstance().getAllCineplex().get(userChoice - 1);
-        int count = 1;
         for (Cinema cinema : CinemaHandler.getInstance().getCinemaFromCineplex(cineplex)){
-            UtilityOutput.printMessage(count + ". " + cinema.getCinemaClass() + " => " + cinema.getCapacity() + " seats");
-            count++;
+            UtilityOutput.printMessage(cinema.getCinemaID() + ". " + cinema.getCinemaClass() + " => " + cinema.getCapacity() + " seats");
         }
         int cinemaOption = -1;
         while (true){
@@ -721,7 +710,7 @@ public class Admin implements AdminLogic, LoginObserver {
                 UtilityOutput.printMessage("Please re-enter.");
                 continue;
             }
-            else if (cinemaOption < -1 || cinemaOption > CinemaHandler.getInstance().getSize()){
+            else if (cinemaOption < -1){
                 UtilityOutput.printMessage("Invalid input. Please re-enter.");
                 continue;
             }
@@ -729,8 +718,7 @@ public class Admin implements AdminLogic, LoginObserver {
                 break;
             }
         }
-        CinemaHandler.getInstance().deleteCinema(cineplex, cinemaOption-1);
-        UtilityOutput.printMessage("DELETED! The Cinema has been removed!");
+        CinemaHandler.getInstance().deleteCinema(cineplex, cinemaOption);
     }
 
     /**

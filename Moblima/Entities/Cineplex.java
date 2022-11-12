@@ -5,7 +5,7 @@ package Moblima.Entities;
  * @version 1.0
  */
 public class Cineplex {
-	private int idCounter = 0;
+	private static int idCounter = 0;
 	private int id;
 	private String location;
 	private int cineplexNo;

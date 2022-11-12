@@ -18,7 +18,7 @@ import Moblima.MovieBookerApp;
 
 /**
  * The login page of the admin module.
- * @author Our team
+ * @author Dann Wee
  * @version 1.0
  */
 public class LoginPage implements ActionListener{
