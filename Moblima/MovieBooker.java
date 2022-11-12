@@ -1,5 +1,6 @@
 package Moblima;
 
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import Moblima.DataBase.ExampleAdder;
@@ -273,6 +274,11 @@ public class MovieBooker implements MovieBookerInterface{
 	 * 
 	 */
   	public void addExamples() {
+		try {
+			ExampleAdder.readMovieFromTextFile("Moblima/Utils/MovieList.txt");
+		}catch (FileNotFoundException e) {
+			UtilityOutput.printMessage("Movies File Read Error");
+		}
   		ExampleAdder.initializeExample();
   		UtilityOutput.printMessage("Example data added.");
   		ExampleAdder.showExample();
