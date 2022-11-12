@@ -24,11 +24,6 @@ public class MovieBookerApp {
 		
 		MovieBookerInterface movieBooker = new MovieBooker();
 		
-		try {
-			ExampleAdder.readMovieFromTextFile("Moblima/Utils/MovieList.txt");
-		}catch (Exception e) {
-			System.out.println("Movies File Read Error");
-		}
 		showUserView(movieBooker);
 	}
 
