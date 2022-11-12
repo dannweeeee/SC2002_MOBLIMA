@@ -11,6 +11,7 @@ import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Movie.MovieStatus;
+import Moblima.Entities.Movie.MovieType;
 import Moblima.Entities.Show;
 import Moblima.Entities.Cinema.HallType;
 import Moblima.Exceptions.InvalidInputException;
@@ -98,10 +99,41 @@ public class Admin implements AdminLogic, LoginObserver {
     public void createMovie() {
         String movieAddName, movieAddDirector, movieAddSynopsis, movieAddCasts;
         MovieStatus movieAddStatus = null;
+        MovieType movieAddType = null;
         UtilityOutput.printInputMessage("Enter Title of Movie => ");
         movieAddName = UtilityInputs.getStringUserInput();
         
         int x = 1 ;
+        for (MovieType type : MovieType.values()){
+            UtilityOutput.printMessage(Integer.toString(x) + ". " + type);
+            x++;
+        }
+        while (movieAddType == null){
+            UtilityOutput.printInputMessage("Enter Movie Type [Enter '0' to exit] => ");
+            int choice = UtilityInputs.getIntUserInput();
+            
+            try{
+                switch(choice){
+                    case 0:
+                        return;
+                    case 1:
+                    	movieAddType = MovieType.STANDARD_DIGITAL;
+                        break;
+                    case 2:
+                    	movieAddType = MovieType.BLOCKBUSTER;
+                        break;
+                    case 3: 
+                    	movieAddType = MovieType.DIGITAL_3D;
+                        break;
+                    default:
+                        throw new InvalidInputException("Please enter only numbers listed on the menu only");
+                    }
+                } catch(InvalidInputException e){
+                    UtilityOutput.printMessage(e.getMessage());
+                }
+        }
+        
+        x = 1 ;
         for (MovieStatus status : MovieStatus.values()){
             UtilityOutput.printMessage(Integer.toString(x) + ". " + status);
             x++;
@@ -140,7 +172,7 @@ public class Admin implements AdminLogic, LoginObserver {
         movieAddCasts = UtilityInputs.getStringUserInput();
         UtilityOutput.printInputMessage("Enter Synopsis of Movie => ");
         movieAddSynopsis = UtilityInputs.getStringUserInput();
-        Movie addNewMovie = movieHandler.createMovie(movieAddName, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts);
+        Movie addNewMovie = movieHandler.createMovie(movieAddName, movieAddType, movieAddStatus, movieAddDirector, movieAddSynopsis, movieAddCasts);
         UtilityOutput.printMessage("SUCCESS! " + movieAddName + " has been added!");
         UtilityOutput.printMessage(addNewMovie.toString());
     }

@@ -121,6 +121,7 @@ public class Show {
         return 	id + ". " + movie.getName() +
         		"\nShow time: " + showTime +
         		"\nHall Type: " + theater.getCinemaClass() +
+        		"\nMovie Type: " + movie.getType() + 
         		"\nAvailable Seats: " + availableSeats +
         		"\nLocation: " + theater.getCineplex().getLocation() + "\n"
         		;

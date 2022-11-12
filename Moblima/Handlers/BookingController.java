@@ -16,6 +16,7 @@ import Moblima.Utils.Settings;
 import Moblima.Utils.UtilityInputs;
 import Moblima.Utils.UtilityOutput;
 import Moblima.Entities.Cinema.HallType;
+import Moblima.Entities.Movie.MovieType;
 import Moblima.Exceptions.InvalidInputException;
 import Moblima.Exceptions.SeatsNotAvailableException;
 
@@ -72,7 +73,8 @@ public class BookingController {
 	private final String PUBLIC_HOLIDAYS = "public_holiday_dates";
 	private final String DISCOUNT_DAyS = "weekly_discount_days";
 	private final String DISCOUNT_DAYS_RATE = "weekly_discount_rates";
-
+	private final String BLOCKBUSTER = "ticket_price_increase_blockbuste";
+	private final String DIGITAL3D = "ticket_price_increase_digital3D";
 	/**
 	 * 
 	 * Default constructor for Booking Controller
@@ -330,6 +332,7 @@ public class BookingController {
 		Date showtime = newBooking.getShow().getShowTime();
 		calendar.setTime(showtime);
 		AllPrices allprices = null;
+		String property = null;
 		try{
 			switch(cinemaClass){
 				case STANDARD:
@@ -347,6 +350,23 @@ public class BookingController {
 			}
 			for (int i = 0; i < prices.length; i++){
 				prices[i] = Double.parseDouble(settings.getProperty(allprices.getProperty(i)));
+			}
+			
+			MovieType type = newBooking.getShow().getMovie().getType();
+			switch(type) {
+				case STANDARD_DIGITAL: 
+					break;
+				case BLOCKBUSTER:
+					property = BLOCKBUSTER;
+					break;
+				case DIGITAL_3D:
+					property = DIGITAL3D;
+					break;
+			}
+			if (property != null) {
+				for (int i = 0 ; i < prices.length; i++) {
+					prices[i] += Double.parseDouble(settings.getProperty(property));
+				}
 			}
 		} catch (NumberFormatException e){
 			UtilityOutput.printMessage("Invalid pricing for student or adult, please check approach Admins or Call us");

@@ -14,6 +14,7 @@ public class Movie  {
 		private int id;
 	 	private String name;
 	    private MovieStatus status;
+	    private MovieType type;
 	    private String synopsis;
 	    private String director;
 	    private String cast;
@@ -47,6 +48,24 @@ public class Movie  {
 		}
 	    
 		/**
+		 * Enum Movie Type
+		 */
+		public enum MovieType{
+			/**
+			 * Standard Movie
+			 */
+			STANDARD_DIGITAL, 
+			/**
+			 * Blockbuster Movie
+			 */
+			BLOCKBUSTER, 
+			/**
+			 * 3D Movie
+			 */
+			DIGITAL_3D
+		}
+		
+		/**
 		 * Constructor for Movie class
 		 * @param name name of movie
 		 * @param status status of movie (showing, preview)
@@ -54,10 +73,11 @@ public class Movie  {
 		 * @param synopsis synopsis of movie
 		 * @param cast movie cast
 		 */
-	    public Movie(String name,MovieStatus status, String director, String synopsis, String cast) {
+	    public Movie(String name,MovieType type, MovieStatus status, String director, String synopsis, String cast) {
 	    	idCounter += 1;
 	        this.id = idCounter;
 	    	this.name = name;
+	    	this.type = type;
 	    	this.status = status;
 	        this.director = director;
 	        this.synopsis = synopsis;
@@ -75,6 +95,14 @@ public class Movie  {
 			return this.id;
 		}
 	    
+		/**
+		 * Get method for Type
+		 * @return the type
+		 */
+		public MovieType getType() {
+			return this.type;
+		}
+		
 	    /**
 		 * Get method for Status
 		 * @return the status
@@ -129,6 +157,14 @@ public class Movie  {
 		 */
 		public void setName(String name) {
 			this.name = name;
+		}
+		
+		/**
+		 * Set method for movie name
+		 * @param name the name to set
+		 */
+		public void setType(MovieType type) {
+			this.type = type;
 		}
 
 		/**
@@ -251,6 +287,7 @@ public class Movie  {
 	    public String toString() {
 	        return 	id + ". "+
 	        		name + "\n" +
+	        		"Type: " + type + "\n" +
 	                "Status: " + status + "\n" +
 	                "Director: " + director + "\n" +
 	                "Cast: " + cast + "\n" +

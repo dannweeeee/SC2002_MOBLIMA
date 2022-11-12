@@ -116,6 +116,7 @@ public class SeatHandler {
         ArrayList<Seats> allSeats = getSeatList(s);
         for (Seats seats : allSeats){
             if (seats.toString().equals(seat.toString())){
+            	s.setAvailableSeats(s.getAvailableSeats()-1);
                 seats.setRow("X");
                 seats.setCol("X");
                 break;
