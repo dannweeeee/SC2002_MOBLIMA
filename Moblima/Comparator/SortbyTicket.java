@@ -2,7 +2,7 @@ package Moblima.Comparator;
 import java.util.Comparator;
 
 import Moblima.Entities.Movie;
-/**\
+/**
  * Class to sort movies by ticket sales
  * @author Ian
  * @version 1.0

@@ -41,7 +41,7 @@ public class UtilityOutput {
 
     /**
      * Print array list of objects on console for user to view
-     * @param objList - ArrayList<?> - e.g. ArrayList<Movie> which shows all Movie Listings
+     * @param objList - List of objects - e.g. List of any object which shows all Movie Listings
      */
     public static void printObjectList(ArrayList<?> objList){
         for (Object o : objList){
@@ -51,7 +51,7 @@ public class UtilityOutput {
 
     /**
      * Print array list of seating arrangement for user booking
-     * @param seats - ArrayList<Seats> - e.g. ArrayList<Seats> which shows the available seating arrangement of the Cinema
+     * @param seats - List of Seats - e.g. the list which shows the available seating arrangement of the Cinema
      */
     public static void printSeatingForBooking(ArrayList<Seats> seats){
         System.out.println("Seats still available: ");
