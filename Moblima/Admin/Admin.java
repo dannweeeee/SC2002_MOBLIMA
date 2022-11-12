@@ -43,6 +43,7 @@ public class Admin implements AdminLogic, LoginObserver {
 
     /**
      * Constructor for Admin.
+     * @param movieBooker Object of movieBooker
      */
     public Admin(MovieBookerInterface movieBooker) {
         adminUI = new AdminForm(this);
