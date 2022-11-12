@@ -58,28 +58,33 @@ public class ExampleAdder {
 		cinemaHandler.addCinema(HallType.PREMIUM, 10, jcube);
 		cinemaHandler.addCinema(HallType.VIP, 1, jcube);
 		
-		String dateInString_passed = "23/12/2020 09:00:00 AM";
+		String dateInString_passed = "1/1/2021 10:00:00 AM";
 		String dateInString_coming = "23/12/2022 09:00:00 AM";
+		String christmas_date = "25/12/2022 13:00:00 AM";
+		String tuesday = "27/12/2022 13:00:00 AM";
 		try {
 			Date date_passed = formatter.parse(dateInString_passed);
 			Date date = formatter.parse(dateInString_coming);
+			Date christmas = formatter.parse(christmas_date);
+			Date tuesdate = formatter.parse(tuesday);
+
 			showHandler.addShows(date, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
-			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
-			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(1), seatHandler);
+			showHandler.addShows(christmas,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(2), seatHandler);
 			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
 			showHandler.addShows(date_passed, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
 
-			showHandler.addShows(date, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
-			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
-			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
-			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
-			showHandler.addShows(date_passed, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
+			showHandler.addShows(date, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(1), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(2), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
+			showHandler.addShows(tuesdate,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(2), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
+			showHandler.addShows(christmas, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
 
 			showHandler.addShows(date, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
-			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
-			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
-			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
-			showHandler.addShows(date_passed, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(2), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
+			showHandler.addShows(tuesdate,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(2), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
+			showHandler.addShows(tuesdate, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
 
 		} catch (ParseException e) {
 		 e.printStackTrace();

@@ -87,6 +87,15 @@ public class MovieHandler {
 			count++;
 		}
 	}
+
+	public static Movie getMovieByID(ArrayList<Movie> movies, int choice){
+		for(Movie m : movies){
+			if (m.getId() == choice){
+				return m;
+			}
+		}
+		return null;
+	}
 	
 	/**
 	 * Return a new list of movies (subset of main list of movies) that matches the search string

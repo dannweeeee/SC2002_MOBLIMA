@@ -6,6 +6,7 @@ import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Show;
+import Moblima.Entities.Movie.MovieStatus;
 import Moblima.Utils.UtilityOutput;
 
 import java.util.ArrayList;
@@ -85,7 +86,9 @@ public class ShowHandler {
         ArrayList <Show> result_list = new ArrayList<>();
         for (Show s : this.allShows){
             if (s.getShowTime().compareTo(new Date()) > 0){
-                result_list.add(s);
+                if (s.getMovie().getStatus() == MovieStatus.PREVIEW || s.getMovie().getStatus() == MovieStatus.NOW_SHOWING){
+                    result_list.add(s);
+                }
             }
         }
 

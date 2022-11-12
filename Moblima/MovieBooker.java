@@ -142,7 +142,15 @@ public class MovieBooker implements MovieBookerInterface{
 		if (!searchResult.isEmpty()) {
 			UtilityOutput.printMessage("Showing results for: " + searchString);
 			for (Movie temp : searchResult) {
-				System.out.println(temp);
+				System.out.print(temp);
+				System.out.println("Average Rating: "+temp.getAverageRatings());
+				System.out.println("Recent Reviews: ");
+				int count=0;
+				for(Review tempReview:temp.getReview()){
+					if (count==5) break;
+					System.out.println(tempReview.GetUser().getName()+": "+tempReview.GetReview());
+					count++;
+				}
 			}
 		}else {
 			UtilityOutput.printMessage("No results found for \""+searchString+"\"");
@@ -216,7 +224,7 @@ public class MovieBooker implements MovieBookerInterface{
 				String name = UtilityInputs.getStringUserInput();
 				
 				for (Movie temp : movieHandler.getMovie()) {
-					if(temp.getName().toLowerCase().contentEquals(name.toLowerCase())) {
+					if(temp.getName().toLowerCase().contains(name.toLowerCase())) {
 						choice=temp;
 						break;
 					}
@@ -224,6 +232,7 @@ public class MovieBooker implements MovieBookerInterface{
 				if(choice!=null) {
 					
 					while(true) {
+						UtilityOutput.printMessage("You have selected: "+choice.getName());
 						UtilityOutput.printInputMessage("Enter your rating from 1 to 5: ");
 						score = UtilityInputs.getDoubleUserInput();
 						if(score==null)continue;
@@ -241,13 +250,14 @@ public class MovieBooker implements MovieBookerInterface{
 				UtilityOutput.printInputMessage("Which Movie would you like to review? ");
 				String name1 = UtilityInputs.getStringUserInput();
 				for (Movie temp : movieHandler.getMovie()) {
-					if(temp.getName().toLowerCase().contentEquals(name1.toLowerCase())) {
+					if(temp.getName().toLowerCase().contains(name1.toLowerCase())) {
 						choice=temp;
 						break;
 					}
 				}
 				if(choice!=null) {
 					while(true) {
+						UtilityOutput.printMessage("You have selected: "+choice.getName());
 						UtilityOutput.printInputMessage("Enter your review: ");
 						String text = UtilityInputs.getStringUserInput();
 						if(!text.matches("[0-9]+")) {

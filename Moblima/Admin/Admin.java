@@ -373,7 +373,7 @@ public class Admin implements AdminLogic, LoginObserver {
                 UtilityOutput.printMessage("Please re-enter.");
                 continue;
             }
-            else if (movieOption < -1 || movieOption > movieHandler.sizeMovie()){
+            else if (movieOption < -1){
                 UtilityOutput.printMessage("Invalid input. Please re-enter.");
                 continue;
             }
@@ -381,7 +381,7 @@ public class Admin implements AdminLogic, LoginObserver {
                 break;
             }
         }
-        Movie selectedMovie = movieHandler.getMovie().get(movieOption-1);
+        Movie selectedMovie = MovieHandler.getMovieByID(movieHandler.getMovie(), movieOption);
 		while(true){
             UtilityOutput.printInputMessage("Enter Date & Showtime (Format: 31/07/2022 21:00:00) => ");
 		    dateInString = UtilityInputs.getStringUserInput();
@@ -413,7 +413,10 @@ public class Admin implements AdminLogic, LoginObserver {
             }
             Cineplex cineplex = cineplexHandler.getAllCineplex().get(cineplexOption-1);
             if (CinemaHandler.getInstance().getCinemaFromCineplex(cineplex).size() != 0){
-                UtilityOutput.printObjectList(CinemaHandler.getInstance().getCinemaFromCineplex(cineplex));
+                ArrayList<Cinema> cinemaList = CinemaHandler.getInstance().getCinemaFromCineplex(cineplex);
+                for (int i = 0; i < cinemaList.size(); i++){
+                    UtilityOutput.printMessage(Integer.toString(i+1) + ". " + cinemaList.get(i).getCinemaClass() + ", " + cinemaList.get(i).getCapacity());
+                }
                 while (true){
                     UtilityOutput.printInputMessage("Enter CinemaID [Enter '0' to exit] => ");
                     cinemaOption = UtilityInputs.getIntUserInput();
@@ -460,7 +463,7 @@ public class Admin implements AdminLogic, LoginObserver {
                         UtilityOutput.printMessage("Please re-enter.");
                         continue;
                     }
-                    else if (choice < -1 || choice > showHandler.getAllShows().size()){
+                    else if (choice < -1){
                         UtilityOutput.printMessage("Invalid input. Please re-enter.");
                         continue;
                     }

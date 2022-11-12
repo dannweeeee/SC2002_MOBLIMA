@@ -73,7 +73,7 @@ public class BookingController {
 	private final String PUBLIC_HOLIDAYS = "public_holiday_dates";
 	private final String DISCOUNT_DAyS = "weekly_discount_days";
 	private final String DISCOUNT_DAYS_RATE = "weekly_discount_rates";
-	private final String BLOCKBUSTER = "ticket_price_increase_blockbuste";
+	private final String BLOCKBUSTER = "ticket_price_increase_blockbuster";
 	private final String DIGITAL3D = "ticket_price_increase_digital3D";
 	/**
 	 * 
@@ -304,7 +304,7 @@ public class BookingController {
 		try{
 			String[] days = discount_days.split(",");
 		for (String s : days){
-			if(Integer.parseInt(s) == cal.get(Calendar.DAY_OF_WEEK)){
+			if((Integer.parseInt(s)+1) == cal.get(Calendar.DAY_OF_WEEK)){
 				String discount_rate = settings.getProperty(DISCOUNT_DAYS_RATE);
 				return Integer.parseInt(discount_rate);
 			}

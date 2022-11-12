@@ -222,7 +222,6 @@ public class Movie  {
 	    public String getName() {
 	        return name;
 	    }
-
 	   
 	    /**
 	     * add Rating to movie list of ratings
