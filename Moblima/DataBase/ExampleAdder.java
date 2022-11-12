@@ -42,10 +42,20 @@ public class ExampleAdder {
 		CinemaHandler cinemaHandler = CinemaHandler.getInstance();
 	  
 		Cineplex jurong = cineplexHandler.addCineplex("JurongPoint", cinemaHandler);
+		Cineplex jem = cineplexHandler.addCineplex("JEM", cinemaHandler);
+		Cineplex jcube = cineplexHandler.addCineplex("JCube", cinemaHandler);
 	  
 		cinemaHandler.addCinema(HallType.STANDARD, 35, jurong);
 		cinemaHandler.addCinema(HallType.PREMIUM, 10, jurong);
 		cinemaHandler.addCinema(HallType.VIP, 1, jurong);
+
+		cinemaHandler.addCinema(HallType.STANDARD, 35, jem);
+		cinemaHandler.addCinema(HallType.PREMIUM, 10, jem);
+		cinemaHandler.addCinema(HallType.VIP, 1, jem);
+
+		cinemaHandler.addCinema(HallType.STANDARD, 35, jcube);
+		cinemaHandler.addCinema(HallType.PREMIUM, 10, jcube);
+		cinemaHandler.addCinema(HallType.VIP, 1, jcube);
 		
 		//User ayush = new User("Ayush","ayus@gmail.com",3293131);
 	  
@@ -61,6 +71,19 @@ public class ExampleAdder {
 			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
 			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
 			showHandler.addShows(date_passed, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jurong).get(0), seatHandler);
+
+			showHandler.addShows(date, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
+			showHandler.addShows(date_passed, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jem).get(0), seatHandler);
+
+			showHandler.addShows(date, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
+			showHandler.addShows(date,movieHandler.getMovie().get(1), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
+			showHandler.addShows(date_passed, movieHandler.getMovie().get(0), CinemaHandler.getInstance().getCinemaFromCineplex(jcube).get(0), seatHandler);
+
 		} catch (ParseException e) {
 		 e.printStackTrace();
 		}
