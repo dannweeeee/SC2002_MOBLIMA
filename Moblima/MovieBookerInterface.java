@@ -1,5 +1,10 @@
 package Moblima;
 
+/**
+ * Interface for MovieBookerApp and MovieBooker
+ * @author team
+ * @version 1.0
+ */
 public interface MovieBookerInterface {
 
 	/**

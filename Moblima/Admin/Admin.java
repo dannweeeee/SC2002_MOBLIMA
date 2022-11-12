@@ -43,6 +43,7 @@ public class Admin implements AdminLogic, LoginObserver {
 
     /**
      * Constructor for Admin.
+     * @param movieBooker Object of movieBooker
      */
     public Admin(MovieBookerInterface movieBooker) {
         adminUI = new AdminForm(this);
@@ -366,7 +367,7 @@ public class Admin implements AdminLogic, LoginObserver {
     }
 
     /**
-     * Update an existing show date & time.
+     * Update an existing show date and time.
      */
     public void updateShow() {
         ShowHandler showHandler = ShowHandler.getInstance();

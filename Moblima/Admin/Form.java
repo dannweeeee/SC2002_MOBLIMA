@@ -5,6 +5,9 @@ package Moblima.Admin;
  * @version 1.0
  */
 public abstract class Form {
+	/**
+	 * Flag to observe if user exits 
+	 */
     protected boolean exitFlag = false;
     /**
      * Shows the form.
