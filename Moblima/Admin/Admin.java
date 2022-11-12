@@ -613,6 +613,9 @@ public class Admin implements AdminLogic, LoginObserver {
                     case 3: 
                         type = HallType.VIP;
                         break;
+                    case 4:
+                        type = HallType.IMAX_3D;
+                        break;
                     default:
                         throw new InvalidInputException("Please enter only numbers listed on the menu only");
                     }

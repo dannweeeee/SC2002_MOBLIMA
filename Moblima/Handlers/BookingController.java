@@ -40,10 +40,11 @@ public class BookingController {
 		/**
 		 * VIP Hall price for students, aduilts and senior citizens
 		 */
-		VIP_PRICES(HallType.VIP, "ticket_price_student_vip", "ticket_price_adult_vip", "ticket_price_senior_vip");
+		VIP_PRICES(HallType.VIP, "ticket_price_student_vip", "ticket_price_adult_vip", "ticket_price_senior_vip"),
+		
+		IMAX_3D(HallType.IMAX_3D, "ticket_price_student_3d", "ticket_price_adult_3d", "ticket_price_senior_3d");
 
-		private final Map<HallType, String[]> allPrices; 
-
+		private final Map<HallType, String[]> allPrices;
 		/**
 		 * Constructor for AllPrices
 		 * 
@@ -339,6 +340,9 @@ public class BookingController {
 					break;
 				case VIP:
 					allprices = AllPrices.VIP_PRICES;
+					break;
+				case IMAX_3D:
+					allprices = AllPrices.IMAX_3D;
 					break;
 			}
 			for (int i = 0; i < prices.length; i++){
