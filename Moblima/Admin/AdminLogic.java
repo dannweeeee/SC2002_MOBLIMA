@@ -42,7 +42,7 @@ public interface AdminLogic {
     public void createShow();
 
     /**
-     * Update an existing show date & time.
+     * Update an existing show date and time.
      */
     public void updateShow();
 

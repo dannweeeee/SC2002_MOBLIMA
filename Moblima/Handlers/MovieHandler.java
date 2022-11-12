@@ -6,6 +6,7 @@ import Moblima.Comparator.SortbyRating;
 import Moblima.Comparator.SortbyTicket;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Movie.MovieStatus;
+import Moblima.Entities.Movie.MovieType;
 import Moblima.Utils.UtilityOutput;
 
 
@@ -111,9 +112,9 @@ public class MovieHandler {
 	 * @param movieCaString All casts of the movie
 	 * @return Object of the new movie
 	 */
-	public Movie createMovie(String movieName, MovieStatus movieStatus, String movieDirector, String movieSynopsis, String movieCaString){
+	public Movie createMovie(String movieName,MovieType movieType, MovieStatus movieStatus, String movieDirector, String movieSynopsis, String movieCaString){
 
-		Movie createMovie = new Movie(movieName, movieStatus, movieDirector, movieSynopsis, movieCaString);
+		Movie createMovie = new Movie(movieName, movieType, movieStatus, movieDirector, movieSynopsis, movieCaString);
 		movie.add(createMovie);
 		return createMovie;
 	}

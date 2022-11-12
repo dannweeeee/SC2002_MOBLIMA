@@ -10,6 +10,7 @@ import java.util.Scanner;
 import Moblima.Entities.Cineplex;
 import Moblima.Entities.Movie;
 import Moblima.Entities.Movie.MovieStatus;
+import Moblima.Entities.Movie.MovieType;
 import Moblima.Entities.Cinema.HallType;
 import Moblima.Handlers.CinemaHandler;
 import Moblima.Handlers.CineplexHandler;
@@ -47,10 +48,6 @@ public class ExampleAdder {
 		cinemaHandler.addCinema(HallType.PREMIUM, 10, jurong);
 		cinemaHandler.addCinema(HallType.VIP, 1, jurong);
 		
-		//User ayush = new User("Ayush","ayus@gmail.com",3293131);
-	  
-		//Movie ironMan = new Movie("Iron Man","showing","Jon Favreaue","AAA", "Example Cast...", movieHandler);
-		// Movie avengers = new Movie("Avengers: End Game", "showing","Jon Favreaue","BBB", "Example Cast...", movieHandler);
 		String dateInString_passed = "23/12/2020 09:00:00 AM";
 		String dateInString_coming = "23/12/2022 09:00:00 AM";
 		try {
@@ -92,19 +89,22 @@ public class ExampleAdder {
 		MovieHandler movieHandler = MovieHandler.getInstance();
     	FileReader movieDatabase = new FileReader(fileName);
     	Scanner read = new Scanner(movieDatabase);
-    	read.useDelimiter("\\||\\r\\n");
+    	read.useDelimiter("\\|");
     	read.nextLine();
     	String movieName, movieStatusTemp, movieDirector, movieSynopsis, movieCast;
     	MovieStatus movieStatus;
+    	MovieType movieType;
     	Movie newMovie;
     	while(read.hasNext()) {
     		//read.next();
     		movieName = read.next();
+    		movieType = MovieType.valueOf(read.next());
     		movieStatus  = MovieStatus.valueOf(read.next());
     		movieDirector = read.next();
     		movieSynopsis = read.next();
     		movieCast = read.next();
-    		newMovie = new Movie(movieName, movieStatus, movieDirector, movieSynopsis, movieCast);
+    		System.out.println(movieType);
+    		newMovie = new Movie(movieName, movieType, movieStatus, movieDirector, movieSynopsis, movieCast);
 			movieHandler.addMovie(newMovie);
     	}
     	read.close();
