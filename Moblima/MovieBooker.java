@@ -196,7 +196,6 @@ public class MovieBooker implements MovieBookerInterface{
 		Double score;
 		UtilityOutput.printInputMessage("Enter your Email: ");
 		String email=UtilityInputs.getStringUserInput();
-		ArrayList<Movie> resultList = new ArrayList<>();
 		
 		for(User temp: userhandler.getUsers()) {
 			if(temp.getEmail().contentEquals(email)) {
@@ -223,7 +222,6 @@ public class MovieBooker implements MovieBookerInterface{
 				
 				UtilityOutput.printInputMessage("Search for Movie Title to rate => ");
 				String name = UtilityInputs.getStringUserInput();
-				int count =1;
 				for (Movie temp : movieHandler.getMovie()) {
 					if(temp.getName().toLowerCase().contains(name.toLowerCase())) {
 						choice = temp;
