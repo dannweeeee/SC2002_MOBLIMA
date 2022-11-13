@@ -40,9 +40,8 @@ public class MovieBookerApp {
 				"| 05: Review/Rate Menu                          |",
 				"| 06: Booking  Menu                             |",
 				"| 07: Show Booking History                      |",
-				"| 08:                                           |",
-				"| 09: Initialize/Show Example                   |",
-				"| 10: ADMIN LOGIN                               |",
+				"| 08: Initialize/Show Example                   |",
+				"| 09: ADMIN LOGIN                               |",
 				"-------------------------------------------------",
 				""};
 		do {
@@ -80,12 +79,9 @@ public class MovieBookerApp {
 						movieBooker.showBookingHist();
 						break;
 					case 8:
-						
-						break;
-					case 9:
 						movieBooker.addExamples();
 						break;
-          			case 10:
+          			case 9:
             			Admin admin = new Admin(movieBooker);
 						admin.start();
 						return;

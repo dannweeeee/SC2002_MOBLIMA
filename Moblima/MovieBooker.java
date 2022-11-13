@@ -94,7 +94,7 @@ public class MovieBooker implements MovieBookerInterface{
 			""
 		};
 		UtilityOutput.printMenu(menu);
-		UtilityOutput.printMessage("Enter Option: ");
+		UtilityOutput.printInputMessage("Enter Option: ");
 
         int sortOption = UtilityInputs.getIntUserInput();
         try {
