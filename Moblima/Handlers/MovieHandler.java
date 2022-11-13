@@ -88,6 +88,12 @@ public class MovieHandler {
 		}
 	}
 
+	/**
+	 * Retrieve movie by ID
+	 * @param movies movie list to choose from
+	 * @param choice ID to check if movie in list
+	 * @return movie if found, else null
+	 */
 	public static Movie getMovieByID(ArrayList<Movie> movies, int choice){
 		for(Movie m : movies){
 			if (m.getId() == choice){
@@ -119,6 +125,7 @@ public class MovieHandler {
 	 * @param movieDirector Director of the movie 
 	 * @param movieSynopsis Sypnosis of the movie
 	 * @param movieCaString All casts of the movie
+	 * @param movieType type of movie
 	 * @return Object of the new movie
 	 */
 	public Movie createMovie(String movieName,MovieType movieType, MovieStatus movieStatus, String movieDirector, String movieSynopsis, String movieCaString){

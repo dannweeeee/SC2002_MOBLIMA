@@ -71,6 +71,7 @@ public class Movie  {
 		 * @param director director's name
 		 * @param synopsis synopsis of movie
 		 * @param cast movie cast
+		 * @param type Movie Type for movie
 		 */
 	    public Movie(String name,MovieType type, MovieStatus status, String director, String synopsis, String cast) {
 	    	idCounter += 1;
@@ -159,8 +160,8 @@ public class Movie  {
 		}
 		
 		/**
-		 * Set method for movie name
-		 * @param name the name to set
+		 * Set method for movie type
+		 * @param type the type to set
 		 */
 		public void setType(MovieType type) {
 			this.type = type;

@@ -39,6 +39,10 @@ public class UtilityOutput {
         }
     }
     
+    /**
+     * Prints the object
+     * @param obj object to be printed
+     */
     public static void printObject(Object obj) {
     	UtilityOutput.printMessage(obj.toString());
     }
