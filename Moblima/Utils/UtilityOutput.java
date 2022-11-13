@@ -20,6 +20,13 @@ public class UtilityOutput {
     public static void printMessage(String message){
         System.out.println(message);
     }
+    /**
+     * Print f string on console for Admin to read
+     * @param message - String - e.g. "Name of property, value of property"
+     */
+    public static void printFstring(String fstring,Object...values){
+        System.out.printf(fstring,values);
+    }
 
     /**
      * Print question on console for user to read
