@@ -139,6 +139,7 @@ public class BookingController {
 					break;
 				case 3:
 					cineplexHandler.printAllCineplex();
+					if (cineplexHandler.getSize() == 0) return null;
 					try{
 						UtilityOutput.printInputMessage("Enter Cineplex to book [0 to exit] => ");
 						int userInput = UtilityInputs.getIntUserInput();
@@ -156,9 +157,6 @@ public class BookingController {
 			}
 		}catch(InvalidInputException e){
 			UtilityOutput.printMessage(e.getMessage());
-		}
-		if (shows == null){
-			UtilityOutput.printMessage("No shows found");
 		}
 		return shows;
 	}
