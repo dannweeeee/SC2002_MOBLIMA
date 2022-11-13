@@ -377,6 +377,10 @@ public class Admin implements AdminLogic, LoginObserver {
                 UtilityOutput.printMessage("Invalid input. Please re-enter.");
                 continue;
             }
+            else if (MovieHandler.getMovieByID(movieHandler.getMovie(), movieOption) == null){
+                UtilityOutput.printMessage("Invalid input. Please re-enter.");
+                continue;
+            }
             else{
                 break;
             }
@@ -464,6 +468,10 @@ public class Admin implements AdminLogic, LoginObserver {
                         continue;
                     }
                     else if (choice < -1){
+                        UtilityOutput.printMessage("Invalid input. Please re-enter.");
+                        continue;
+                    }
+                    else if (ShowHandler.getShowByID(showHandler.getAllShows(), choice) == null){
                         UtilityOutput.printMessage("Invalid input. Please re-enter.");
                         continue;
                     }
