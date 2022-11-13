@@ -22,7 +22,8 @@ public class UtilityOutput {
     }
     /**
      * Print f string on console for Admin to read
-     * @param message - String - e.g. "Name of property, value of property"
+     * @param fstring - String - e.g. "Name of property, value of property"
+     * @param values - value to be printed
      */
     public static void printFstring(String fstring,Object...values){
         System.out.printf(fstring,values);
