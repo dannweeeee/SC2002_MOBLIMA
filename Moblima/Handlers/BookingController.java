@@ -43,6 +43,9 @@ public class BookingController {
 		 */
 		VIP_PRICES(HallType.VIP, "ticket_price_student_vip", "ticket_price_adult_vip", "ticket_price_senior_vip"),
 		
+		/**
+		 * IMAX 3D HALL PRICE FOR Students, adults and senior citizens
+		 */
 		IMAX_3D(HallType.IMAX_3D, "ticket_price_student_3d", "ticket_price_adult_3d", "ticket_price_senior_3d");
 
 		private final Map<HallType, String[]> allPrices;
@@ -136,9 +139,11 @@ public class BookingController {
 					break;
 				case 3:
 					cineplexHandler.printAllCineplex();
+					if (cineplexHandler.getSize() == 0) return null;
 					try{
 						UtilityOutput.printInputMessage("Enter Cineplex to book [0 to exit] => ");
 						int userInput = UtilityInputs.getIntUserInput();
+						if (userInput == 0) return null;
 						if (userInput > cineplexHandler.getSize()) throw new InvalidInputException("Cineplex does not exist");
 						shows = showHandler.getAllShowsByLocation(cineplexHandler.getAllCineplex().get(userInput-1));
 					} catch(InvalidInputException e ){
@@ -152,9 +157,6 @@ public class BookingController {
 			}
 		}catch(InvalidInputException e){
 			UtilityOutput.printMessage(e.getMessage());
-		}
-		if (shows == null){
-			UtilityOutput.printMessage("No shows found");
 		}
 		return shows;
 	}
