@@ -64,7 +64,8 @@ public class MovieBooker implements MovieBookerInterface{
 			choice = bookController.getMenuChoice();
 			if (choice == 4) return;
 			ArrayList<Show> shows = bookController.getShowList(choice);
-			if (shows == null) {
+			if (shows == null || shows.size() == 0) {
+				UtilityOutput.printMessage("No shows found");
 				continue;
 			}
 			ArrayList<Ticket> ticket = bookController.bookShow(shows, user1);
@@ -126,7 +127,7 @@ public class MovieBooker implements MovieBookerInterface{
 	        	throw new InvalidInputException("Invalid Input, please enter only 1 - 3");
 	        }
         }catch(InvalidInputException e){
-			System.out.println(e.getMessage());
+        	UtilityOutput.printMessage(e.getMessage());
 		}
 	}
 
