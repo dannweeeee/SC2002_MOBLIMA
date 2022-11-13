@@ -41,9 +41,7 @@ public final class SettingsForm extends Form {
         while (!exitFlag) {
             UtilityOutput.printMenu(menu);
             controller.print();
-            //System.out.println("To delete an entry, enter the name of the setting, followed by a dash (-)");
-            //System.out.println("E.g. property_name -");
-            System.out.println();
+            UtilityOutput.printMessage("");
             String input = UtilityInputs.getStringUserInput();
             UtilityOutput.printMessage("");
             if (input.toLowerCase().equals("exit")) {

@@ -82,7 +82,7 @@ public class MovieHandler {
 	public void printAllMoviesNames() {
 		int count =0;
 		for (Movie temp : movie) {
-			System.out.print(count+": ");
+			UtilityOutput.printInputMessage(Integer.toString(count)+": ");
 			temp.getName();
 			count++;
 		}

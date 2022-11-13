@@ -143,13 +143,13 @@ public class MovieBooker implements MovieBookerInterface{
 		if (!searchResult.isEmpty()) {
 			UtilityOutput.printMessage("Showing results for: " + searchString);
 			for (Movie temp : searchResult) {
-				System.out.print(temp);
-				System.out.println("Average Rating: "+temp.getAverageRatings());
-				System.out.println("5 Most Recent Reviews: ");
+				UtilityOutput.printInputMessage(temp.toString());
+				UtilityOutput.printMessage("Average Rating: "+temp.getAverageRatings());
+				UtilityOutput.printMessage("5 Most Recent Reviews: ");
 				int count=0;
 				for(Review tempReview:temp.getReview()){
 					if (count==5) break;
-					System.out.println(tempReview.GetUser().getName()+": "+tempReview.GetReview());
+					UtilityOutput.printMessage(tempReview.GetUser().getName()+": "+tempReview.GetReview());
 					count++;
 				}
 			}

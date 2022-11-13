@@ -70,12 +70,12 @@ public class UtilityInputs {
 	 */
     public static Seats getSeatSelection(int number){
 		while(true){
-			System.out.print("Seat number for Ticket " + Integer.toString(number+1) + ": ");
+			UtilityOutput.printInputMessage("Seat number for Ticket " + Integer.toString(number+1) + ": ");
 			Scanner in = new Scanner(System.in);
 			String seats = in.nextLine();
 
 			if (seats.equalsIgnoreCase("XX") || seats.length() != 2){
-				System.out.println("Invalid seat");
+				UtilityOutput.printMessage("Invalid seat");
 				continue;
 			} else if (seats == "0") return null;
 

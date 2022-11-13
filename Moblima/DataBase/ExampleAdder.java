@@ -132,7 +132,6 @@ public class ExampleAdder {
     		movieDirector = read.next();
     		movieSynopsis = read.next();
     		movieCast = read.next();
-    		System.out.println(movieType);
     		newMovie = new Movie(movieName, movieType, movieStatus, movieDirector, movieSynopsis, movieCast);
 			movieHandler.addMovie(newMovie);
     	}
