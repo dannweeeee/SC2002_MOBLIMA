@@ -64,7 +64,7 @@ public class Settings extends Properties {
      * Print to the screen all settings.
      */
     public void print() {
-        UtilityOutput.printMessage("Index   Property names          Property values");
+        UtilityOutput.printMessage("Property names                  Property values");
         for (String key : stringPropertyNames()) {
             System.out.printf("%-32s%-32s\n", key, getProperty(key));
         }
