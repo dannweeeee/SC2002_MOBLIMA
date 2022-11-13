@@ -38,6 +38,10 @@ public class UtilityOutput {
             UtilityOutput.printMessage(s);
         }
     }
+    
+    public static void printObject(Object obj) {
+    	UtilityOutput.printMessage(obj.toString());
+    }
 
     /**
      * Print array list of objects on console for user to view

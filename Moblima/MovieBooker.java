@@ -144,7 +144,7 @@ public class MovieBooker implements MovieBookerInterface{
 			for (Movie temp : searchResult) {
 				System.out.print(temp);
 				System.out.println("Average Rating: "+temp.getAverageRatings());
-				System.out.println("Recent Reviews: ");
+				System.out.println("5 Most Recent Reviews: ");
 				int count=0;
 				for(Review tempReview:temp.getReview()){
 					if (count==5) break;
@@ -196,12 +196,14 @@ public class MovieBooker implements MovieBookerInterface{
 		Double score;
 		UtilityOutput.printInputMessage("Enter your Email: ");
 		String email=UtilityInputs.getStringUserInput();
+		ArrayList<Movie> resultList = new ArrayList<>();
+		
 		for(User temp: userhandler.getUsers()) {
 			if(temp.getEmail().contentEquals(email)) {
 				 useri=temp;}
 		}
 		if(useri==null){
-			UtilityOutput.printInputMessage("User doesn't exist");
+			UtilityOutput.printInputMessage("User doesn't exist.\n");
 			return;
 		}
 		do {
@@ -219,20 +221,20 @@ public class MovieBooker implements MovieBookerInterface{
 			case 1:
 				choice=null;
 				
-				showAllMovies();
-				UtilityOutput.printInputMessage("Which Movie would you like to rate? ");
+				UtilityOutput.printInputMessage("Search for Movie Title to rate => ");
 				String name = UtilityInputs.getStringUserInput();
-				
+				int count =1;
 				for (Movie temp : movieHandler.getMovie()) {
 					if(temp.getName().toLowerCase().contains(name.toLowerCase())) {
-						choice=temp;
+						choice = temp;
 						break;
 					}
 				}
 				if(choice!=null) {
 					
 					while(true) {
-						UtilityOutput.printMessage("You have selected: "+choice.getName());
+						UtilityOutput.printMessage("You have selected: ");
+						UtilityOutput.printObject(choice);
 						UtilityOutput.printInputMessage("Enter your rating from 1 to 5: ");
 						score = UtilityInputs.getDoubleUserInput();
 						if(score==null)continue;
@@ -246,8 +248,7 @@ public class MovieBooker implements MovieBookerInterface{
 				
 			case 2:
 				choice=null;
-				showAllMovies();
-				UtilityOutput.printInputMessage("Which Movie would you like to review? ");
+				UtilityOutput.printInputMessage("Search for Movie Title to review => ");
 				String name1 = UtilityInputs.getStringUserInput();
 				for (Movie temp : movieHandler.getMovie()) {
 					if(temp.getName().toLowerCase().contains(name1.toLowerCase())) {
@@ -257,7 +258,8 @@ public class MovieBooker implements MovieBookerInterface{
 				}
 				if(choice!=null) {
 					while(true) {
-						UtilityOutput.printMessage("You have selected: "+choice.getName());
+						UtilityOutput.printMessage("You have selected: ");
+						UtilityOutput.printObject(choice);
 						UtilityOutput.printInputMessage("Enter your review: ");
 						String text = UtilityInputs.getStringUserInput();
 						if(!text.matches("[0-9]+")) {
