@@ -26,7 +26,7 @@ public class IDandPasswords {
      * Get all the accounts.
      * @return a <code>HashMap</code> containing all accounts.
      */
-    protected HashMap getLoginInfo(){
+    protected HashMap<String,String> getLoginInfo(){
         return logininfo;
     }
 }
