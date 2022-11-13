@@ -29,7 +29,7 @@ public class MovieBookerApp {
 
 	/**
 	 * Application's main menu 
-	 * @param movieBooker movieBooker object
+	 * @param movieBooker an object implementing the <code>MovieBookerInterface</code>
 	 */
 	public static void showUserView(MovieBookerInterface movieBooker) {
 		int option = 0;
