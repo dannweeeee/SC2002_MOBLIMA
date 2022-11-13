@@ -3,7 +3,9 @@ package Moblima.Handlers;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import Moblima.Entities.Cinema;
 import Moblima.Entities.Cineplex;
+import Moblima.Entities.Show;
 import Moblima.Utils.UtilityOutput;
 
 /**
@@ -54,11 +56,27 @@ public class CineplexHandler {
 	 */ 
 	public void removeCineplex(int CineplexID){
 		ArrayList <Cineplex> cineplexList = CineplexHandler.getInstance().getAllCineplex();
+		ArrayList <Show> showsList = ShowHandler.getInstance().getAllShows();
 		Iterator<Cineplex> itr = cineplexList.iterator(); 
 		while (itr.hasNext()) { 
 			Cineplex cineplex = itr.next();
 			if(cineplex.getId() == CineplexID){
 				itr.remove();
+				ArrayList <Cinema> cinemaList = CinemaHandler.getInstance().getCinemaFromCineplex(cineplex);
+				Iterator<Cinema> cinemaitr = cinemaList.iterator(); 
+				while (cinemaitr.hasNext()) { 
+					Cinema cinema = cinemaitr.next(); 
+					if(cinema.getCineplex().getId() == CineplexID){
+						cinemaitr.remove(); 
+						Iterator<Show> showitr = showsList.iterator(); 
+						while (showitr.hasNext()) { 
+							Show show = showitr.next(); 
+							if(show.getCinema().getCinemaID() == cinema.getCinemaID()){
+							showitr.remove(); 
+							} 
+						}
+					} 
+				}
 				UtilityOutput.printMessage("DELETED! The Cineplex has been deleted!");
 				return;
 			}

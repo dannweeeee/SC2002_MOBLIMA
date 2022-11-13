@@ -20,6 +20,7 @@ public class IDandPasswords {
         logininfo.put("marcus","khoolkid");
         logininfo.put("dann","weeeee");
         logininfo.put("ngiah","nguyen");
+        logininfo.put("ss4","grp3");
     }
 
     /**
