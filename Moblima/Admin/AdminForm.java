@@ -1,7 +1,6 @@
 package Moblima.Admin;
 
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 import Moblima.Utils.UtilityInputs;
 import Moblima.Utils.UtilityOutput;

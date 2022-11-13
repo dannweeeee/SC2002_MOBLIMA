@@ -7,8 +7,6 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class User {
-	private static int idCounter=0;
-    private int id;
     private String name;
     private String email;
     private int number;
@@ -21,8 +19,6 @@ public class User {
      * @param number mobile number of user
      */
     public User(String name,String email, int number) {
-        idCounter += 1;
-        this.id = idCounter;
         this.name = name;
         this.email=email;
         this.number=number;

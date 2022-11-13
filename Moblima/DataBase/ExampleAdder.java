@@ -120,7 +120,7 @@ public class ExampleAdder {
     	read.useDelimiter("\\|");
     	read.nextLine();
     	
-    	String movieName, movieStatusTemp, movieDirector, movieSynopsis, movieCast;
+    	String movieName, movieDirector, movieSynopsis, movieCast;
     	MovieStatus movieStatus;
     	MovieType movieType;
     	Movie newMovie;

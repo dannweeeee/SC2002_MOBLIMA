@@ -18,7 +18,6 @@ public class Movie  {
 	    private String synopsis;
 	    private String director;
 	    private String cast;
-	    private String review;
 	    private ArrayList<Rating> ratings;
 	    private ArrayList<Review> reviews;
 	    private MovieHandler movieH;
@@ -181,14 +180,6 @@ public class Movie  {
 		 */
 		public void setDirector(String director) {
 			this.director = director;
-		}
-
-		/**
-		 * Set method for review
-		 * @param review the review to set
-		 */
-		public void setReview(String review) {
-			this.review = review;
 		}
 
 		/**

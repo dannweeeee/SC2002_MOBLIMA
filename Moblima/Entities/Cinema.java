@@ -1,7 +1,5 @@
 package Moblima.Entities;
 
-import Moblima.Entities.Cinema.HallType;
-
 /**
  * Cinema Class
  * @author team

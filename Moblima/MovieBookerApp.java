@@ -1,7 +1,6 @@
 package Moblima;
 
 import Moblima.Admin.Admin;
-import Moblima.DataBase.ExampleAdder;
 import Moblima.Exceptions.InvalidInputException;
 import Moblima.Utils.UtilityInputs;
 import Moblima.Utils.UtilityOutput;

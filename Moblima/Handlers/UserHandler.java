@@ -12,7 +12,6 @@ import Moblima.Entities.User;
  */
 public class UserHandler {
 	private ArrayList<User> users;
-	private static int count=0;
 	private static UserHandler instance = null;
 	
     /**
@@ -31,7 +30,6 @@ public class UserHandler {
 	 */
 	public UserHandler() {
 		this.users = new ArrayList<>();
-		count++;
 	}
 	/**
 	 * Get method for array of users

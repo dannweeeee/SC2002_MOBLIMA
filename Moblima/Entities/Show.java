@@ -2,8 +2,6 @@ package Moblima.Entities;
 
 import java.util.Date;
 
-import Moblima.Utils.UtilityOutput;
-
 /**
  * Show class
  * @author Team
