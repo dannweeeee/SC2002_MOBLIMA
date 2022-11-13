@@ -9,8 +9,13 @@ import Moblima.Entities.Movie;
  */
 public class SortbyTicket implements Comparator<Movie> {
 	/**
-	 *compares size of ticket arrays of each movie and sort in descending order
-	 */
+	 *compare movie averageRatings and sort them in descending order
+	 *@param Movie objects
+     * @return the value 0 if  o1.getTicketsSize is numerically equal to o2.getTicketsSize;
+     * a value less than 0 if 
+     * o1.getTicketsSize is numerically less than o2.getTicketsSize and a value greater than 0
+     * if o1.getTicketsSize is numerically greater than o2.getTicketsSize.
+     * */
 	@Override
     public int compare(Movie o1, Movie o2) {
 

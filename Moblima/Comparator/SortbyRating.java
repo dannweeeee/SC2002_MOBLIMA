@@ -10,7 +10,12 @@ import Moblima.Entities.Movie;
 public class SortbyRating implements Comparator<Movie> {
 	/**
 	 *compare movie averageRatings and sort them in descending order
-	 */
+	 *@param Movie objects
+     * @return the value 0 if rating 1 is numerically equal to rating 2 a value 
+     * less than 0 if 
+     * rating1 is numerically less than rating2; and a value greater than 0
+     * if rating1 is numerically greater than rating2.
+     * */
 	@Override
     public int compare(Movie o1, Movie o2) {
 		Double rating1, rating2;
