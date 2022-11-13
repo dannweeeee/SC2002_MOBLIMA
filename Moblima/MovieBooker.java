@@ -127,7 +127,7 @@ public class MovieBooker implements MovieBookerInterface{
 	        	throw new InvalidInputException("Invalid Input, please enter only 1 - 3");
 	        }
         }catch(InvalidInputException e){
-			System.out.println(e.getMessage());
+        	UtilityOutput.printMessage(e.getMessage());
 		}
 	}
 
